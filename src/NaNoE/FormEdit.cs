@@ -15,10 +15,12 @@ namespace NaNoE
         public FormEdit()
         {
             InitializeComponent();
+            Continue = true;
         }
 
         public string Content { get; internal set; }
         public List<string> Edits { get; internal set; }
+        public bool Continue { get; internal set; }
 
         private void FormEdit_Load(object sender, EventArgs e)
         {
@@ -46,6 +48,12 @@ namespace NaNoE
 
         private void butDone_Click(object sender, EventArgs e)
         {
+            this.Close();
+        }
+
+        private void butStopForNow_Click(object sender, EventArgs e)
+        {
+            Continue = false;
             this.Close();
         }
     }

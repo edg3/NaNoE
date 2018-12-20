@@ -336,6 +336,9 @@ namespace NaNoE
 
                         // Editing 'done' or just closed
                         _novel[i] = NaNoEditForm.Content;
+
+                        // Just figured I dont mind
+                        if (NaNoEditForm.Continue == false) i = _novel.Count;
                     }
                 }
             }

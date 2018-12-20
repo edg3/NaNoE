@@ -32,6 +32,7 @@
             this.rtbParagraph = new System.Windows.Forms.RichTextBox();
             this.butRefresh = new System.Windows.Forms.Button();
             this.butDone = new System.Windows.Forms.Button();
+            this.butStopForNow = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lstProblems
@@ -71,11 +72,22 @@
             this.butDone.UseVisualStyleBackColor = true;
             this.butDone.Click += new System.EventHandler(this.butDone_Click);
             // 
+            // butStopForNow
+            // 
+            this.butStopForNow.Location = new System.Drawing.Point(241, 225);
+            this.butStopForNow.Name = "butStopForNow";
+            this.butStopForNow.Size = new System.Drawing.Size(85, 23);
+            this.butStopForNow.TabIndex = 4;
+            this.butStopForNow.Text = "Stop For Now";
+            this.butStopForNow.UseVisualStyleBackColor = true;
+            this.butStopForNow.Click += new System.EventHandler(this.butStopForNow_Click);
+            // 
             // FormEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(610, 260);
+            this.Controls.Add(this.butStopForNow);
             this.Controls.Add(this.butDone);
             this.Controls.Add(this.butRefresh);
             this.Controls.Add(this.rtbParagraph);
@@ -93,5 +105,6 @@
         private System.Windows.Forms.RichTextBox rtbParagraph;
         private System.Windows.Forms.Button butRefresh;
         private System.Windows.Forms.Button butDone;
+        private System.Windows.Forms.Button butStopForNow;
     }
 }
