@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 ///   -> Spelling errors
 ///   -> Repeated words
 ///   -> Grammar errors (not completely 'errors')
-///     -> See, Look, Hear, Know, Realize, Wonder, Decided, Notice, Feel, Remember, Think, That, Of, Really, Very, Down, Up, Then, Start, begin, Just = reword
 ///     -> The = 'the rain spattered on the night sky' fixed with 'rain spattered on the night sky'
 ///     -> That vs. Who = sometimes 'who' feels better than 'that'
 ///     -> almost, rather, somewhat = 'we has rather large' fixed with 'he towered over the three men'
@@ -69,7 +68,29 @@ namespace NaNoE
             if (para.Contains("often"))         ans.Add("Rather minify use 'often', make literal");
             if (para.Contains("already"))       ans.Add("Rather minify use 'already', make literal");
             if (para.Contains("finally"))       ans.Add("Rather minify use 'finally', make literal");
-
+            // [ See, Look, Hear, Know, Realize, Wonder, Decided, Notice, Feel, Remember, Think, That, Of, Really, Very, Down, Up, Then, Start, begin, Just = reword ]
+            if (para.Contains("see"))           ans.Add("Rather minify use 'see', make literal, cant think of another way to mention this TBH");
+            if (para.Contains("look"))          ans.Add("Rather minify use 'look', make literal, cant think of another way to mention this TBH");
+            if (para.Contains("hear"))          ans.Add("Rather minify use 'hear', make literal, cant think of another way to mention this TBH");
+            if (para.Contains("know"))          ans.Add("Rather minify use 'know', make literal, cant think of another way to mention this TBH");
+            if (para.Contains("realize"))       ans.Add("Rather minify use 'realize', make literal, cant think of another way to mention this TBH");
+            if (para.Contains("realise"))       ans.Add("Rather minify use 'realise', make literal, cant think of another way to mention this TBH");
+            if (para.Contains("wonder"))        ans.Add("Rather minify use 'wonder', make literal, cant think of another way to mention this TBH");
+            if (para.Contains("decided"))       ans.Add("Rather minify use 'decided', make literal, cant think of another way to mention this TBH");
+            if (para.Contains("notice"))        ans.Add("Rather minify use 'notic', make literal, cant think of another way to mention this TBH");
+            if (para.Contains("feel"))          ans.Add("Rather minify use 'feel', make literal, cant think of another way to mention this TBH");
+            if (para.Contains("remember"))      ans.Add("Rather minify use 'remember', make literal, cant think of another way to mention this TBH");
+            if (para.Contains("think"))         ans.Add("Rather minify use 'think', make literal, cant think of another way to mention this TBH");
+            if (para.Contains("that"))          ans.Add("Rather minify use 'that', make literal, cant think of another way to mention this TBH");
+            if (para.Contains("of"))            ans.Add("Rather minify use 'of', make literal, cant think of another way to mention this TBH");
+            if (para.Contains("really"))        ans.Add("Rather minify use 'really', make literal, cant think of another way to mention this TBH");
+            if (para.Contains("very"))          ans.Add("Rather minify use 'very', make literal, cant think of another way to mention this TBH");
+            if (para.Contains("down"))          ans.Add("Rather minify use 'down', make literal, cant think of another way to mention this TBH");
+            if (para.Contains("up"))            ans.Add("Rather minify use 'up', make literal, cant think of another way to mention this TBH");
+            if (para.Contains("then"))          ans.Add("Rather minify use 'then', make literal, cant think of another way to mention this TBH");
+            if (para.Contains("start"))         ans.Add("Rather minify use 'start', make literal, cant think of another way to mention this TBH");
+            if (para.Contains("begin"))         ans.Add("Rather minify use 'begin', make literal, cant think of another way to mention this TBH");
+            if (para.Contains("just"))          ans.Add("Rather minify use 'just', make literal, cant think of another way to mention this TBH");
 
             // Debug
             //ans.Add("This isnt a problem. Just a test.");
