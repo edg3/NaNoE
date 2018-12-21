@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 ///   -> Spelling errors
 ///   -> Repeated words
 ///   -> Grammar errors (not completely 'errors')
-///     -> Begin, begins, began, beginning, start, starts, started, starting = 'he started to run' fixed by 'he ran'
 ///     -> when, then, suddenly, immediately, always, often, already, finally = 'I immediately ran through the door.' fixed to 'I ran through the door.'
 ///     -> See, Look, Hear, Know, Realize, Wonder, Decided, Notice, Feel, Remember, Think, That, Of, Really, Very, Down, Up, Then, Start, begin, Just = reword
 ///     -> The = 'the rain spattered on the night sky' fixed with 'rain spattered on the night sky'
@@ -32,6 +31,8 @@ namespace NaNoE
         public static List<string> Process(string para)
         {
             var ans = new List<string>();
+            para = para.ToLower();
+
             // =========================================================
             // = Checks added                                          =
             // =========================================================
@@ -51,7 +52,15 @@ namespace NaNoE
             if (para.Contains("ing ")
              || para.Contains("ing,")
              || para.Contains("ing."))          ans.Add("replace '-ing' words with minimal words");
-
+            // [ -> Begin, begins, began, beginning, start, starts, started, starting = 'he started to run' fixed by 'he ran' ]
+            if (para.Contains("begin")) ans.Add("Rather don't use 'begin', simplify it");
+            if (para.Contains("begins")) ans.Add("Rather don't use 'begins', simplify it");
+            if (para.Contains("began")) ans.Add("Rather don't use 'began', simplify it");
+            if (para.Contains("beginning")) ans.Add("Rather don't use 'beginning', simplify it");
+            if (para.Contains("start")) ans.Add("Rather don't use 'start', simplify it");
+            if (para.Contains("starts")) ans.Add("Rather don't use 'starts', simplify it");
+            if (para.Contains("started")) ans.Add("Rather don't use 'started', simplify it");
+            if (para.Contains("starting")) ans.Add("Rather don't use 'starting', simplify it");
 
 
             // Debug
