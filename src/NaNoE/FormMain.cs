@@ -431,7 +431,9 @@ namespace NaNoE
                     for (int j = 0; j < _helpers[title].Count; j++)
                     {
                         content = _helpers[title][j];
-                        fw.WriteLine("H" + title + title_fluff + content);
+                        // See [W] - this is a copy of 'fix'
+                        // while (content.Contains(title)) content = content.Remove(0, 10);
+                        fw.WriteLine("H" + content);
                         fw.Flush();
                     }
                 }
@@ -458,7 +460,11 @@ namespace NaNoE
                     for (int j = 0; j < _plot[title].Count; j++)
                     {
                         content = _plot[title][j];
-                        fw.WriteLine("P" + title + title_fluff + content);
+                        // [W] Note: saving for some reason needs missing title, how it loads perhaps?
+                        //   - We may want to bring the removal of the title back eventually
+                        //     I double checked that using the new fix to the save system works
+                        // while (content.Contains(title)) content = content.Remove(0, 10);
+                        fw.WriteLine("P" + content);
                         fw.Flush();
                     }
                 }
