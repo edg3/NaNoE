@@ -140,6 +140,7 @@
             this.webBook.Name = "webBook";
             this.webBook.Size = new System.Drawing.Size(576, 306);
             this.webBook.TabIndex = 9;
+            this.webBook.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.webBook_Navigating);
             // 
             // rtbInput
             // 
