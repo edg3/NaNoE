@@ -115,6 +115,7 @@
             this.webContainer.Name = "webContainer";
             this.webContainer.Size = new System.Drawing.Size(216, 182);
             this.webContainer.TabIndex = 6;
+            this.webContainer.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.webContainer_Navigating);
             // 
             // txtContainerAdd
             // 

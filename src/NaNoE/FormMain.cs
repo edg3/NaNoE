@@ -93,7 +93,7 @@ namespace NaNoE
 
             for (int i = 0; i < items.Count; i++)
             {
-                ans += "<li>" + items[i] + "</li>";
+                ans += "<li>" + items[i] + " [ <a href=\"["+ i.ToString() +"\">Edit</a>, <a href=\"]"+ i.ToString() +"\">Del</a> ]</li>";
             }
 
             ans += "</ul></div>";
@@ -137,11 +137,12 @@ namespace NaNoE
         {
             lblParagraphCount.Text = "P: " + (rtbInput.Text.Split(' ')).Length.ToString();
         }
-        
+
         /// <summary>
         /// Form Interaction
         /// </summary>
         // Swap between viewing a list of helpers and a list of plot points
+        // [123]
         private void lstOptions_SelectedIndexChanged(object sender, EventArgs e)
         {
             ClearContains();
@@ -235,6 +236,8 @@ namespace NaNoE
         }
 
         // Update which list we look at: helpers/plot
+        private string _selected_index = "";
+        private List<string> _selected_items = null;
         private void lstContains_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lstContains.SelectedIndex == -1)
@@ -259,6 +262,8 @@ namespace NaNoE
                 }
 
                 var a = _content[(string)lstContains.SelectedItem];
+                _selected_index = (string)lstContains.SelectedItem;
+                _selected_items = _content[_selected_index];
                 GenerateHTML(a);
             }
         }
@@ -617,11 +622,16 @@ namespace NaNoE
             }
         }
 
+        /// <summary>
+        /// Web view for Helpers/Plot functions for Edit/Delete
+        /// </summary>
+
+        /// Function adjustment for seeing if we click edit/delete in main window
         private void webBook_Navigating(object sender, WebBrowserNavigatingEventArgs e)
         {
             // These if statements are so this isnt used unless the url is modified for entry with starting [ or ]
             // [ -> edit
-            if (e.Url.AbsolutePath.ToString()[0] == '[')
+            if (e.Url.AbsolutePath.ToString()[0] == '[') 
             {
                 var removal = e.Url.AbsolutePath.ToString().Remove(0, 1);
                 int i = int.Parse(removal);
@@ -652,7 +662,7 @@ namespace NaNoE
             // ] -> delete
             else if (e.Url.AbsolutePath.ToString()[0] == ']')
             {
-                DialogResult d = MessageBox.Show("Are you sure you want to cancel delete that element? Your changes will not be saved. Remember you saved BEFORE deleting.", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult d = MessageBox.Show("Are you sure you want to delete that element? Your changes will not be saved. Remember you saved BEFORE deleting.", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (d == DialogResult.Yes)
                 {
@@ -674,6 +684,49 @@ namespace NaNoE
                 UpdateNovelCount();
                 WebShowNovel();
             }
+        }
+
+        /// Function to manager plot/helpers edit and delete
+        private void webContainer_Navigating(object sender, WebBrowserNavigatingEventArgs e)
+        {
+            // { - Edit
+            if (e.Url.AbsolutePath.ToString()[0] == '[')
+            {
+                var removal = e.Url.AbsolutePath.ToString().Remove(0, 1);
+                int i = int.Parse(removal);
+
+                FormEdit NaNoEditForm = new FormEdit();
+                NaNoEditForm.Content = _selected_items[i]; ;
+                NaNoEditForm.Edits = new List<string>() { "Editing" };
+                var dialogResult = NaNoEditForm.ShowDialog();
+                
+                _selected_items[i] = NaNoEditForm.Content;
+                
+                GenerateHTML(_selected_items);
+            }
+            // } - delete
+            else if (e.Url.AbsolutePath.ToString()[0] == ']')
+            {
+                DialogResult d = MessageBox.Show("Are you sure you want to delete that element? Your changes will not be saved. Remember you saved BEFORE deleting.", "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (d == DialogResult.Yes)
+                {
+                    // delete
+                    var removal = e.Url.AbsolutePath.ToString().Remove(0, 1);
+                    int i = int.Parse(removal);
+                    _selected_items.RemoveAt(i);
+
+                    MessageBox.Show("Item deleted.");
+                }
+                else if (d == DialogResult.No)
+                {
+                    // dont delete
+                    MessageBox.Show("We didn't delete that item.");
+                }
+
+                GenerateHTML(_selected_items);
+            }
+            
         }
     }
 }
