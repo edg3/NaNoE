@@ -21,7 +21,12 @@ namespace NaNoE
 {
     public partial class FormMain : Form
     {
-        static string BGStyle = "<style type =\"text/css\">body { background-color: #CDCDCD; } </style>";
+        static string BGStyle = "<style type =\"text/css\">" 
+                              + "body { background-color: #CDCDCD; font-size: 10pt; } "
+                              + "div { background-color: #ccebff; padding: 5px; border-color: black; border-style: solid; border-width: 1px; } "
+                              + "a, a:link, a:visited, a:hover, a:active { color: red; } "
+                              + "li { padding: 1px; } "
+                              + "</style>";
 
         public FormMain()
         {
@@ -70,10 +75,10 @@ namespace NaNoE
             {
                 switch (lines[i])
                 {
-                    case "[chapter]": midPoint += "<hr /><b>" + chapterNum.ToString() + "</b> [ <i><a href=\"]" + (_novel.Count - 5 + i).ToString() + "\">Del</a></i> ]<br /><br />"; break;
+                    case "[chapter]": midPoint += "<hr /><div><b>" + chapterNum.ToString() + "</b> [ <i><a href=\"]" + (_novel.Count - 5 + i).ToString() + "\">Del</a></i> ]</div><br /><br />"; break;
                     // TODO: fix bug on next line for how it works - if you start a novel it doesnt fit logic for the first few lines
                     //        - it starts on a negative number
-                    default: midPoint += "&nbsp;<i>" + (_novel.Count - 4 + i).ToString() + "</i>&nbsp;&nbsp;" + lines[i] + "&nbsp;&nbsp[ <i><a href=\"[" + (_novel.Count - 5 + i).ToString() + "\">Edit</a>,&nbsp;<a href=\"]" + (_novel.Count - 5 + i).ToString() + "\">Del</a></i> ]<br />"; break;
+                    default: midPoint += "&nbsp;<i>" + (_novel.Count - 4 + i).ToString() + "</i>&nbsp;&nbsp;<div>" + lines[i] + "&nbsp;&nbsp[ <i><a href=\"[" + (_novel.Count - 5 + i).ToString() + "\">Edit</a>,&nbsp;<a href=\"]" + (_novel.Count - 5 + i).ToString() + "\">Del</a></i> ]</div><br />"; break;
                 }
             }
 
@@ -89,14 +94,14 @@ namespace NaNoE
         // Generate view of data points we added to an object
         private void GenerateHTML(List<string> items)
         {
-            string ans = BGStyle + "<div style=\"color: blue; font-size: 10pt;\"><ul>";
+            string ans = BGStyle + "<ul>";
 
             for (int i = 0; i < items.Count; i++)
             {
-                ans += "<li>" + items[i] + " [ <a href=\"["+ i.ToString() +"\">Edit</a>, <a href=\"]"+ i.ToString() +"\">Del</a> ]</li>";
+                ans += "<li><div>" + items[i] + " [ <i><a href=\"["+ i.ToString() +"\">Edit</a>, <a href=\"]"+ i.ToString() +"\">Del</a></i> ]</div></li>";
             }
 
-            ans += "</ul></div>";
+            ans += "</ul>";
 
             webContainer.DocumentText = ans;
         }
@@ -142,7 +147,6 @@ namespace NaNoE
         /// Form Interaction
         /// </summary>
         // Swap between viewing a list of helpers and a list of plot points
-        // [123]
         private void lstOptions_SelectedIndexChanged(object sender, EventArgs e)
         {
             ClearContains();
