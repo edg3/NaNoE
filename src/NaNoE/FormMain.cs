@@ -502,7 +502,12 @@ namespace NaNoE
         // TODO: consider makin it double check only if you actually have done something it should check?
         private void butLoad_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Have you saved everything you need to save?", "Double Checking", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            bool cont = true;
+            if (_plot.Count != 0 || _novel.Count != 0 || _helpers.Count != 0) // This means you typed something
+                if (MessageBox.Show("Have you saved everything you need to save?", "Double Checking", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                    cont = false;
+
+            if (cont)
             {
                 lstContains.SelectedIndex = -1;
                 lstOptions.SelectedIndex = -1;
