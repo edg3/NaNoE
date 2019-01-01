@@ -319,9 +319,15 @@ namespace NaNoE
         //  - I need to figure out how to make this easier and minimal (sorry, you might have to close a million edit windows)
         private void butEdit_Click(object sender, EventArgs e)
         {
+            if (numStart.Value >= _novel.Count)
+            {
+                MessageBox.Show("Start index goes from 0 (the first) till 1 less than chapter count (so the usual programming version)");
+                return;
+            }
+
             MessageBox.Show("Warning: This could take long if you leave this process till too late...");
 
-            for (int i = 0; i < _novel.Count; i++)
+            for (int i = (int)(numStart.Value); i < _novel.Count; i++)
             {
                 if (_novel[i] != "[chapter]")
                 {

@@ -44,6 +44,9 @@
             this.lblNovelCount = new System.Windows.Forms.Label();
             this.lblParagraphCount = new System.Windows.Forms.Label();
             this.butEdit = new System.Windows.Forms.Button();
+            this.numStart = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.numStart)).BeginInit();
             this.SuspendLayout();
             // 
             // butLoad
@@ -195,11 +198,34 @@
             this.butEdit.UseVisualStyleBackColor = true;
             this.butEdit.Click += new System.EventHandler(this.butEdit_Click);
             // 
+            // numStart
+            // 
+            this.numStart.Location = new System.Drawing.Point(224, 9);
+            this.numStart.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.numStart.Name = "numStart";
+            this.numStart.Size = new System.Drawing.Size(41, 20);
+            this.numStart.TabIndex = 16;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(194, 11);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(30, 13);
+            this.label1.TabIndex = 17;
+            this.label1.Text = "start:";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.numStart);
             this.Controls.Add(this.butEdit);
             this.Controls.Add(this.lblParagraphCount);
             this.Controls.Add(this.lblNovelCount);
@@ -220,6 +246,7 @@
             this.MinimumSize = new System.Drawing.Size(816, 489);
             this.Name = "FormMain";
             this.Text = "NaNoE";
+            ((System.ComponentModel.ISupportInitialize)(this.numStart)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -243,6 +270,8 @@
         private System.Windows.Forms.Label lblNovelCount;
         private System.Windows.Forms.Label lblParagraphCount;
         private System.Windows.Forms.Button butEdit;
+        private System.Windows.Forms.NumericUpDown numStart;
+        private System.Windows.Forms.Label label1;
     }
 }
 
