@@ -71,6 +71,13 @@ namespace NaNoE
                     lines.Add(_novel[i + _novel.Count]);
                 }
             }
+            else
+            {
+                for (int i = 0; i < _novel.Count; i++)
+                {
+                    lines.Add(_novel[i]);
+                }
+            }
 
             string midPoint = "";
             for (int i = 0; i < lines.Count; i++)
@@ -80,7 +87,7 @@ namespace NaNoE
                     case "[chapter]": midPoint += "<hr /><div><b>" + chapterNum.ToString() + "</b> [ <i><a href=\"]" + (_novel.Count - 5 + i).ToString() + "\">Del</a></i> ]</div><br /><br />"; break;
                     // TODO: fix bug on next line for how it works - if you start a novel it doesnt fit logic for the first few lines
                     //        - it starts on a negative number
-                    default: midPoint += "&nbsp;<i>" + (_novel.Count - 4 + i).ToString() + "</i>&nbsp;&nbsp;<div>" + lines[i] + "&nbsp;&nbsp[ <i><a href=\"[" + (_novel.Count - 5 + i).ToString() + "\">Edit</a>,&nbsp;<a href=\"]" + (_novel.Count - 5 + i).ToString() + "\">Del</a></i> ]</div><br />"; break;
+                    default: midPoint += "&nbsp;<i>" + ((_novel.Count < 5) ? i + 1 : _novel.Count - 4 + i).ToString() + "</i>&nbsp;&nbsp;<div>" + lines[i] + "&nbsp;&nbsp[ <i><a href=\"[" + (_novel.Count - 5 + i).ToString() + "\">Edit</a>,&nbsp;<a href=\"]" + (_novel.Count - 5 + i).ToString() + "\">Del</a></i> ]</div><br />"; break;
                 }
             }
 
