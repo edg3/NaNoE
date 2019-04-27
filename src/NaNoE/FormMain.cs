@@ -34,6 +34,8 @@ namespace NaNoE
 
             ClearWeb();
             WebShowNovel();
+
+            
         }
 
         /// <summary>
