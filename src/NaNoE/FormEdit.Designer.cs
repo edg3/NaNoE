@@ -33,14 +33,15 @@
             this.butRefresh = new System.Windows.Forms.Button();
             this.butDone = new System.Windows.Forms.Button();
             this.butStopForNow = new System.Windows.Forms.Button();
+            this.lblPosition = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lstProblems
             // 
             this.lstProblems.FormattingEnabled = true;
-            this.lstProblems.Location = new System.Drawing.Point(12, 12);
+            this.lstProblems.Location = new System.Drawing.Point(12, 38);
             this.lstProblems.Name = "lstProblems";
-            this.lstProblems.Size = new System.Drawing.Size(223, 212);
+            this.lstProblems.Size = new System.Drawing.Size(223, 186);
             this.lstProblems.TabIndex = 0;
             // 
             // rtbParagraph
@@ -50,6 +51,7 @@
             this.rtbParagraph.Size = new System.Drawing.Size(357, 212);
             this.rtbParagraph.TabIndex = 1;
             this.rtbParagraph.Text = "";
+            this.rtbParagraph.SelectionChanged += new System.EventHandler(this.RtbParagraph_SelectionChanged);
             this.rtbParagraph.TextChanged += new System.EventHandler(this.rtbParagraph_TextChanged);
             // 
             // butRefresh
@@ -82,11 +84,21 @@
             this.butStopForNow.UseVisualStyleBackColor = true;
             this.butStopForNow.Click += new System.EventHandler(this.butStopForNow_Click);
             // 
+            // lblPosition
+            // 
+            this.lblPosition.AutoSize = true;
+            this.lblPosition.Location = new System.Drawing.Point(12, 15);
+            this.lblPosition.Name = "lblPosition";
+            this.lblPosition.Size = new System.Drawing.Size(50, 13);
+            this.lblPosition.TabIndex = 5;
+            this.lblPosition.Text = "Position: ";
+            // 
             // FormEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(610, 260);
+            this.Controls.Add(this.lblPosition);
             this.Controls.Add(this.butStopForNow);
             this.Controls.Add(this.butDone);
             this.Controls.Add(this.butRefresh);
@@ -96,6 +108,7 @@
             this.Text = "Edit Paragraph";
             this.Load += new System.EventHandler(this.FormEdit_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -106,5 +119,6 @@
         private System.Windows.Forms.Button butRefresh;
         private System.Windows.Forms.Button butDone;
         private System.Windows.Forms.Button butStopForNow;
+        private System.Windows.Forms.Label lblPosition;
     }
 }

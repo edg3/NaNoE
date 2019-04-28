@@ -56,5 +56,10 @@ namespace NaNoE
             Continue = false;
             this.Close();
         }
+
+        private void RtbParagraph_SelectionChanged(object sender, EventArgs e)
+        {
+            lblPosition.Text = "Position: " + rtbParagraph.SelectionStart.ToString();
+        }
     }
 }
