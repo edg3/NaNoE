@@ -41,12 +41,12 @@
             this.lstProblems.FormattingEnabled = true;
             this.lstProblems.Location = new System.Drawing.Point(12, 38);
             this.lstProblems.Name = "lstProblems";
-            this.lstProblems.Size = new System.Drawing.Size(223, 186);
+            this.lstProblems.Size = new System.Drawing.Size(782, 186);
             this.lstProblems.TabIndex = 0;
             // 
             // rtbParagraph
             // 
-            this.rtbParagraph.Location = new System.Drawing.Point(241, 12);
+            this.rtbParagraph.Location = new System.Drawing.Point(800, 12);
             this.rtbParagraph.Name = "rtbParagraph";
             this.rtbParagraph.Size = new System.Drawing.Size(357, 212);
             this.rtbParagraph.TabIndex = 1;
@@ -66,7 +66,7 @@
             // 
             // butDone
             // 
-            this.butDone.Location = new System.Drawing.Point(523, 225);
+            this.butDone.Location = new System.Drawing.Point(1082, 230);
             this.butDone.Name = "butDone";
             this.butDone.Size = new System.Drawing.Size(75, 23);
             this.butDone.TabIndex = 3;
@@ -97,7 +97,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(610, 260);
+            this.ClientSize = new System.Drawing.Size(1169, 260);
             this.Controls.Add(this.lblPosition);
             this.Controls.Add(this.butStopForNow);
             this.Controls.Add(this.butDone);
