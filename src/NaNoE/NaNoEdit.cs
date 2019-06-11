@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 /// Features that need to be implimented here
 /// -=- Editing helpers
@@ -30,6 +31,13 @@ namespace NaNoE
             // =========================================================
             // = Checks added                                          =
             // =========================================================
+
+            // Spelling
+            var splt = para.Split(' ');
+            for (int i = 0; i < splt.Length; i++)
+            {
+                if (!SpellCheck(splt[i])) ans.Add("{" + i.ToString() + "} Spelling Error: " + splt[i]);
+            }
 
             // [ replace 'to be' and 'to have' ]
             if (para.Contains(" to be.")
@@ -94,6 +102,11 @@ namespace NaNoE
             // = End Checks                                            =
             // =========================================================
             return ans;
+        }
+
+        private static bool SpellCheck(string v)
+        {
+            throw new NotImplementedException();
         }
     }
 }

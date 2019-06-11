@@ -354,6 +354,7 @@ namespace NaNoE
                     if (editOpts.Count > 0)
                     {
                         FormEdit NaNoEditForm = new FormEdit();
+                        NaNoEditForm.Text += " : p" + (i + 1).ToString();
                         NaNoEditForm.Content = _novel[i];
                         NaNoEditForm.Edits = editOpts;
                         var dialogResult = NaNoEditForm.ShowDialog();
