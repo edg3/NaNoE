@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 /// Features that need to be implimented here
 /// -=- Editing helpers
@@ -18,6 +19,32 @@ namespace NaNoE
 {
     static class NaNoEdit
     {
+        /// <summary>
+        /// The dictionary
+        /// </summary>
+        private static List<string> Words;
+
+        /// <summary>
+        /// Load the file, generate the array, remove the file itself from memory
+        /// </summary>
+        public static void Init()
+        {
+            if (Words != null) return;
+
+            Words = new List<string>();
+            using (FileStream fs = new FileStream("words.txt", FileMode.Open))
+            {
+                using (StreamReader sr = new StreamReader(fs))
+                {
+                    string line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        Words.Add(line);
+                    }
+                }
+            }
+        }
+
         /// <summary>
         /// A simple way to precess the paragraphs you make for a novel.
         /// </summary>
@@ -104,9 +131,14 @@ namespace NaNoE
             return ans;
         }
 
+        /// <summary>
+        /// Checks if the word is within the dictionary
+        /// </summary>
+        /// <param name="v">Word to check</param>
+        /// <returns>True/False</returns>
         private static bool SpellCheck(string v)
         {
-            throw new NotImplementedException();
+
         }
     }
 }

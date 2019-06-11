@@ -345,6 +345,8 @@ namespace NaNoE
 
             MessageBox.Show("Warning: This could take long if you leave this process till too late...");
 
+            NaNoEdit.Init();
+
             for (int i = (int)(numStart.Value); i < _novel.Count; i++)
             {
                 if (_novel[i] != "[chapter]")
