@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 /// Features that need to be implimented here
 /// -=- Editing helpers
@@ -63,7 +64,13 @@ namespace NaNoE
             var splt = para.Split(' ');
             for (int i = 0; i < splt.Length; i++)
             {
-                if (!SpellCheck(splt[i])) ans.Add("{" + i.ToString() + "} Spelling Error: " + splt[i]);
+                //var whichUsed = new string(splt[i].ToCharArray(0,splt[i].Length).Where(c => !char.IsSeparator(c)).ToArray());
+                var whichUsed = splt[i];
+                while (whichUsed.EndsWith(".") || whichUsed.EndsWith(",") || whichUsed.EndsWith(";") || whichUsed.EndsWith(":") || whichUsed.EndsWith(" "))
+                {
+                    whichUsed = whichUsed.Remove(whichUsed.Length - 1);
+                }
+                if (!SpellCheck(whichUsed)) ans.Add("{" + i.ToString() + "} Spelling Error: " + splt[i]);
             }
 
             // [ replace 'to be' and 'to have' ]
@@ -182,7 +189,15 @@ namespace NaNoE
                         }
                     }
 
-                    if (dictionaryDirection == DictionaryDirection.WhatNext) return false; // This is also flawed, however we are doing the minimal design
+                    //if (dictionaryDirection == DictionaryDirection.WhatNext) return false; // This is also flawed, however we are doing the minimal design
+                    if (dictionaryDirection == DictionaryDirection.WhatNext)
+                    {   
+                        if (current == hereWeAre)
+                        {
+                            return true;
+                        }
+                        dictionaryDirection = DictionaryDirection.GoDown;
+                    }
                 }
 
                 // Go a direction
