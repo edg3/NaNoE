@@ -131,6 +131,12 @@ namespace NaNoE
             return ans;
         }
 
+        private enum DictionaryDirection {
+            WhatNext,
+            GoUp,
+            GoDown
+        }
+
         /// <summary>
         /// Checks if the word is within the dictionary
         /// </summary>
@@ -138,7 +144,67 @@ namespace NaNoE
         /// <returns>True/False</returns>
         private static bool SpellCheck(string v)
         {
+            // Initiate borders
+            var current = v.ToUpper();
+            int lower = 0;
+            int upper = Words.Count;
+            int position = upper / 2;
+            int character = 0;
+            DictionaryDirection dictionaryDirection = DictionaryDirection.WhatNext;
 
+            // the check and search
+            while (upper != lower)
+            {
+                var hereWeAre = Words[position].ToUpper();
+                if (hereWeAre == v) return true;
+
+                // First finding the starting characters
+                if ((int)(current[character]) > (int)(hereWeAre[character]))
+                {
+                    dictionaryDirection = DictionaryDirection.GoUp;
+                }
+                else if ((int)(current[character]) < (int)(hereWeAre[character]))
+                {
+                    dictionaryDirection = DictionaryDirection.GoDown;
+                }
+                else // This is assuming "current starting character = hereWeAre starting character" characters
+                {
+                    // We stick within the limits
+                    for (int i = 1; (i < current.Length) && (i < hereWeAre.Length) && (dictionaryDirection == DictionaryDirection.WhatNext); i++)
+                    {
+                        if ((int)(current[character + i]) > (int)(hereWeAre[character + i]))
+                        {
+                            dictionaryDirection = DictionaryDirection.GoUp;
+                        }
+                        else if ((int)(current[character + i]) < (int)(hereWeAre[character + i]))
+                        {
+                            dictionaryDirection = DictionaryDirection.GoDown;
+                        }
+                    }
+
+                    if (dictionaryDirection == DictionaryDirection.WhatNext) return false; // This is also flawed, however we are doing the minimal design
+                }
+
+                // Go a direction
+                switch (dictionaryDirection)
+                {
+                    case DictionaryDirection.GoUp:
+                        lower = position;
+                        position = (upper - lower) / 2 + lower;
+                        dictionaryDirection = DictionaryDirection.WhatNext;
+                        break;
+                    case DictionaryDirection.GoDown:
+                        upper = position;
+                        position = (upper - lower) / 2 + lower;
+                        dictionaryDirection = DictionaryDirection.WhatNext;
+                        break;
+                }
+
+                if (upper - lower <= 1) return false;
+            }
+
+            // This can be flawed with the characters used in paragraphs, but still minimises errors
+            return false;
         }
     }
 }
