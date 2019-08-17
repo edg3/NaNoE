@@ -87,7 +87,7 @@
             // lblPosition
             // 
             this.lblPosition.AutoSize = true;
-            this.lblPosition.Location = new System.Drawing.Point(12, 15);
+            this.lblPosition.Location = new System.Drawing.Point(797, 230);
             this.lblPosition.Name = "lblPosition";
             this.lblPosition.Size = new System.Drawing.Size(50, 13);
             this.lblPosition.TabIndex = 5;

@@ -203,13 +203,14 @@ namespace NaNoE
                         .Replace(',', ' ')
                         .Replace(';', ' ')
                         .Replace(" ", "");
-                if (spellChecker.Check(truncated).Count() > 0)
-                {
-                    if (truncated.ToUpper() != "I")
+                if (truncated != "")
+                    if (spellChecker.Check(truncated).Count() > 0)
                     {
-                        spellErrors += (i + 1).ToString() + ":" + truncated + ", ";
+                        if (truncated.ToUpper() != "I")
+                        {
+                            spellErrors += (i + 1).ToString() + ":" + truncated + ", ";
+                        }
                     }
-                }
             }
             if (spellErrors.Length > 0)
             {
