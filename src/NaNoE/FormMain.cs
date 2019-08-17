@@ -404,7 +404,7 @@ namespace NaNoE
                     foreach (var line in _novel)
                     {
                         if (line != "[chapter]") doc.InsertParagraph("\t" + line, false, _format_tail);
-                        else doc.InsertParagraph((++chCount).ToString(), false, _format_head);
+                        else doc.InsertParagraph("Ch. " + (++chCount).ToString(), false, _format_head);
                     }
 
                     doc.Save();
