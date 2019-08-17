@@ -22,13 +22,25 @@ namespace NaNoE
     static class NaNoEdit
     {
         private static SpellChecker spellChecker = new PlatformSpellCheck.SpellChecker();
+        private static Dictionary<string, string> tenseDict = new Dictionary<string, string>();
 
         /// <summary>
         /// Load the file, generate the array, remove the file itself from memory
         /// </summary>
         public static void Init()
         {
+            var tenses = File.OpenRead("grammarhelp.txt");
+            using (StreamReader tensesReader = new StreamReader(tenses))
+            {
+                string line = null;
+                while ((line = tensesReader.ReadLine()) != null)
+                {
+                    var tenseSplit = line.Split(',');
+                    tenseDict.Add(tenseSplit[1], tenseSplit[0]);
+                }
+            }
 
+            tenses.Close();
         }
 
         /// <summary>
@@ -119,6 +131,19 @@ namespace NaNoE
             if (speller != null)
             {
                 ans.Add("Spelling? " + speller);
+            }
+
+            // Tenses
+            var spacedpara = para.Replace('.', ' ')
+                        .Replace('"', ' ')
+                        .Replace(',', ' ')
+                        .Replace(';', ' ');
+            foreach (var k in tenseDict.Keys)
+            {
+                if (spacedpara.Contains(k))
+                {
+                    ans.Add("Tense Check: " + k);
+                }
             }
 
             // Debug
