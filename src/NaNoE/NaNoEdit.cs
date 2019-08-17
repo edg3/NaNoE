@@ -80,27 +80,20 @@ namespace NaNoE
             // [ ly = 'He quickly ran across the park.' fixed to 'He darted across the park.' ]
             if (para.Contains("ly "))           ans.Add("[" + para.IndexOf("ly") + "]replace '-ly' more descriptive: e.g. not 'her eyes were deadly', rather 'with an evil glare she looked at me'");
             /// [ ing = 'I turned and Mary was glaring at me.' fixed to 'I turned and Mary glared.' ]
-            if (para.Contains("ing ")
-             || para.Contains("ing,")
-             || para.Contains("ing."))          ans.Add("[" + para.IndexOf("ing") + "]replace '-ing' words with minimal words. e.g. 'she is running daily now' with 'she runs every morning now'");
+            if (para.Contains("ing "))          ans.Add("[" + para.IndexOf("ing") + "]replace '-ing' words with minimal words. e.g. 'she is running daily now' with 'she runs every morning now'");
             // [ -> Begin, begins, began, beginning, start, starts, started, starting = 'he started to run' fixed by 'he ran' ]
-            if (para.Contains("begin"))         ans.Add("[" + para.IndexOf("begin") +"]Rather don't use 'begin', simplify it");
-            if (para.Contains("begins"))        ans.Add("[" + para.IndexOf("begins") +"]Rather don't use 'begins', simplify it");
-            if (para.Contains("began"))         ans.Add("[" + para.IndexOf("began") +"]Rather don't use 'began', simplify it");
-            if (para.Contains("beginning"))     ans.Add("[" + para.IndexOf("beginning") +"]Rather don't use 'beginning', simplify it");
-            if (para.Contains("start"))         ans.Add("[" + para.IndexOf("start") +"]Rather don't use 'start', simplify it");
-            if (para.Contains("starts"))        ans.Add("[" + para.IndexOf("starts") +"]Rather don't use 'starts', simplify it");
-            if (para.Contains("started"))       ans.Add("[" + para.IndexOf("started") +"]Rather don't use 'started', simplify it");
-            if (para.Contains("starting"))      ans.Add("[" + para.IndexOf("starting") + "]Rather don't use 'starting', simplify it");
+            if (para.Contains("begin"))         ans.Add("[" + para.IndexOf("begin") +"] Rather don't use 'begin', simplify it");
+            if (para.Contains("began"))         ans.Add("[" + para.IndexOf("began") +"] Rather don't use 'began', simplify it");
+            if (para.Contains("start"))         ans.Add("[" + para.IndexOf("start") +"] Rather don't use 'start', simplify it");
             // [ when, then, suddenly, immediately, always, often, already, finally = 'I immediately ran through the door.' fixed to 'I ran through the door.' ]
-            if (para.Contains("when"))          ans.Add("[" + para.IndexOf("when") +"]Rather minify use 'when', make literal");
-            if (para.Contains("then"))          ans.Add("[" + para.IndexOf("then") +"]Rather minify use 'then', make literal");
-            if (para.Contains("suddenly"))      ans.Add("[" + para.IndexOf("suddenly") +"]Rather minify use 'suddenly', make literal");
-            if (para.Contains("immediately"))   ans.Add("[" + para.IndexOf("immediately") +"]Rather minify use 'immediately', make literal");
-            if (para.Contains("always"))        ans.Add("[" + para.IndexOf("always") +"]Rather minify use 'always', make literal");
-            if (para.Contains("often"))         ans.Add("[" + para.IndexOf("often") +"]Rather minify use 'often', make literal");
-            if (para.Contains("already"))       ans.Add("[" + para.IndexOf("already") +"]Rather minify use 'already', make literal");
-            if (para.Contains("finally"))       ans.Add("[" + para.IndexOf("finally") + "]Rather minify use 'finally', make literal");
+            if (para.Contains("when"))          ans.Add("[" + para.IndexOf("when") +"] Rather minify use 'when', make literal");
+            if (para.Contains("then"))          ans.Add("[" + para.IndexOf("then") +"] Rather minify use 'then', make literal");
+            if (para.Contains("suddenly"))      ans.Add("[" + para.IndexOf("suddenly") +"] Rather minify use 'suddenly', make literal");
+            if (para.Contains("immediately"))   ans.Add("[" + para.IndexOf("immediately") +"] Rather minify use 'immediately', make literal");
+            if (para.Contains("always"))        ans.Add("[" + para.IndexOf("always") +"] Rather minify use 'always', make literal");
+            if (para.Contains("often"))         ans.Add("[" + para.IndexOf("often") +"] Rather minify use 'often', make literal");
+            if (para.Contains("already"))       ans.Add("[" + para.IndexOf("already") +"] Rather minify use 'already', make literal");
+            if (para.Contains("finally"))       ans.Add("[" + para.IndexOf("finally") + "] Rather minify use 'finally', make literal");
             // [ See, Look, Hear, Know, Realize, Wonder, Decided, Notice, Feel, Remember, Think, That, Of, Really, Very, Down, Up, Then, Start, begin, Just = reword ]
             if (para.Contains("see"))           ans.Add("[" + para.IndexOf("see") +"] Rather minify use 'see' ");
             if (para.Contains("look"))          ans.Add("[" + para.IndexOf("look") +"] Rather minify use 'look' ");
@@ -110,7 +103,7 @@ namespace NaNoE
             if (para.Contains("realise"))       ans.Add("[" + para.IndexOf("realise") +"] Rather minify use 'realise' ");
             if (para.Contains("wonder"))        ans.Add("[" + para.IndexOf("wonder") +"] Rather minify use 'wonder' ");
             if (para.Contains("decided"))       ans.Add("[" + para.IndexOf("decided") +"] Rather minify use 'decided' ");
-            if (para.Contains("notice"))        ans.Add("[" + para.IndexOf("notice") +"] Rather minify use 'notic' ");
+            if (para.Contains("notice"))        ans.Add("[" + para.IndexOf("notice") +"] Rather minify use 'notice' ");
             if (para.Contains("feel"))          ans.Add("[" + para.IndexOf("feel") +"] Rather minify use 'feel' ");
             if (para.Contains("remember"))      ans.Add("[" + para.IndexOf("remember") +"] Rather minify use 'remember' ");
             if (para.Contains("think"))         ans.Add("[" + para.IndexOf("think") +"] Rather minify use 'think' ");
@@ -135,6 +128,22 @@ namespace NaNoE
             if (para.Contains("are")) ans.Add("[" + para.IndexOf("are") + "] Rather minify use 'are'. Write in a more active like 'sally mailed the letter' instead of 'the letter was mailed by sally'");
             if (para.Contains("am")) ans.Add("[" + para.IndexOf("am") + "] Rather minify use 'am'. Write in a more active like 'sally mailed the letter' instead of 'the letter was mailed by sally'");
             if (para.Contains("very")) ans.Add("[" + para.IndexOf("very") + "] Rather minify use 'very'. e.g. 'scientists are very excited with...' with 'scientists are excited with...' is better");
+            // https://www.skillsyouneed.com/write/cliches-to-avoid.html - portion
+            if (para.Contains("in a nutshell")) ans.Add("[" + para.IndexOf("in a nutshell") + "] This is cliched 'in a nutshell'");
+            if (para.Contains("at long last")) ans.Add("[" + para.IndexOf("at long last") + "] This is cliched 'at long last'");
+            if (para.Contains("going forward")) ans.Add("[" + para.IndexOf("going forward") + "] This is cliched 'going forward'");
+            if (para.Contains("all walks of life")) ans.Add("[" + para.IndexOf("all walks of life") + "] This is cliched 'all walks of life'");
+            if (para.Contains("at the end of the day")) ans.Add("[" + para.IndexOf("at the end of the day") + "] This is cliched 'at the end of the day'");
+            if (para.Contains("bring the table")) ans.Add("[" + para.IndexOf("bring the table") + "] This is cliched 'bring the table'");
+            if (para.Contains("as bold as brass")) ans.Add("[" + para.IndexOf("as bold as brass") + "] This is cliched 'as bold as brass'");
+            if (para.Contains("uphill battle")) ans.Add("[" + para.IndexOf("uphill battle") + "] This is cliched 'uphill battle'");
+            if (para.Contains("if it ain't broke  don't fix it")) ans.Add("[" + para.IndexOf("if it ain't broke  don't fix it") + "] This is cliched 'if it ain't broke, don't fix it'");
+            if (para.Contains("too little  too late")) ans.Add("[" + para.IndexOf("too little  too late") + "] This is cliched 'too little, too late'");
+            if (para.Contains("sleeping like the dead")) ans.Add("[" + para.IndexOf("sleeping like the dead") + "] This is cliched 'sleeping like the dead'");
+            if (para.Contains("actions speak louder than words")) ans.Add("[" + para.IndexOf("actions speak louder than words") + "] This is cliched 'actions speak louder than words'");
+            if (para.Contains("two wrongs don't make a right")) ans.Add("[" + para.IndexOf("two wrongs don't make a right") + "] This is cliched 'two wrongs don't make a right'");
+            if (para.Contains("never say never")) ans.Add("[" + para.IndexOf("never say never") + "] This is cliched 'never say never'");
+            if (para.Contains("laughter is the best medicine")) ans.Add("[" + para.IndexOf("laughter is the best medicine") + "] This is cliched 'laughter is the best medicine'");
 
             // if (para.Contains("")) ans.Add("[" + para.IndexOf("") + "] Rather minify use '' ");
 
