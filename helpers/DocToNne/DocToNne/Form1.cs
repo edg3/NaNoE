@@ -45,16 +45,18 @@ namespace DocToNne
                 {
                     using (StreamWriter fileWriter = new StreamWriter(fileStream))
                     {
+                        fileWriter.WriteLine("hNone\r\nHNo Doc Data\r\npNone\r\nPNo Doc Data");
+
                         foreach (Paragraph p in wordDoc.Paragraphs)
                         {
                             var line = p.Range.Text.Trim();
                             if (line.IndexOf("Ch. ") == 0)
                             {
-                                fileWriter.WriteLine("p" + line);
+                                fileWriter.WriteLine("n[chapter]");
                             }
                             else
                             {
-                                fileWriter.WriteLine("P" + line);
+                                fileWriter.WriteLine("n" + line);
                             }
                         }
                     }
