@@ -64,13 +64,11 @@ namespace NaNoE
             var splt = para.Split(' ');
             for (int i = 0; i < splt.Length; i++)
             {
-                //var whichUsed = new string(splt[i].ToCharArray(0,splt[i].Length).Where(c => !char.IsSeparator(c)).ToArray());
                 var whichUsed = splt[i];
                 while (whichUsed.EndsWith(".") || whichUsed.EndsWith(",") || whichUsed.EndsWith(";") || whichUsed.EndsWith(":") || whichUsed.EndsWith(" "))
                 {
                     whichUsed = whichUsed.Remove(whichUsed.Length - 1);
                 }
-                // if (!SpellCheck(whichUsed)) ans.Add("{" + i.ToString() + "} Spelling Error: " + splt[i]);
             }
 
             // Side note: this is definitely going to find things that shouldn't be in this - like portions of other words. "is" is in "sister" for example
@@ -86,14 +84,14 @@ namespace NaNoE
             if (para.Contains("began"))         ans.Add("[" + para.IndexOf("began") +"] Rather don't use 'began', simplify it");
             if (para.Contains("start"))         ans.Add("[" + para.IndexOf("start") +"] Rather don't use 'start', simplify it");
             // [ when, then, suddenly, immediately, always, often, already, finally = 'I immediately ran through the door.' fixed to 'I ran through the door.' ]
-            if (para.Contains("when"))          ans.Add("[" + para.IndexOf("when") +"] Rather minify use 'when', make literal");
-            if (para.Contains("then"))          ans.Add("[" + para.IndexOf("then") +"] Rather minify use 'then', make literal");
-            if (para.Contains("suddenly"))      ans.Add("[" + para.IndexOf("suddenly") +"] Rather minify use 'suddenly', make literal");
-            if (para.Contains("immediately"))   ans.Add("[" + para.IndexOf("immediately") +"] Rather minify use 'immediately', make literal");
-            if (para.Contains("always"))        ans.Add("[" + para.IndexOf("always") +"] Rather minify use 'always', make literal");
-            if (para.Contains("often"))         ans.Add("[" + para.IndexOf("often") +"] Rather minify use 'often', make literal");
-            if (para.Contains("already"))       ans.Add("[" + para.IndexOf("already") +"] Rather minify use 'already', make literal");
-            if (para.Contains("finally"))       ans.Add("[" + para.IndexOf("finally") + "] Rather minify use 'finally', make literal");
+            if (para.Contains("when"))          ans.Add("[" + para.IndexOf("when") + "] Rather minify use 'when', make literal, we dont need this leading word");
+            if (para.Contains("then"))          ans.Add("[" + para.IndexOf("then") + "] Rather minify use 'then', make literal, we dont need this leading word");
+            if (para.Contains("suddenly"))      ans.Add("[" + para.IndexOf("suddenly") + "] Rather minify use 'suddenly', make literal, we dont need this leading word");
+            if (para.Contains("immediately"))   ans.Add("[" + para.IndexOf("immediately") + "] Rather minify use 'immediately', make literal, we dont need this leading word");
+            if (para.Contains("always"))        ans.Add("[" + para.IndexOf("always") + "] Rather minify use 'always', make literal, we dont need this leading word");
+            if (para.Contains("often"))         ans.Add("[" + para.IndexOf("often") +"] Rather minify use 'often', make literal, we dont need this leading word");
+            if (para.Contains("already"))       ans.Add("[" + para.IndexOf("already") + "] Rather minify use 'already', make literal, we dont need this leading word");
+            if (para.Contains("finally"))       ans.Add("[" + para.IndexOf("finally") + "] Rather minify use 'finally', make literal, we dont need this leading word");
             // [ See, Look, Hear, Know, Realize, Wonder, Decided, Notice, Feel, Remember, Think, That, Of, Really, Very, Down, Up, Then, Start, begin, Just = reword ]
             if (para.Contains("see"))           ans.Add("[" + para.IndexOf("see") +"] Rather minify use 'see' ");
             if (para.Contains("look"))          ans.Add("[" + para.IndexOf("look") +"] Rather minify use 'look' ");
@@ -116,7 +114,7 @@ namespace NaNoE
             if (para.Contains("then"))          ans.Add("[" + para.IndexOf("then") +"] Rather minify use 'then'");
             if (para.Contains("start"))         ans.Add("[" + para.IndexOf("start") +"] Rather minify use 'start'");
             if (para.Contains("begin"))         ans.Add("[" + para.IndexOf("begin") +"] Rather minify use 'begin' ");
-            if (para.Contains("just"))          ans.Add("[" + para.IndexOf("just") + "] Rather minify use 'just' ");
+            if (para.Contains("just"))          ans.Add("[" + para.IndexOf("just") + "] Rather minify use 'just'. Permission word. e.g. 'I just get bugged by apples' vs 'apples unfortunately bug me'");
             // https://qz.com/647121/five-weak-words-you-should-avoid-and-what-to-use-instead/
             if (para.Contains("things")) ans.Add("[" + para.IndexOf("things") + "] Rather minify use 'things'. e.g. 'this article said a lot of things' with 'this article discussed the principles of...'");
             if (para.Contains("stuff")) ans.Add("[" + para.IndexOf("stuff") + "] Rather minify use 'stuff'. e.g. 'this article said a lot of things' with 'this article discussed the principles of...'");
@@ -144,6 +142,16 @@ namespace NaNoE
             if (para.Contains("two wrongs don't make a right")) ans.Add("[" + para.IndexOf("two wrongs don't make a right") + "] This is cliched 'two wrongs don't make a right'");
             if (para.Contains("never say never")) ans.Add("[" + para.IndexOf("never say never") + "] This is cliched 'never say never'");
             if (para.Contains("laughter is the best medicine")) ans.Add("[" + para.IndexOf("laughter is the best medicine") + "] This is cliched 'laughter is the best medicine'");
+            // misc - these can be missed unfortunately
+            if (para.Contains("one of")) ans.Add("[" + para.IndexOf("one of") + "] Rather minify use 'one of'. Be more specific 'one of the sciences' vs 'the scientist' is better");
+            if (para.Contains("some")) ans.Add("[" + para.IndexOf("some") + "] Rather minify use 'some' words (sometimes, someone, etc). It is vague and detracts from the story");
+            if (para.Contains("thing")) ans.Add("[" + para.IndexOf("thing") + "] Rather minify use 'thing'. What thing? Tell us.");
+            if (para.Contains("  therefore")) ans.Add("[" + para.IndexOf("  therefore") + "] Rather minify use 'therefore', sentences shouldnt start with it");
+            if (para.Contains("  however")) ans.Add("[" + para.IndexOf("  however") + "] Rather minify use 'however', sentences shouldnt start with it");
+            if (para.Contains("  because")) ans.Add("[" + para.IndexOf("  because") + "] Rather minify use 'because', sentences shouldn't start with it");
+            if (para.Contains("  and")) ans.Add("[" + para.IndexOf("  and") + "] Rather minify use 'and', sentences shouldn't start with it");
+            if (para.Contains("  but")) ans.Add("[" + para.IndexOf("  but") + "] Rather minify use 'but', sentences shouldn't start with it");
+
 
             // if (para.Contains("")) ans.Add("[" + para.IndexOf("") + "] Rather minify use '' ");
 
