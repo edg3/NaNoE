@@ -23,6 +23,7 @@ namespace NaNoE
     {
         private static SpellChecker spellChecker = new PlatformSpellCheck.SpellChecker();
         private static Dictionary<string, string> tenseDict = new Dictionary<string, string>();
+        private static Dictionary<string, string> veryDict = new Dictionary<string, string>();
 
         /// <summary>
         /// Load the file, generate the array, remove the file itself from memory
@@ -39,8 +40,19 @@ namespace NaNoE
                     tenseDict.Add(tenseSplit[1], tenseSplit[0]);
                 }
             }
-
             tenses.Close();
+
+            var verys = File.OpenRead("verys.txt");
+            using (StreamReader verysReader = new StreamReader(verys))
+            {
+                string line = null;
+                while ((line = verysReader.ReadLine()) != null)
+                {
+                    var verbSplit = line.Split(',');
+                    veryDict.Add(verbSplit[0], verbSplit[1]);
+                }
+            }
+            verys.Close();
         }
 
         /// <summary>
@@ -110,7 +122,7 @@ namespace NaNoE
             if (lowpara.Contains(" that "))          ans.Add("[" + para.IndexOf("that ") +"] Rather minify use 'that' ");
             if (lowpara.Contains(" of "))            ans.Add("[" + para.IndexOf("of ") +"] Rather minify use 'of' ");
             if (lowpara.Contains(" really "))        ans.Add("[" + para.IndexOf("really ") +"] Rather minify use 'really', make literal, e.g. 'the swimmer really performed admirably' with 'the swimmer performed admirably'. Slacker descriptive");
-            if (lowpara.Contains(" very "))          ans.Add("[" + para.IndexOf("very ") +"] Rather minify use 'very'H");
+            // if (lowpara.Contains(" very "))          ans.Add("[" + para.IndexOf("very ") +"] Rather minify use 'very'H");
             if (lowpara.Contains(" down "))          ans.Add("[" + para.IndexOf("down ") +"] Rather minify use 'down'");
             if (lowpara.Contains(" up "))            ans.Add("[" + para.IndexOf("up ") +"] Rather minify use 'up'");
             if (lowpara.Contains(" then "))          ans.Add("[" + para.IndexOf("then ") +"] Rather minify use 'then'");
@@ -153,6 +165,16 @@ namespace NaNoE
             if (lowpara.Contains("  because ")) ans.Add("[" + para.IndexOf("because ") + "] Rather minify use 'because', sentences shouldn't start with it");
             if (lowpara.Contains("  and ")) ans.Add("[" + para.IndexOf("and ") + "] Rather minify use 'and', sentences shouldn't start with it");
             if (lowpara.Contains("  but ")) ans.Add("[" + para.IndexOf("but ") + "] Rather minify use 'but', sentences shouldn't start with it");
+            // Very Accurate = exact
+            if (para.Contains(" very "))
+            {
+                ans.Add("[ Minimised use of 'very' ]");
+                ans.Add(" - first: " + para.IndexOf(" very "));
+                foreach (var k in veryDict.Keys)
+                {
+                    if (para.Contains("very " + k)) ans.Add(" - very " + k + " => " + veryDict[k] + " @ " + para.IndexOf("very " + k));
+                }
+            }
 
 
             // if (para.Contains("")) ans.Add("[" + para.IndexOf("") + "] Rather minify use '' ");
