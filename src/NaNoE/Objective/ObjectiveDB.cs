@@ -35,13 +35,13 @@ namespace NaNoE.Objective
             if (!RunCMD("SELECT name FROM sqlite_master WHERE type='table';").HasRows)
             {
                 // Create tables
-                RunCMD("CREATE TABLE notes (id int primary key, val varchar(600));");
-                RunCMD("CREATE TABLE paragraphs (id int primary key, para varchar(100000))"); // <- may be low?
-                RunCMD("CREATE TABLE helpers (id int primary key, name varchar(200))");
-                RunCMD("CREATE TABLE plots (id int primary key, name varchar(200))");
+                RunCMD("CREATE TABLE notes (id integer primary key AUTOINCREMENT, val varchar(600));");
+                RunCMD("CREATE TABLE paragraphs (id integer primary key AUTOINCREMENT, para varchar(100000))"); // <- may be low?
+                RunCMD("CREATE TABLE helpers (id integer primary key AUTOINCREMENT, name varchar(200))");
+                RunCMD("CREATE TABLE plots (id integer primary key AUTOINCREMENT, name varchar(200))");
 
-                RunCMD("CREATE TABLE plotsjoint (id int primary key, plotid int, noteid int)");
-                RunCMD("CREATE TABLE helpersjoint (id int primary key, helperid int, noteid int)");
+                RunCMD("CREATE TABLE plotsjoint (id integer primary key AUTOINCREMENT, plotid int, noteid int)");
+                RunCMD("CREATE TABLE helpersjoint (id integer primary key AUTOINCREMENT, helperid int, noteid int)");
             }
         }
 

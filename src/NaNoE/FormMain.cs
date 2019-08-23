@@ -42,7 +42,49 @@ namespace NaNoE
         /// <summary>
         /// Stored Novel Data
         /// </summary>
-        Dictionary<string, List<string>> _helpers = new Dictionary<string, List<string>>();
+        Dictionary<string, List<string>> _helpers
+        {
+            get
+            {
+                Dictionary<string, List<string>> ans = new Dictionary<string, List<string>>();
+                var helpers = ObjectiveDB.RunCMD("SELECT * FROM helpers;");
+                if (helpers != null)
+                {
+                    if (helpers.Read())
+                    {
+                        do
+                        {
+                            var id = helpers.GetInt32(0);
+                            var name = helpers.GetString(1);
+
+                            ans.Add(name, new List<string>());
+                            GetHelpersNotes(id, ans[name]);
+                        }
+                        while (helpers.Read());
+                    }
+                }
+                return ans;
+            }
+        }
+
+        private void GetHelpersNotes(int id, List<string> notes)
+        {
+            var noteconnections = ObjectiveDB.RunCMD("SELECT * FROM helpersjoint WHERE helperid = " + id.ToString() + ";");
+            if (noteconnections != null)
+            {
+                if (noteconnections.Read())
+                {
+                    do
+                    {
+                        var note = ObjectiveDB.RunCMD("SELECT * FROM notes WHERE id = " + noteconnections.GetInt32(2));
+                        note.Read();
+                        notes.Add(note.GetString(1));
+                    }
+                    while (noteconnections.Read());
+                }
+            }
+        }
+
         Dictionary<string, List<string>> _plot = new Dictionary<string, List<string>>();
         List<string> _novel = new List<string>();
         
@@ -225,6 +267,7 @@ namespace NaNoE
                             {
                                 _helpers.Add(txtContainsAdd.Text, new List<string>());
                                 lstContains.Items.Add(txtContainsAdd.Text);
+                                ObjectiveDB.RunCMD("INSERT INTO helpers (name) VALUES ('" + txtContainsAdd.Text +"');");
                                 txtContainsAdd.Text = "";
                             }
                             else
@@ -306,6 +349,12 @@ namespace NaNoE
             }
             var items = _content[(string)lstContains.SelectedItem];
             items.Add(txtContainerAdd.Text);
+            ObjectiveDB.RunCMD("INSERT INTO notes (val) VALUES ('" + txtContainerAdd.Text + "');");
+            var ans1 = ObjectiveDB.RunCMD("SELECT * FROM helpers WHERE name = '" + (string)lstContains.SelectedItem +"';");
+            ans1.Read();
+            var ans2 = ObjectiveDB.RunCMD("SELECT max(id) FROM notes;");
+            ans2.Read();
+            ObjectiveDB.RunCMD("INSERT INTO helpersjoint (helperid, noteid) VALUES (" + ans1.GetInt32(0) + ", " + ans2.GetInt32(0) + ");");
             txtContainerAdd.Text = "";
 
             GenerateHTML(items);
@@ -528,117 +577,16 @@ namespace NaNoE
                 lstOptions.SelectedIndex = -1;
                 while (lstContains.Items.Count > 0) lstContains.Items.RemoveAt(0);
 
-                _helpers = new Dictionary<string, List<string>>();
+                ObjectiveDB db = new ObjectiveDB("temp.sqlite");
+                ObjectiveDB.TestNew();
+
+                // _helpers = new Dictionary<string, List<string>>();
                 _novel = new List<string>();
                 _plot = new Dictionary<string, List<string>>();
 
                 ClearWeb();
                 ClearContains();
                 WebShowNovel();
-
-                OpenFileDialog ofd = new OpenFileDialog();
-                if (ofd.ShowDialog() == DialogResult.OK)
-                {
-                    //Load here
-                    var f = File.OpenRead(ofd.FileName);
-                    var fr = new StreamReader(f);
-
-                    // helper
-                    string l = fr.ReadLine();
-                    string balf_ = "";
-                    List<string> _flab = null;
-                    do
-                    {
-                        if (l[0] == 'h')
-                        {
-                            l = l.Remove(0, 1);
-                            if (_flab != null)
-                            {
-                                _helpers.Add(balf_, _flab);
-                            }
-                            balf_ = l;
-                            _flab = new List<string>();
-
-                            l = fr.ReadLine();
-                        }
-                        else if (l[0] == 'H')
-                        {
-                            l = l.Remove(0, 1);
-                            _flab.Add(l);
-
-                            l = fr.ReadLine();
-                        }
-                    }
-                    while ((l[0] == 'h') || (l[0] == 'H'));
-                    if (_flab != null)
-                    {
-                        _helpers.Add(balf_, _flab);
-                        _flab = null;
-                        balf_ = "";
-                    }
-
-                    // plot
-                    do
-                    {
-                        if (l[0] == 'p')
-                        {
-                            l = l.Remove(0, 1);
-                            if (_flab != null)
-                            {
-                                _plot.Add(balf_, _flab);
-                            }
-                            balf_ = l;
-                            _flab = new List<string>();
-
-                            l = fr.ReadLine();
-                        }
-                        else if (l[0] == 'P')
-                        {
-                            l = l.Remove(0, 1);
-                            _flab.Add(l);
-
-                            l = fr.ReadLine();
-                        }
-                    }
-                    while ((l[0] == 'p') || (l[0] == 'P'));
-
-                    if (_flab != null)
-                    {
-                        _plot.Add(balf_, _flab);
-                        _flab = null;
-                        balf_ = "";
-                    }
-
-                    int minorCount = 0;
-                    int chapCount = 0;
-                    // chapter
-                    do
-                    {
-                        if (l[0] == 'n')
-                        {
-                            l = l.Remove(0, 1);
-                            _novel.Add(l);
-
-                            if (l != "[chapter]")
-                            {
-                                minorCount += l.Split(' ').Length;
-                            }
-                            else
-                            {
-                                chapCount++;
-                            }
-
-                            l = fr.ReadLine();
-                        }
-                    }
-                    while (l != null);
-
-                    _updateCountNovel = minorCount;
-                    _updateCountNovelTo = _novel.Count - 1;
-                    UpdateNovelCount();
-
-                    WebShowNovel(); ;
-                }
             }
         }
 
