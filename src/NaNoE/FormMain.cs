@@ -33,7 +33,7 @@ namespace NaNoE
         {
             InitializeComponent();
 
-            ObjectiveDB odb = new ObjectiveDB("test.db");
+            // ObjectiveDB odb = new ObjectiveDB("test.sqlite");
 
             ClearWeb();
             WebShowNovel();
