@@ -101,6 +101,10 @@
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
     <Compile Include="NaNoEdit.cs" />
+    <Compile Include="Objective\NHelper.cs" />
+    <Compile Include="Objective\NNote.cs" />
+    <Compile Include="Objective\NParagraph.cs" />
+    <Compile Include="Objective\NPlot.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormEdit.resx">
@@ -155,5 +159,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
