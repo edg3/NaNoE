@@ -30,17 +30,22 @@ namespace NaNoE.Objective
             Name = fileName;
         }
 
-        public void TestNew()
+        public static void TestNew()
         {
             if (!RunCMD("SELECT name FROM sqlite_master WHERE type='table';").HasRows)
             {
                 // Create tables
-                RunCMD("CREATE TABLE notes (id int primary key, val varchar(200));");
+                RunCMD("CREATE TABLE notes (id int primary key, val varchar(600));");
+                RunCMD("CREATE TABLE paragraphs (id int primary key, para varchar(100000))"); // <- may be low?
+                RunCMD("CREATE TABLE helpers (id int primary key, name varchar(200))");
+                RunCMD("CREATE TABLE plots (id int primary key, name varchar(200))");
 
+                RunCMD("CREATE TABLE plotsjoint (id int primary key, plotid int, noteid int)");
+                RunCMD("CREATE TABLE helpersjoint (id int primary key, helperid int, noteid int)");
             }
         }
 
-        public SQLiteDataReader RunCMD(string sql)
+        public static SQLiteDataReader RunCMD(string sql)
         {
             if (Connection == null) return null;
 
