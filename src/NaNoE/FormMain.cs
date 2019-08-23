@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NaNoE.Objective;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -31,6 +32,8 @@ namespace NaNoE
         public FormMain()
         {
             InitializeComponent();
+
+            ObjectiveDB odb = new ObjectiveDB("test.db");
 
             ClearWeb();
             WebShowNovel();
