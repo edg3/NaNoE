@@ -248,6 +248,7 @@
             this.MinimumSize = new System.Drawing.Size(816, 489);
             this.Name = "FormMain";
             this.Text = "NaNoE";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormMain_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.numStart)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

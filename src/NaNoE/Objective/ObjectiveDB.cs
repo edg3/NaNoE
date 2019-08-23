@@ -23,7 +23,8 @@ namespace NaNoE.Objective
                 Connection.Close();
             }
 
-            Connection = new SQLiteConnection(fileName);
+            Connection = new SQLiteConnection("Data Source=" + fileName +"; Version=3;");
+            Connection.Open();
         }
     }
 }

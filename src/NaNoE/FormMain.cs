@@ -33,7 +33,7 @@ namespace NaNoE
         {
             InitializeComponent();
 
-            // ObjectiveDB odb = new ObjectiveDB("test.sqlite");
+            ObjectiveDB odb = new ObjectiveDB("test.sqlite");
 
             ClearWeb();
             WebShowNovel();
@@ -749,6 +749,14 @@ namespace NaNoE
                 GenerateHTML(_selected_items);
             }
             
+        }
+
+        private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (ObjectiveDB.Connection != null)
+            {
+                ObjectiveDB.Connection.Close();
+            }
         }
     }
 }
