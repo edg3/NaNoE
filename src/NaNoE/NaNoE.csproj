@@ -68,6 +68,12 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="lightdb.lib, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\lightdb.lib.1.1.3\lib\netstandard2.0\lightdb.lib.dll</HintPath>
+    </Reference>
+    <Reference Include="lightdb.struct.lib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\lightdb.struct.lib.1.0.0\lib\netstandard2.0\lightdb.struct.lib.dll</HintPath>
+    </Reference>
     <Reference Include="PlatformSpellCheck, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\PlatformSpellCheck.1.0.0\lib\net45\PlatformSpellCheck.dll</HintPath>
     </Reference>
@@ -122,6 +128,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="libsnappy.so.1.1.5" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
