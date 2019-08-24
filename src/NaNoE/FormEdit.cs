@@ -78,7 +78,7 @@ namespace NaNoE
 
         private void butStopForNow_Click(object sender, EventArgs e)
         {
-            if (ParagraphID != -1) ObjectiveDB.RunCMD("UPDATE paragraphs SET para = '" + Content + "' WHERE id = " + ParagraphID + ";");
+            if (ParagraphID != -1) ObjectiveDB.RunCMD("UPDATE paragraphs SET para = '" + Content.Replace("'", "''") + "' WHERE id = " + ParagraphID + ";");
             Continue = false;
             this.Close();
         }
