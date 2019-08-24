@@ -514,8 +514,10 @@ namespace NaNoE
         /// Export a word document
         /// </summary>
         // Save a word document, was an easier option instead of pdf
-        private void butExport_Click(object sender, EventArgs e)
+        private void ExportDocX()
         {
+            throw new Exception("Not updated for DB.");
+
             // Sourced helpers: https://www.c-sharpcorner.com/article/generate-word-document-using-c-sharp/
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "Word Document (.docx)|.docx|All Files (*.*)|*.*";
@@ -543,134 +545,6 @@ namespace NaNoE
 
                     doc.Save();
                 }
-            }
-        }
-
-        /// <summary>
-        /// Saving and Loading Data
-        /// </summary>
-        // Save a document obviously
-        private void butSave_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog sfd = new SaveFileDialog();
-            // Bug: wont show the files. Hmm...
-            sfd.Filter = "nne saves (*.nne)|.nne|All Files (*.*)|*.*";
-            sfd.FilterIndex = 2;
-            sfd.RestoreDirectory = true;
-
-            if (sfd.ShowDialog() == DialogResult.OK)
-            {
-                // TODO: thoughts on this? You should manage your own backups I suppose...
-                if (File.Exists(sfd.FileName))
-                {
-                    File.Delete(sfd.FileName);
-                }
-                var f = File.OpenWrite(sfd.FileName);
-                var fw = new StreamWriter(f);
-
-                // Save all helpers
-                var k = new List<string>(_helpers.Keys);
-                for (int i = 0; i < _helpers.Count; i++)
-                {
-                    string title = "", content = "";
-                    string title_fluff = "";
-                    
-                    title = k[i];
-                    // Save format: 'h' + <title> = title of the helper to start in loading
-                    fw.WriteLine("h" + title);
-                    // Make it 10 chars long for processing ease
-                    if (title.Length < 10)
-                    {
-                        while ((title + title_fluff).Length < 10)
-                            title_fluff += " ";
-                    }
-                    // Go through all contents of the helpers to share what we have in the helper
-                    // Save formate: 'H' + <title> + <title_fluff> + <content> = the 10 char long name in the file
-                    // TODO: remove the spaces on input from front and back I suddenly thought
-                    for (int j = 0; j < _helpers[title].Count; j++)
-                    {
-                        content = _helpers[title][j];
-                        // See [W] - this is a copy of 'fix'
-                        // while (content.Contains(title)) content = content.Remove(0, 10);
-                        fw.WriteLine("H" + content);
-                        fw.Flush();
-                    }
-                }
-
-                // Save all plot
-                var l = new List<string>(_plot.Keys);
-                for (int i = 0; i < _plot.Count; i++)
-                {
-                    string title = "", content = "";
-                    string title_fluff = "";
-
-                    title = l[i];
-                    // Save format: 'h' + <title> = title of the plot point to start in loading
-                    fw.WriteLine("p" + title);
-                    // Make it 10 chars long for processing ease
-                    if (title.Length < 10)
-                    {
-                        while ((title + title_fluff).Length < 10)
-                            title_fluff += " ";
-                    }
-                    // Go through all contents of the helpers to share what we have in the helper
-                    // Save formate: 'H' + <title> + <title_fluff> + <content> = the 10 char long name in the file
-                    // TODO: remove the spaces on input from front and back I suddenly thought [Q] has suggestion, may have been fixed with input safety
-                    for (int j = 0; j < _plot[title].Count; j++)
-                    {
-                        content = _plot[title][j];
-                        // [W] Note: saving for some reason needs missing title, how it loads perhaps?
-                        //   - We may want to bring the removal of the title back eventually
-                        //     I double checked that using the new fix to the save system works
-                        // while (content.Contains(title)) content = content.Remove(0, 10);
-                        fw.WriteLine("P" + content);
-                        fw.Flush();
-                    }
-                }
-
-                // Save all chapters
-                //  - AKA. Saving the actual novel
-                for (int i = 0; i < _novel.Count; i++)
-                {
-                    var ans = _novel[i];
-                    ans = ans.Trim(' '); // [Q]
-
-                    fw.WriteLine("n" + ans);
-                    fw.Flush();
-                }
-
-                // Finito - always flush
-                fw.Flush();
-                fw.Close();
-                f.Close();
-            }
-        }
-
-        // Load a document obviously
-        // TODO: consider makin it double check only if you actually have done something it should check?
-        private void butLoad_Click(object sender, EventArgs e)
-        {
-            bool cont = true;
-            if (_plot.Count != 0 || _novel.Count != 0 || _helpers.Count != 0) // This means you typed something
-                if (MessageBox.Show("Have you saved everything you need to save?", "Double Checking", MessageBoxButtons.YesNo) != DialogResult.Yes)
-                    cont = false;
-
-            if (cont)
-            {
-                lstContains.SelectedIndex = -1;
-                lstOptions.SelectedIndex = -1;
-                while (lstContains.Items.Count > 0) lstContains.Items.RemoveAt(0);
-
-                ObjectiveDB db = new ObjectiveDB("temp.sqlite");
-                ObjectiveDB.TestNew();
-
-                // _helpers = new Dictionary<string, List<string>>();
-                // _novel = new List<string>();
-                // _plot = new Dictionary<string, List<string>>();
-
-                ClearWeb();
-                ClearContains();
-                WebShowNovel();
             }
         }
 
@@ -817,6 +691,58 @@ namespace NaNoE
             {
                 ObjectiveDB.Connection.Close();
             }
+        }
+
+        private void ExportDocXToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExportDocX();
+        }
+
+        private void CreateNewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "SQLite|*.sqlite";
+            saveFileDialog1.Title = "Please choose the save name";
+            saveFileDialog1.ShowDialog();
+
+            // If the file name is not an empty string open it for saving.  
+            if (saveFileDialog1.FileName != "")
+            {
+                if (File.Exists(saveFileDialog1.FileName))
+                {
+                    MessageBox.Show("Please don't choose an existing file.", "Not new.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                InitiateDB(saveFileDialog1.FileName);
+            }
+        }
+
+        private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Filter = "SQLite|*.sqlite";
+            openFileDialog1.Title = "Please open your NaNoE sqlite file";
+            openFileDialog1.ShowDialog();
+
+            if (openFileDialog1.FileName != "")
+            {
+                InitiateDB(openFileDialog1.FileName);
+            }
+        }
+
+        private void InitiateDB(string name)
+        {
+            lstContains.SelectedIndex = -1;
+            lstOptions.SelectedIndex = -1;
+            while (lstContains.Items.Count > 0) lstContains.Items.RemoveAt(0);
+
+            ObjectiveDB db = new ObjectiveDB(name);
+            ObjectiveDB.TestNew();
+
+            ClearWeb();
+            ClearContains();
+            WebShowNovel();
         }
     }
 }
