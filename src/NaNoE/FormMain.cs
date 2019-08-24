@@ -86,7 +86,49 @@ namespace NaNoE
             }
         }
 
-        Dictionary<string, List<string>> _plot = new Dictionary<string, List<string>>();
+        Dictionary<string, List<string>> _plot
+        {
+            get
+            {
+                Dictionary<string, List<string>> ans = new Dictionary<string, List<string>>();
+                var plots = ObjectiveDB.RunCMD("SELECT * FROM plots;");
+                if (plots != null)
+                {
+                    if (plots.Read())
+                    {
+                        do
+                        {
+                            var id = plots.GetInt32(0);
+                            var name = plots.GetString(1);
+
+                            ans.Add(name, new List<string>());
+                            GetPlotNotes(id, ans[name]);
+                        }
+                        while (plots.Read());
+                    }
+                }
+                return ans;
+            }
+        }
+
+        private void GetPlotNotes(int id, List<string> list)
+        {
+            var noteconnections = ObjectiveDB.RunCMD("SELECT * FROM plotsjoint WHERE plotid = " + id.ToString() + ";");
+            if (noteconnections != null)
+            {
+                if (noteconnections.Read())
+                {
+                    do
+                    {
+                        var note = ObjectiveDB.RunCMD("SELECT * FROM notes WHERE id = " + noteconnections.GetInt32(2));
+                        note.Read();
+                        list.Add(note.GetString(1));
+                    }
+                    while (noteconnections.Read());
+                }
+            }
+        }
+
         List<string> _novel
         {
             get
@@ -601,7 +643,7 @@ namespace NaNoE
 
                 // _helpers = new Dictionary<string, List<string>>();
                 // _novel = new List<string>();
-                _plot = new Dictionary<string, List<string>>();
+                // _plot = new Dictionary<string, List<string>>();
 
                 ClearWeb();
                 ClearContains();
