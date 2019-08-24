@@ -184,10 +184,10 @@ namespace NaNoE
             {
                 switch (lines[i])
                 {
-                    case "[chapter]": midPoint += "<hr /><div><b>" + /*ObjectiveDB..ToString() +*/ "</b> [ <i><a href=\"]" + (_novel.Count - 5 + i).ToString() + "\">Del</a></i> ]</div><br /><br />"; break;
+                    case "[chapter]": midPoint += "<hr /><div><b>[Chapter Here]</b> [ <i><a href=\"]" + (_novel.Count - 5 + i).ToString() + "\">Del</a></i> ]</div><br /><br />"; break;
                     // TODO: fix bug on next line for how it works - if you start a novel it doesnt fit logic for the first few lines
                     //        - it starts on a negative number
-                    default: midPoint += "&nbsp;<i>" + ((_novel.Count < 5) ? i + 1 : _novel.Count - 4 + i).ToString() + "</i>&nbsp;&nbsp;<div>" + lines[i] + "&nbsp;&nbsp[ <i><a href=\"[" + (_novel.Count - 5 + i).ToString() + "\">Edit</a>,&nbsp;<a href=\"]" + (_novel.Count - 5 + i).ToString() + "\">Del</a></i> ]</div><br />"; break;
+                    default: midPoint += "&nbsp;<i>" + ((_novel.Count < 5) ? i + 1 : ObjectiveDB.CountParagraphs() - 4 + i).ToString() + "</i>&nbsp;&nbsp;<div>" + lines[i] + "&nbsp;&nbsp[ <i><a href=\"[" + (_novel.Count - 5 + i).ToString() + "\">Edit</a>,&nbsp;<a href=\"]" + (_novel.Count - 5 + i).ToString() + "\">Del</a></i> ]</div><br />"; break;
                 }
             }
 
@@ -494,9 +494,9 @@ namespace NaNoE
 
                             // Editing 'done' or just closed
                             if (body != NaNoEditForm.Content)
-                            {
+                            { 
                                 var body2 = body.Replace("'", "''");
-                                var id = ObjectiveDB.RunCMD("SELECT id FROM paragraphs WHERE para = '" + body2 + "';");
+                                var id = ObjectiveDB.RunCMD("SELECT id FROM paragraphs WHERE para = '" + body2 +"';");
                                 id.Read();
                                 ObjectiveDB.RunCMD("UPDATE paragraphs SET para = '" + NaNoEditForm.Content.Replace("'", "''") + "' WHERE id = " + id.GetInt32(0));
                             }
