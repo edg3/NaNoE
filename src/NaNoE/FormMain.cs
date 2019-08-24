@@ -357,6 +357,8 @@ namespace NaNoE
             ObjectiveDB.RunCMD("INSERT INTO helpersjoint (helperid, noteid) VALUES (" + ans1.GetInt32(0) + ", " + ans2.GetInt32(0) + ");");
             txtContainerAdd.Text = "";
 
+            _selected_items = items;
+
             GenerateHTML(items);
         }
         
@@ -682,7 +684,29 @@ namespace NaNoE
                     // delete
                     var removal = e.Url.AbsolutePath.ToString().Remove(0, 1);
                     int i = int.Parse(removal);
+                    var item = _selected_items[i];
                     _selected_items.RemoveAt(i);
+
+                    if (lstOptions.SelectedIndex == 0) // Helpers
+                    {
+                        // This can be bugged if same text in 2 notes?
+                        var selection = lstContains.SelectedItem.ToString();
+
+                        var helper = ObjectiveDB.RunCMD("SELECT * FROM helpers WHERE name = '" + selection + "';");
+                        helper.Read();
+                        var note = ObjectiveDB.RunCMD("SELECT * FROM notes WHERE val = '" + item + "';");
+                        note.Read();
+
+                        var helperid = helper.GetInt32(0);
+                        var noteid = note.GetInt32(0);
+
+                        ObjectiveDB.RunCMD("DELETE FROM notes WHERE id = " + noteid.ToString() + ";");
+                        ObjectiveDB.RunCMD("DELETE FROM helpersjoint WHERE helperid = " + helperid + " AND noteid = " + noteid + ";");
+                    }
+                    else // Plot
+                    {
+
+                    } 
 
                     MessageBox.Show("Item deleted.");
                 }
