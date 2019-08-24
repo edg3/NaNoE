@@ -340,6 +340,7 @@ namespace NaNoE
                             {
                                 _plot.Add(txtContainsAdd.Text, new List<string>());
                                 lstContains.Items.Add(txtContainsAdd.Text);
+                                ObjectiveDB.RunCMD("INSERT INTO plots (name)  VALUES ('" + txtContainsAdd.Text + "');");
                                 txtContainsAdd.Text = "";
                             }
                             else
