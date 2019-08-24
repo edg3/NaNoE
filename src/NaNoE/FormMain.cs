@@ -218,7 +218,7 @@ namespace NaNoE
 
             for (int i = 0; i < items.Count; i++)
             {
-                ans += "<li><div>" + items[i] + " [ <i><a href=\"["+ i.ToString() +"\">Edit</a>, <a href=\"]"+ i.ToString() +"\">Del</a></i> ]</div></li>";
+                ans += "<li><div>" + items[i] + " [ <i><a href=\"]"+ i.ToString() +"\">Del</a></i> ]</div></li>";
             }
 
             ans += "</ul>";
