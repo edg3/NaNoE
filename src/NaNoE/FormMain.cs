@@ -752,5 +752,85 @@ namespace NaNoE
             ClearContains();
             WebShowNovel();
         }
+
+        private void ImportnneToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Filter = "NNE|*.nne";
+            openFileDialog1.Title = "Please open your NaNoE .nne file";
+            openFileDialog1.ShowDialog();
+
+            if (openFileDialog1.FileName != "")
+            {
+                SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+                saveFileDialog1.Filter = "SQLite|*.sqlite";
+                saveFileDialog1.Title = "Please choose the save name";
+                saveFileDialog1.ShowDialog();
+
+                // If the file name is not an empty string open it for saving.  
+                if (saveFileDialog1.FileName != "")
+                {
+                    if (File.Exists(saveFileDialog1.FileName))
+                    {
+                        MessageBox.Show("Please don't choose an existing file.", "Not new.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    InitiateDB(saveFileDialog1.FileName);
+
+                    // Move nne into SQLite file
+                    using (var file = openFileDialog1.OpenFile())
+                    {
+                        using (var reader = new StreamReader(file))
+                        {
+                            string line = null;
+                            char first = ' ';
+                            string rest = "";
+                            int prevID = -1;
+                            while ((line = reader.ReadLine()) != null)
+                            {
+                                first = line[0];
+                                rest = line.Substring(1);
+                                rest = rest.Replace("'", "''");
+                                switch (first)
+                                {
+                                    case 'h':
+                                        ObjectiveDB.RunCMD("INSERT INTO helpers (name) VALUES ('" + rest + "');");
+                                        var obj = ObjectiveDB.RunCMD("SELECT MAX(id) FROM helpers;");
+                                        obj.Read();
+                                        prevID = obj.GetInt32(0);
+                                        break;
+                                    case 'H':
+                                        ObjectiveDB.RunCMD("INSERT INTO notes (val) VALUES ('" + rest + "');");
+                                        var noteid = ObjectiveDB.RunCMD("SELECT MAX(id) FROM notes;");
+                                        noteid.Read();
+
+                                        ObjectiveDB.RunCMD("INSERT INTO helpersjoint (helperid, noteid) VALUES (" + prevID + "," + noteid.GetInt32(0) + ");");
+                                        break;
+                                    case 'p':
+                                        ObjectiveDB.RunCMD("INSERT INTO plots (name) VALUES ('" + rest + "');");
+                                        var obj2 = ObjectiveDB.RunCMD("SELECT MAX(id) FROM plots;");
+                                        obj2.Read();
+                                        prevID = obj2.GetInt32(0);
+                                        break;
+                                    case 'P':
+                                        ObjectiveDB.RunCMD("INSERT INTO notes (val) VALUES ('" + rest + "');");
+                                        var noteid2 = ObjectiveDB.RunCMD("SELECT MAX(id) FROM notes;");
+                                        noteid2.Read();
+
+                                        ObjectiveDB.RunCMD("INSERT INTO plotsjoint (plotid,noteid) VALUES (" + prevID + "," + noteid2.GetInt32(0) + ");");
+                                        break;
+                                    case 'n':
+                                        ObjectiveDB.RunCMD("INSERT INTO paragraphs (para) VALUES ('" + rest + "');");
+                                        break;
+                                    default:
+                                        throw new NotImplementedException("Not implemented: " + first + "...");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

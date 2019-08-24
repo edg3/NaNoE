@@ -48,6 +48,7 @@
             this.createNewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportDocXToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importnneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.numStart)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -209,7 +210,8 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.createNewToolStripMenuItem,
-            this.openToolStripMenuItem});
+            this.openToolStripMenuItem,
+            this.importnneToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -234,6 +236,13 @@
             this.exportDocXToolStripMenuItem.Size = new System.Drawing.Size(84, 20);
             this.exportDocXToolStripMenuItem.Text = "Export DocX";
             this.exportDocXToolStripMenuItem.Click += new System.EventHandler(this.ExportDocXToolStripMenuItem_Click);
+            // 
+            // importnneToolStripMenuItem
+            // 
+            this.importnneToolStripMenuItem.Name = "importnneToolStripMenuItem";
+            this.importnneToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.importnneToolStripMenuItem.Text = "Import .nne";
+            this.importnneToolStripMenuItem.Click += new System.EventHandler(this.ImportnneToolStripMenuItem_Click);
             // 
             // FormMain
             // 
@@ -291,6 +300,7 @@
         private System.Windows.Forms.ToolStripMenuItem createNewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportDocXToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem importnneToolStripMenuItem;
     }
 }
 
