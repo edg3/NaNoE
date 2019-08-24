@@ -35,7 +35,12 @@ namespace NaNoE
                 _content = value;
 
                 // First content = ID, perhaps move to create?
-                if (ParagraphID == -1) ParagraphID = ObjectiveDB.RunCMD("SELECT id FROM paragraphs WHERE para = '" + Content + "';").GetInt32(0);
+                if (ParagraphID == -1)
+                {
+                    var answer = ObjectiveDB.RunCMD("SELECT id FROM paragraphs WHERE para = '" + Content + "';");
+                    answer.Read();
+                    ParagraphID = answer.GetInt32(0);
+                }
             }
         }
         public List<string> Edits { get; internal set; }

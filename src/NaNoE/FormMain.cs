@@ -162,17 +162,8 @@ namespace NaNoE
 
             List<string> lines = new List<string>();
 
-            int chapterNum = 0;
-            try // TODO: this may need adjustments
-            {
-                chapterNum =
-                    _novel.GroupBy(x => x,
-                                   StringComparer.InvariantCultureIgnoreCase)
-                          .ToDictionary(x => x.Key, x => x.Count())
-                          ["[chapter]"];
-            }
-            catch { /* Opinions needed, this feels filthy */ }
-
+            lblParagraphCount.Text = "P: " + ObjectiveDB.CountParagraphs().ToString();
+            
             if (_novel.Count > 5)
             {
                 for (int i = -5; i < 0; i++)
@@ -193,7 +184,7 @@ namespace NaNoE
             {
                 switch (lines[i])
                 {
-                    case "[chapter]": midPoint += "<hr /><div><b>" + chapterNum.ToString() + "</b> [ <i><a href=\"]" + (_novel.Count - 5 + i).ToString() + "\">Del</a></i> ]</div><br /><br />"; break;
+                    case "[chapter]": midPoint += "<hr /><div><b>" + /*ObjectiveDB..ToString() +*/ "</b> [ <i><a href=\"]" + (_novel.Count - 5 + i).ToString() + "\">Del</a></i> ]</div><br /><br />"; break;
                     // TODO: fix bug on next line for how it works - if you start a novel it doesnt fit logic for the first few lines
                     //        - it starts on a negative number
                     default: midPoint += "&nbsp;<i>" + ((_novel.Count < 5) ? i + 1 : _novel.Count - 4 + i).ToString() + "</i>&nbsp;&nbsp;<div>" + lines[i] + "&nbsp;&nbsp[ <i><a href=\"[" + (_novel.Count - 5 + i).ToString() + "\">Edit</a>,&nbsp;<a href=\"]" + (_novel.Count - 5 + i).ToString() + "\">Del</a></i> ]</div><br />"; break;
@@ -251,7 +242,7 @@ namespace NaNoE
         // TODO: This may need better writing
         public void UpdateParagraphCount()
         {
-            lblParagraphCount.Text = "P: " + (rtbInput.Text.Split(' ')).Length.ToString();
+            lblParagraphCount.Text = "P: " + ObjectiveDB.CountParagraphs();
         }
 
         /// <summary>
@@ -601,7 +592,11 @@ namespace NaNoE
                     // delete
                     var removal = e.Url.AbsolutePath.ToString().Remove(0, 1);
                     int i = int.Parse(removal);
-                    _novel.RemoveAt(i);
+
+                    var para = _novel[i];
+                    ObjectiveDB.RunCMD("DELETE FROM paragraphs WHERE para = '" + para.Replace("'", "''") + "';");
+                    UpdateNovelCount();
+                    WebShowNovel();
                     
                     MessageBox.Show("Item deleted.");
                 }

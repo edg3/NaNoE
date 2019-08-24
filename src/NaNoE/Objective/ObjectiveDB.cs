@@ -53,9 +53,7 @@ namespace NaNoE.Objective
         private static Thread threadUsed { get; set; }
         public static void DBCount()
         {
-            if (threadUsed != null) threadUsed.Abort();
-            threadUsed = new Thread(new ThreadStart(CountWords));
-            threadUsed.Start();
+            CountWords(); // Error
         }
 
         private static void CountWords()
@@ -88,6 +86,17 @@ namespace NaNoE.Objective
             var reader = cmd.ExecuteReader();
 
             return reader;
+        }
+
+        internal static int CountParagraphs()
+        {
+            var val = RunCMD("SELECT count(id) FROM paragraphs WHERE para != '[chapter]';");
+            if (val != null)
+            {
+                val.Read();
+                return val.GetInt32(0);
+            }
+            return -1;
         }
     }
 }
