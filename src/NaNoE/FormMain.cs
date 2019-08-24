@@ -115,6 +115,7 @@ namespace NaNoE
         // Generates the last 5 paragraphs we inputted
         private void WebShowNovel()
         {
+            // Note: this is flawed logic, it might take long with a bigger DB
             ObjectiveDB.DBCount();
 
             List<string> lines = new List<string>();
