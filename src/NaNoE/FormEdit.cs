@@ -37,7 +37,7 @@ namespace NaNoE
                 // First content = ID, perhaps move to create?
                 if (ParagraphID == -1)
                 {
-                    var answer = ObjectiveDB.RunCMD("SELECT id FROM paragraphs WHERE para = '" + Content + "';");
+                    var answer = ObjectiveDB.RunCMD("SELECT id FROM paragraphs WHERE para = '" + Content.Replace("'","''") + "';");
                     answer.Read();
                     ParagraphID = answer.GetInt32(0);
                 }
@@ -72,7 +72,7 @@ namespace NaNoE
 
         private void butDone_Click(object sender, EventArgs e)
         {
-            if (ParagraphID != -1) ObjectiveDB.RunCMD("UPDATE paragraphs SET para = '" + Content + "' WHERE id = " + ParagraphID + ";");
+            if (ParagraphID != -1) ObjectiveDB.RunCMD("UPDATE paragraphs SET para = '" + Content.Replace("'", "''") + "' WHERE id = " + ParagraphID + ";");
             this.Close();
         }
 

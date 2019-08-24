@@ -317,7 +317,7 @@ namespace NaNoE
                             {
                                 _helpers.Add(txtContainsAdd.Text, new List<string>());
                                 lstContains.Items.Add(txtContainsAdd.Text);
-                                ObjectiveDB.RunCMD("INSERT INTO helpers (name) VALUES ('" + txtContainsAdd.Text +"');");
+                                ObjectiveDB.RunCMD("INSERT INTO helpers (name) VALUES ('" + txtContainsAdd.Text.Replace("'", "''") + "');");
                                 txtContainsAdd.Text = "";
                             }
                             else
@@ -331,7 +331,7 @@ namespace NaNoE
                             {
                                 _plot.Add(txtContainsAdd.Text, new List<string>());
                                 lstContains.Items.Add(txtContainsAdd.Text);
-                                ObjectiveDB.RunCMD("INSERT INTO plots (name)  VALUES ('" + txtContainsAdd.Text + "');");
+                                ObjectiveDB.RunCMD("INSERT INTO plots (name)  VALUES ('" + txtContainsAdd.Text.Replace("'", "''") + "');");
                                 txtContainsAdd.Text = "";
                             }
                             else
@@ -407,8 +407,8 @@ namespace NaNoE
                 case "Helpers":
                     {
                         items.Add(txtContainerAdd.Text);
-                        ObjectiveDB.RunCMD("INSERT INTO notes (val) VALUES ('" + txtContainerAdd.Text + "');");
-                        var ans1 = ObjectiveDB.RunCMD("SELECT * FROM helpers WHERE name = '" + (string)lstContains.SelectedItem + "';");
+                        ObjectiveDB.RunCMD("INSERT INTO notes (val) VALUES ('" + txtContainerAdd.Text.Replace("'", "''") + "');");
+                        var ans1 = ObjectiveDB.RunCMD("SELECT * FROM helpers WHERE name = '" + lstContains.SelectedItem.ToString().Replace("'", "''") + "';");
                         ans1.Read();
                         var ans2 = ObjectiveDB.RunCMD("SELECT max(id) FROM notes;");
                         ans2.Read();
@@ -419,8 +419,8 @@ namespace NaNoE
                 case "Plot":
                     {
                         items.Add(txtContainerAdd.Text);
-                        ObjectiveDB.RunCMD("INSERT INTO notes (val) VALUES ('" + txtContainerAdd.Text + "');");
-                        var ans1 = ObjectiveDB.RunCMD("SELECT * FROM plots WHERE name = '" + (string)lstContains.SelectedItem + "';");
+                        ObjectiveDB.RunCMD("INSERT INTO notes (val) VALUES ('" + txtContainerAdd.Text.Replace("'", "''") + "');");
+                        var ans1 = ObjectiveDB.RunCMD("SELECT * FROM plots WHERE name = '" + lstContains.SelectedItem.ToString().Replace("'", "''") + "';");
                         ans1.Read();
                         var ans2 = ObjectiveDB.RunCMD("SELECT max(id) FROM notes;");
                         ans2.Read();
@@ -444,7 +444,7 @@ namespace NaNoE
                 paragraph = paragraph.Trim(new char[] { ' ', '\n' });
                 _novel.Add(paragraph);
                 rtbInput.Text = "";
-                ObjectiveDB.RunCMD("INSERT INTO paragraphs (para) VALUES ('" + paragraph + "');");
+                ObjectiveDB.RunCMD("INSERT INTO paragraphs (para) VALUES ('" + paragraph.Replace("'", "''") + "');");
                 WebShowNovel();
                 UpdateNovelCount();
             }
@@ -471,27 +471,38 @@ namespace NaNoE
             }
 
             MessageBox.Show("Warning: This could take long if you leave this process till too late...");
-            
-            for (int i = (int)(numStart.Value); i < _novel.Count; i++)
+
+            var paragraphs = ObjectiveDB.RunCMD("SELECT * FROM paragraphs WHERE para != '[chapter]';");
+            if (paragraphs != null)
             {
-                if (_novel[i] != "[chapter]")
+                if (paragraphs.Read())
                 {
-                    // Thoughts: this can cause memory waste I suppose
-                    var editOpts = NaNoEdit.Process(_novel[i]);
-                    if (editOpts.Count > 0)
+                    int p = 0;
+                    do
                     {
-                        FormEdit NaNoEditForm = new FormEdit();
-                        NaNoEditForm.Text += " : p" + (i + 1).ToString();
-                        NaNoEditForm.Content = _novel[i];
-                        NaNoEditForm.Edits = editOpts;
-                        var dialogResult = NaNoEditForm.ShowDialog();
+                        // Thoughts: this can cause memory waste I suppose
+                        var body = paragraphs.GetString(1);
+                        var editOpts = NaNoEdit.Process(body);
+                        ++p;
+                        if (editOpts.Count > 0)
+                        {
+                            FormEdit NaNoEditForm = new FormEdit();
+                            NaNoEditForm.Text += " : p" + p.ToString();
+                            NaNoEditForm.Content = body;
+                            NaNoEditForm.Edits = editOpts;
+                            var dialogResult = NaNoEditForm.ShowDialog();
 
-                        // Editing 'done' or just closed
-                        _novel[i] = NaNoEditForm.Content;
-
-                        // Just figured I dont mind
-                        if (NaNoEditForm.Continue == false) i = _novel.Count;
+                            // Editing 'done' or just closed
+                            if (body != NaNoEditForm.Content)
+                            {
+                                var body2 = body.Replace("'", "''");
+                                var id = ObjectiveDB.RunCMD("SELECT id FROM paragraphs WHERE para = '" + body2 + "';");
+                                id.Read();
+                                ObjectiveDB.RunCMD("UPDATE paragraphs SET para = '" + NaNoEditForm.Content.Replace("'", "''") + "' WHERE id = " + id.GetInt32(0));
+                            }
+                        }
                     }
+                    while (paragraphs.Read());
                 }
             }
 
@@ -647,9 +658,9 @@ namespace NaNoE
                         // This can be bugged if same text in 2 notes?
                         var selection = lstContains.SelectedItem.ToString();
 
-                        var helper = ObjectiveDB.RunCMD("SELECT * FROM helpers WHERE name = '" + selection + "';");
+                        var helper = ObjectiveDB.RunCMD("SELECT * FROM helpers WHERE name = '" + selection.Replace("'","''") + "';");
                         helper.Read();
-                        var note = ObjectiveDB.RunCMD("SELECT * FROM notes WHERE val = '" + item + "';");
+                        var note = ObjectiveDB.RunCMD("SELECT * FROM notes WHERE val = '" + item.Replace("'", "''") + "';");
                         note.Read();
 
                         var helperid = helper.GetInt32(0);
@@ -662,9 +673,9 @@ namespace NaNoE
                     {
                         var selection = lstContains.SelectedItem.ToString();
 
-                        var plotr = ObjectiveDB.RunCMD("SELECT * FROM plots WHERE name = '" + selection + "';");
+                        var plotr = ObjectiveDB.RunCMD("SELECT * FROM plots WHERE name = '" + selection.Replace("'", "''") + "';");
                         plotr.Read();
-                        var note = ObjectiveDB.RunCMD("SELECT * FROM notes WHERE val = '" + item + "';");
+                        var note = ObjectiveDB.RunCMD("SELECT * FROM notes WHERE val = '" + item.Replace("'", "''") + "';");
                         note.Read();
 
                         var plotid = plotr.GetInt32(0);
