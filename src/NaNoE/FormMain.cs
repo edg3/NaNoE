@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Xceed.Words.NET;
 
@@ -114,6 +115,8 @@ namespace NaNoE
         // Generates the last 5 paragraphs we inputted
         private void WebShowNovel()
         {
+            ObjectiveDB.DBCount();
+
             List<string> lines = new List<string>();
 
             int chapterNum = 0;
@@ -155,6 +158,8 @@ namespace NaNoE
             }
 
             webBook.DocumentText = BGStyle + midPoint;
+
+            lblNovelCount.Text = "Words: " + ObjectiveDB.WordCount;
         }
 
         // Clears the view of data points we added to the object - if empty there is no data
@@ -188,24 +193,15 @@ namespace NaNoE
 
         // Update the count of the novel
         // Note: consider this can keep numbers and symbols as words
-        int _updateCountNovel = 0;
-        int _updateCountNovelTo = 0;
         public void UpdateNovelCount()
         {
-            if (_novel.Count > _updateCountNovelTo)
-            {
-                for (int q = _updateCountNovelTo; q < _novel.Count; q++)
-                {
-                    var s = _novel[q];
-                    if (s != "[chapter]")
-                    {
-                        var t = s.Split(' ');
-                        _updateCountNovel += t.Length; // TODO: potentially consider words without space e.g. 'end.then the'
-                    }
-                }
-                _updateCountNovelTo = _novel.Count;
-                lblNovelCount.Text = "Words: " + _updateCountNovel.ToString();
-            }
+            Thread t = new Thread(new ThreadStart(UpdateNovelCountThread));
+            t.Start();
+        }
+
+        private void UpdateNovelCountThread()
+        {
+            ObjectiveDB.DBCount();
         }
 
         // Update the count within the paragraph
@@ -442,8 +438,6 @@ namespace NaNoE
                 }
             }
 
-            _updateCountNovel = 0;
-            _updateCountNovelTo = 0;
             UpdateNovelCount();
             WebShowNovel();
 
@@ -646,8 +640,6 @@ namespace NaNoE
                     }
                 }
 
-                _updateCountNovel = 0;
-                _updateCountNovelTo = 0;
                 UpdateNovelCount();
                 WebShowNovel();
             }
@@ -671,8 +663,6 @@ namespace NaNoE
                     MessageBox.Show("We didn't delete that item.");
                 }
 
-                _updateCountNovel = 0;
-                _updateCountNovelTo = 0;
                 UpdateNovelCount();
                 WebShowNovel();
             }

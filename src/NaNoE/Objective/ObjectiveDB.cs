@@ -4,6 +4,7 @@ using System.Data.SQLite;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace NaNoE.Objective
@@ -24,7 +25,7 @@ namespace NaNoE.Objective
                 Connection.Close();
             }
 
-            Connection = new SQLiteConnection("Data Source=" + fileName +"; Version=3;");
+            Connection = new SQLiteConnection("Data Source=" + fileName + "; Version=3;");
             Connection.Open();
 
             Name = fileName;
@@ -42,7 +43,41 @@ namespace NaNoE.Objective
 
                 RunCMD("CREATE TABLE plotsjoint (id integer primary key AUTOINCREMENT, plotid int, noteid int)");
                 RunCMD("CREATE TABLE helpersjoint (id integer primary key AUTOINCREMENT, helperid int, noteid int)");
+
+                DBCount();
             }
+        }
+
+
+        public static int WordCount { get; private set; }
+        private static Thread threadUsed { get; set; }
+        public static void DBCount()
+        {
+            if (threadUsed != null) threadUsed.Abort();
+            threadUsed = new Thread(new ThreadStart(CountWords));
+            threadUsed.Start();
+        }
+
+        private static void CountWords()
+        {
+            WordCount = 0;
+            var paras = RunCMD("SELECT * FROM paragraphs WHERE para != '[chapter]'");
+            if (paras != null)
+            {
+                if (paras.HasRows)
+                {
+                    paras.Read();
+                    do
+                    {
+                        var para = paras.GetString(1);
+                        var split = para.Split(' ');
+                        WordCount += split.Length;
+                    }
+                    while (paras.Read());
+                }
+            }
+
+            threadUsed = null;
         }
 
         public static SQLiteDataReader RunCMD(string sql)
