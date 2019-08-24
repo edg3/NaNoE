@@ -489,15 +489,15 @@ namespace NaNoE
                             FormEdit NaNoEditForm = new FormEdit();
                             NaNoEditForm.Text += " : p" + p.ToString();
                             NaNoEditForm.Content = body;
+                            var id = ObjectiveDB.RunCMD("SELECT id FROM paragraphs WHERE para = '" + body.Replace("'","''") + "';");
+                            id.Read();
                             NaNoEditForm.Edits = editOpts;
                             var dialogResult = NaNoEditForm.ShowDialog();
 
                             // Editing 'done' or just closed
                             if (body != NaNoEditForm.Content)
                             { 
-                                var body2 = body.Replace("'", "''");
-                                var id = ObjectiveDB.RunCMD("SELECT id FROM paragraphs WHERE para = '" + body2 +"';");
-                                id.Read();
+                                var numId = id.GetInt32(0);
                                 ObjectiveDB.RunCMD("UPDATE paragraphs SET para = '" + NaNoEditForm.Content.Replace("'", "''") + "' WHERE id = " + id.GetInt32(0));
                             }
                         }
