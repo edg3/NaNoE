@@ -516,11 +516,9 @@ namespace NaNoE
         // Save a word document, was an easier option instead of pdf
         private void ExportDocX()
         {
-            throw new Exception("Not updated for DB.");
-
             // Sourced helpers: https://www.c-sharpcorner.com/article/generate-word-document-using-c-sharp/
             SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "Word Document (.docx)|.docx|All Files (*.*)|*.*";
+            sfd.Filter = "Word Document (.docx)|.docx";
             sfd.FilterIndex = 2;
             sfd.RestoreDirectory = true;
 
@@ -537,10 +535,20 @@ namespace NaNoE
                     _format_tail.Size = 11;
 
                     int chCount = 0;
-                    foreach (var line in _novel)
+
+                    var paragraphs = ObjectiveDB.RunCMD("SELECT * FROM paragraphs;");
+                    if (paragraphs != null)
                     {
-                        if (line != "[chapter]") doc.InsertParagraph("\t" + line, false, _format_tail);
-                        else doc.InsertParagraph("Ch. " + (++chCount).ToString(), false, _format_head);
+                        if (paragraphs.Read())
+                        {
+                            do
+                            {
+                                var line = paragraphs.GetString(1);
+                                if (line != "[chapter]") doc.InsertParagraph("\t" + line, false, _format_tail);
+                                else doc.InsertParagraph("Ch. " + (++chCount).ToString(), false, _format_head);
+                            }
+                            while (paragraphs.Read());
+                        }
                     }
 
                     doc.Save();
