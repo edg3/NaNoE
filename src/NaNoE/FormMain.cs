@@ -394,6 +394,8 @@ namespace NaNoE
                 return;
             }
 
+            
+
             // TODO: fix user not doing correct things here.
             Dictionary<string, List<string>> _content = null;
             switch (lstOptions.SelectedItem)
@@ -408,14 +410,34 @@ namespace NaNoE
                     } break;
             }
             var items = _content[(string)lstContains.SelectedItem];
-            items.Add(txtContainerAdd.Text);
-            ObjectiveDB.RunCMD("INSERT INTO notes (val) VALUES ('" + txtContainerAdd.Text + "');");
-            var ans1 = ObjectiveDB.RunCMD("SELECT * FROM helpers WHERE name = '" + (string)lstContains.SelectedItem +"';");
-            ans1.Read();
-            var ans2 = ObjectiveDB.RunCMD("SELECT max(id) FROM notes;");
-            ans2.Read();
-            ObjectiveDB.RunCMD("INSERT INTO helpersjoint (helperid, noteid) VALUES (" + ans1.GetInt32(0) + ", " + ans2.GetInt32(0) + ");");
-            txtContainerAdd.Text = "";
+
+            switch (lstOptions.SelectedItem)
+            {
+                case "Helpers":
+                    {
+                        items.Add(txtContainerAdd.Text);
+                        ObjectiveDB.RunCMD("INSERT INTO notes (val) VALUES ('" + txtContainerAdd.Text + "');");
+                        var ans1 = ObjectiveDB.RunCMD("SELECT * FROM helpers WHERE name = '" + (string)lstContains.SelectedItem + "';");
+                        ans1.Read();
+                        var ans2 = ObjectiveDB.RunCMD("SELECT max(id) FROM notes;");
+                        ans2.Read();
+                        ObjectiveDB.RunCMD("INSERT INTO helpersjoint (helperid, noteid) VALUES (" + ans1.GetInt32(0) + ", " + ans2.GetInt32(0) + ");");
+                        txtContainerAdd.Text = "";
+                    }
+                    break;
+                case "Plot":
+                    {
+                        items.Add(txtContainerAdd.Text);
+                        ObjectiveDB.RunCMD("INSERT INTO notes (val) VALUES ('" + txtContainerAdd.Text + "');");
+                        var ans1 = ObjectiveDB.RunCMD("SELECT * FROM plots WHERE name = '" + (string)lstContains.SelectedItem + "';");
+                        ans1.Read();
+                        var ans2 = ObjectiveDB.RunCMD("SELECT max(id) FROM notes;");
+                        ans2.Read();
+                        ObjectiveDB.RunCMD("INSERT INTO plotsjoint (plotid, noteid) VALUES (" + ans1.GetInt32(0) + ", " + ans2.GetInt32(0) + ");");
+                        txtContainerAdd.Text = "";
+                    }
+                    break;
+            }
 
             _selected_items = items;
 
