@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NaNoE.Objective;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,13 +13,31 @@ namespace NaNoE
 {
     public partial class FormEdit : Form
     {
+        public int ParagraphID { get; private set; }
+
         public FormEdit()
         {
             InitializeComponent();
             Continue = true;
+
+            ParagraphID = -1;
         }
 
-        public string Content { get; internal set; }
+        private string _content = "";
+        public string Content
+        {
+            get
+            {
+                return _content;
+            }
+            internal set
+            {
+                _content = value;
+
+                // First content = ID, perhaps move to create?
+                if (ParagraphID == -1) ParagraphID = ObjectiveDB.RunCMD("SELECT id FROM paragraphs WHERE para = '" + Content + "';").GetInt32(0);
+            }
+        }
         public List<string> Edits { get; internal set; }
         public bool Continue { get; internal set; }
 
@@ -48,11 +67,13 @@ namespace NaNoE
 
         private void butDone_Click(object sender, EventArgs e)
         {
+            if (ParagraphID != -1) ObjectiveDB.RunCMD("UPDATE paragraphs SET para = '" + Content + "' WHERE id = " + ParagraphID + ";");
             this.Close();
         }
 
         private void butStopForNow_Click(object sender, EventArgs e)
         {
+            if (ParagraphID != -1) ObjectiveDB.RunCMD("UPDATE paragraphs SET para = '" + Content + "' WHERE id = " + ParagraphID + ";");
             Continue = false;
             this.Close();
         }

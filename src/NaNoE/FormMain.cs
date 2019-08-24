@@ -86,7 +86,27 @@ namespace NaNoE
         }
 
         Dictionary<string, List<string>> _plot = new Dictionary<string, List<string>>();
-        List<string> _novel = new List<string>();
+        List<string> _novel
+        {
+            get
+            {
+                List<string> ans = new List<string>();
+                var novelparagraphs = ObjectiveDB.RunCMD("SELECT * FROM paragraphs ORDER BY id DESC LIMIT 5;");
+                if (novelparagraphs != null)
+                {
+                    if (novelparagraphs.Read())
+                    {
+                        do
+                        {
+                            ans.Add(novelparagraphs.GetString(1));
+                        }
+                        while (novelparagraphs.Read());
+                    }
+                }
+                ans.Reverse();
+                return ans;
+            }
+        }
         
         /// <summary>
         /// Interface Refreshing Code
@@ -371,6 +391,7 @@ namespace NaNoE
                 paragraph = paragraph.Trim(new char[] { ' ', '\n' });
                 _novel.Add(paragraph);
                 rtbInput.Text = "";
+                ObjectiveDB.RunCMD("INSERT INTO paragraphs (para) VALUES ('" + paragraph + "');");
                 WebShowNovel();
                 UpdateNovelCount();
             }
@@ -382,6 +403,7 @@ namespace NaNoE
         private void butStartChapter_Click(object sender, EventArgs e)
         {
             _novel.Add("[chapter]");
+            ObjectiveDB.RunCMD("INSERT INTO paragraphs (para) VALUES ('[chapter]');");
             WebShowNovel();
         }
 
@@ -583,7 +605,7 @@ namespace NaNoE
                 ObjectiveDB.TestNew();
 
                 // _helpers = new Dictionary<string, List<string>>();
-                _novel = new List<string>();
+                // _novel = new List<string>();
                 _plot = new Dictionary<string, List<string>>();
 
                 ClearWeb();
