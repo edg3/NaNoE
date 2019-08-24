@@ -718,8 +718,20 @@ namespace NaNoE
                     }
                     else // Plot
                     {
+                        var selection = lstContains.SelectedItem.ToString();
 
+                        var plotr = ObjectiveDB.RunCMD("SELECT * FROM plots WHERE name = '" + selection + "';");
+                        plotr.Read();
+                        var note = ObjectiveDB.RunCMD("SELECT * FROM notes WHERE val = '" + item + "';");
+                        note.Read();
+
+                        var plotid = plotr.GetInt32(0);
+                        var noteid = note.GetInt32(0);
+
+                        ObjectiveDB.RunCMD("DELETE FROM notes WHERE id = " + noteid.ToString() + ";");
+                        ObjectiveDB.RunCMD("DELETE FROM plotsjoint WHERE plotid = " + plotid + " AND noteid = " + noteid + ";");
                     } 
+
 
                     MessageBox.Show("Item deleted.");
                 }
