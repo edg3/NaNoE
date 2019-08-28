@@ -175,6 +175,53 @@ namespace NaNoE
                     if (para.Contains("very " + k)) ans.Add(" - very " + k + " => " + veryDict[k] + " @ " + para.IndexOf("very " + k));
                 }
             }
+            // https://dianaurban.com/words-you-should-cut-from-your-writing-immediately
+            if (para.Contains(" really ")) ans.Add("Words we should delete: really - unwanted modifier, 'he ran very quickly along...' vs. 'he sprinted along...'");
+            if (para.Contains(" very ")) ans.Add("Words we should delete: very - unwanted modifier, 'he ran very quickly along...' vs. 'he sprinted along...'");
+            if (para.Contains(" that ")) ans.Add("Words we should delete: that - not needed, 'this is the very important blog post that I read' vs. 'this is the important blog post I read'.");
+            if (para.Contains(" just ")) ans.Add("Words we should delete: just - not needed, try take it out, its very repetitive use usually");
+            if (para.Contains(" then ")) ans.Add("Words we should delete: then - not needed, '... the sidewalk. then bob pointed and laughed. ...' vs. '... the sidewalk. bob pointed and laughed. ...'");
+            // if (para.Contains(" totally ")) ans.Add("Words we should delete: totally"); // note: we have the -ly clause?
+            // if (para.Contains(" completely ")) ans.Add("Words we should delete: completely");
+            // if (para.Contains(" absolutely ")) ans.Add("Words we should delete: absolutely");
+            // if (para.Contains(" literally ")) ans.Add("Words we should delete: literally");
+            // if (para.Contains(" definitely ")) ans.Add("Words we should delete: definitely");
+            // if (para.Contains(" certainly ")) ans.Add("Words we should delete: certainly");
+            // if (para.Contains(" probably ")) ans.Add("Words we should delete: probably");
+            // if (para.Contains(" actually ")) ans.Add("Words we should delete: actually");
+            // if (para.Contains(" basically ")) ans.Add("Words we should delete: basically");
+            // if (para.Contains(" virtually ")) ans.Add("Words we should delete: virtually");
+            if (para.Contains(" start ")) ans.Add("Words we should delete: start - most of the time not needed, only in interuptions usually...?");
+            if (para.Contains(" begin ")) ans.Add("Words we should delete: begin - most of the time not needed, only in interuptions usually...?");
+            if (para.Contains(" began ")) ans.Add("Words we should delete: began - most of the time not needed, only in interuptions usually...?");
+            if (para.Contains(" begun ")) ans.Add("Words we should delete: begun - most of the time not needed, only in interuptions usually...?");
+            if (para.Contains(" rather ")) ans.Add("Words we should delete: rather - it isn't 'rather dull' its 'dull'");
+            if (para.Contains(" quite ")) ans.Add("Words we should delete: quite - it isn't 'rather dull' its 'dull'");
+            if (para.Contains(" somewhat ")) ans.Add("Words we should delete: somewhat - it isn't 'rather dull' its 'dull'");
+            if (para.Contains(" somehow ")) ans.Add("Words we should delete: somehow - it isn't 'rather dull' its 'dull'");
+            if (para.Contains(" said ") || para.Contains(" replied ") || para.Contains(" asked "))
+            {
+                ans.Add("Words we should adjust: dialogue tags - rather remove them, we dont need to tell the reader they are talking due to \" tags?");
+                ans.Add(" - perhaps opt for surrounding dialogue with actions like '... last week\". John slumped onto his chair. \"I didn't... ");
+                ans.Add(" - the note here is allow the reader to rely on tracking it themselves");
+            }
+            if (para.Contains(" down ")) ans.Add("Words we should delete: down - I sat down on the floor could be I sat on the floor");
+            if (para.Contains(" up ")) ans.Add("Words we should delete: up - I stood up could be I stood");
+            if (para.Contains(" wonder ")) ans.Add("Words we should delete: wonder - we have the reader listening to thoughts, why wonder? rather let the reader know");
+            if (para.Contains(" ponder ")) ans.Add("Words we should delete: ponder - we have the reader listening to thoughts, why wonder? rather let the reader know");
+            if (para.Contains(" think ")) ans.Add("Words we should delete: think - we have the reader listening to thoughts, why wonder? rather let the reader know");
+            if (para.Contains(" though ")) ans.Add("Words we should delete: though - we have the reader listening to thoughts, why wonder? rather let the reader know");
+            if (para.Contains(" feel ")) ans.Add("Words we should delete: feel - we have the reader listening to thoughts, why wonder? rather let the reader know");
+            if (para.Contains(" felt ")) ans.Add("Words we should delete: felt - we have the reader listening to thoughts, why wonder? rather let the reader know");
+            if (para.Contains(" understand ")) ans.Add("Words we should delete: understand - we have the reader listening to thoughts, why wonder? rather let the reader know");
+            if (para.Contains(" realize ")) ans.Add("Words we should delete: realize - we have the reader listening to thoughts, why wonder? rather let the reader know");
+            if (para.Contains(" breath ")) ans.Add("Words we should delete: breath - look at emotional thesaurus to try replace this");
+            if (para.Contains(" breathe ")) ans.Add("Words we should delete: breath - look at emotional thesaurus to try replace this");
+            if (para.Contains(" inhale ")) ans.Add("Words we should delete: inhale - look at emotional thesaurus to try replace this");
+            if (para.Contains(" exhale ")) ans.Add("Words we should delete: exhale - look at emotional thesaurus to try replace this");
+            if (para.Contains(" shrug ")) ans.Add("Words we should delete: shrug - authors use this too frequently, minimise it");
+            if (para.Contains(" nod ")) ans.Add("Words we should delete: nod - authors use this too frequently, minimise it");
+            if (para.Contains(" reach ")) ans.Add("Words we should delete: reach - authors use this too frequently, minimise it");
 
 
             // if (para.Contains("")) ans.Add("[" + para.IndexOf("") + "] Rather minify use '' ");
