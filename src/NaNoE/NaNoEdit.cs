@@ -163,7 +163,7 @@ namespace NaNoE
             if (lowpara.Contains("  therefore "))   ans.Add("[" + lowpara.IndexOf("therefore ") + "] Rather minify use 'therefore', sentences shouldnt start with it");
             if (lowpara.Contains("  however "))     ans.Add("[" + lowpara.IndexOf("however ") + "] Rather minify use 'however', sentences shouldnt start with it");
             if (lowpara.Contains("  because "))     ans.Add("[" + lowpara.IndexOf("because ") + "] Rather minify use 'because', sentences shouldn't start with it");
-            if (lowpara.Contains("  and "))         ans.Add("[" + lowpara.IndexOf("and ") + "] Rather minify use 'and', sentences shouldn't start with it");
+            if (lowpara.Contains("  and "))         ans.Add("[" + lowpara.IndexOf("  and ") + "] Rather minify use 'and', sentences shouldn't start with it");
             if (lowpara.Contains("  but "))         ans.Add("[" + lowpara.IndexOf("but ") + "] Rather minify use 'but', sentences shouldn't start with it");
             // Very Accurate = exact
             if (para.Contains(" very "))
