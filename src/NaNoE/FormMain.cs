@@ -292,7 +292,6 @@ namespace NaNoE
                     switch (txtContainsAdd.Text[i])
                     {
                         case '\t':
-                        case ' ':
                         case '\n':
                             // This is attempting to take away unwanted spaces from input like whitespace or tabs only
                             // Though they can more or less be used

@@ -47,8 +47,8 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createNewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportDocXToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importnneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportDocXToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.numStart)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -77,7 +77,7 @@
             // txtContainsAdd
             // 
             this.txtContainsAdd.Location = new System.Drawing.Point(592, 66);
-            this.txtContainsAdd.MaxLength = 10;
+            this.txtContainsAdd.MaxLength = 200;
             this.txtContainsAdd.Name = "txtContainsAdd";
             this.txtContainsAdd.Size = new System.Drawing.Size(374, 20);
             this.txtContainsAdd.TabIndex = 4;
@@ -104,6 +104,7 @@
             // txtContainerAdd
             // 
             this.txtContainerAdd.Location = new System.Drawing.Point(592, 531);
+            this.txtContainerAdd.MaxLength = 600;
             this.txtContainerAdd.Name = "txtContainerAdd";
             this.txtContainerAdd.Size = new System.Drawing.Size(374, 20);
             this.txtContainerAdd.TabIndex = 7;
@@ -230,19 +231,19 @@
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
-            // exportDocXToolStripMenuItem
-            // 
-            this.exportDocXToolStripMenuItem.Name = "exportDocXToolStripMenuItem";
-            this.exportDocXToolStripMenuItem.Size = new System.Drawing.Size(84, 20);
-            this.exportDocXToolStripMenuItem.Text = "Export DocX";
-            this.exportDocXToolStripMenuItem.Click += new System.EventHandler(this.ExportDocXToolStripMenuItem_Click);
-            // 
             // importnneToolStripMenuItem
             // 
             this.importnneToolStripMenuItem.Name = "importnneToolStripMenuItem";
             this.importnneToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.importnneToolStripMenuItem.Text = "Import .nne";
             this.importnneToolStripMenuItem.Click += new System.EventHandler(this.ImportnneToolStripMenuItem_Click);
+            // 
+            // exportDocXToolStripMenuItem
+            // 
+            this.exportDocXToolStripMenuItem.Name = "exportDocXToolStripMenuItem";
+            this.exportDocXToolStripMenuItem.Size = new System.Drawing.Size(84, 20);
+            this.exportDocXToolStripMenuItem.Text = "Export DocX";
+            this.exportDocXToolStripMenuItem.Click += new System.EventHandler(this.ExportDocXToolStripMenuItem_Click);
             // 
             // FormMain
             // 
