@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -86,6 +87,19 @@ namespace NaNoE
         private void RtbParagraph_SelectionChanged(object sender, EventArgs e)
         {
             lblPosition.Text = "Position: " + rtbParagraph.SelectionStart.ToString();
+        }
+
+        private void LstProblems_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lstProblems != null)
+            {
+                if (lstProblems.SelectedIndex != -1)
+                {
+                    var selected = lstProblems.SelectedItem.ToString();
+                    var pos = Regex.Match(selected, @"\[(?<numbers>)\]");
+                    int a = 123;
+                }
+            }
         }
     }
 }

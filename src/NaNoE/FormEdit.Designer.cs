@@ -43,6 +43,7 @@
             this.lstProblems.Name = "lstProblems";
             this.lstProblems.Size = new System.Drawing.Size(782, 186);
             this.lstProblems.TabIndex = 0;
+            this.lstProblems.SelectedIndexChanged += new System.EventHandler(this.LstProblems_SelectedIndexChanged);
             // 
             // rtbParagraph
             // 

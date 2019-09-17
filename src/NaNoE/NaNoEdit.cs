@@ -87,12 +87,12 @@ namespace NaNoE
 
             // Side note: this is definitely going to find things that shouldn't be in this - like portions of other words. "is" is in "sister" for example
             // [ replace 'to be' and 'to have' ]
-            if (lowpara.Contains(" to be ")
-             || lowpara.Contains(" to have ")) ans.Add("[" + lowpara.IndexOf(" to ") +"]replace 'to be' and 'to have' with something");
+            if (lowpara.Contains(" to be "))        ans.Add("[" + lowpara.IndexOf(" to be ") + "] replace 'to be' with something");
+            if (lowpara.Contains(" to have "))      ans.Add("[" + lowpara.IndexOf(" to have ") +"] replace 'to have' with something");
             // [ ly = 'He quickly ran across the park.' fixed to 'He darted across the park.' ]
-            if (lowpara.Contains("ly "))           ans.Add("[" + lowpara.IndexOf("ly ") + "]replace '-ly' more descriptive: e.g. not 'her eyes were deadly', rather 'with an evil glare she looked at me'");
+            if (lowpara.Contains("ly "))            ans.Add("[" + lowpara.IndexOf("ly ") + "] replace '-ly' more descriptive: e.g. not 'her eyes were deadly', rather 'with an evil glare she looked at me'");
             /// [ ing = 'I turned and Mary was glaring at me.' fixed to 'I turned and Mary glared.' ]
-            if (lowpara.Contains("ing "))          ans.Add("[" + lowpara.IndexOf("ing ") + "]replace '-ing' words with minimal words. e.g. 'she is running daily now' with 'she runs every morning now'");
+            if (lowpara.Contains("ing "))           ans.Add("[" + lowpara.IndexOf("ing ") + "] replace '-ing' words with minimal words. e.g. 'she is running daily now' with 'she runs every morning now'");
             // [ -> Begin, begins, began, beginning, start, starts, started, starting = 'he started to run' fixed by 'he ran' ]
             if (lowpara.Contains(" begin "))         ans.Add("[" + lowpara.IndexOf("begin ") +"] Rather don't use 'begin', simplify it");
             if (lowpara.Contains(" began "))         ans.Add("[" + lowpara.IndexOf("began ") +"] Rather don't use 'began', simplify it");
