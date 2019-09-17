@@ -293,9 +293,6 @@ namespace NaNoE
                     {
                         case '\t':
                         case '\n':
-                            // This is attempting to take away unwanted spaces from input like whitespace or tabs only
-                            // Though they can more or less be used
-                            // TODO: do we still need this? Hopefully not
                             break;
                         default:
                             opt += txtContainsAdd.Text[i];
