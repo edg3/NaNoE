@@ -139,7 +139,7 @@ namespace NaNoE
             if (lowpara.Contains(" is ")) ans.Add("[" + para.IndexOf("is ") + "] Rather minify use 'is'. Write in a more active like 'sally mailed the letter' instead of 'the letter was mailed by sally'");
             if (lowpara.Contains(" are ")) ans.Add("[" + para.IndexOf("are ") + "] Rather minify use 'are'. Write in a more active like 'sally mailed the letter' instead of 'the letter was mailed by sally'");
             if (lowpara.Contains(" am ")) ans.Add("[" + para.IndexOf("am ") + "] Rather minify use 'am'. Write in a more active like 'sally mailed the letter' instead of 'the letter was mailed by sally'");
-            if (lowpara.Contains(" very ")) ans.Add("[" + para.IndexOf("very ") + "] Rather minify use 'very'. e.g. 'scientists are very excited with...' with 'scientists are excited with...' is better");
+            // if (lowpara.Contains(" very ")) ans.Add("[" + para.IndexOf("very ") + "] Rather minify use 'very'. e.g. 'scientists are very excited with...' with 'scientists are excited with...' is better");
             // https://www.skillsyouneed.com/write/cliches-to-avoid.html - portion
             if (lowpara.Contains(" in a nutshell ")) ans.Add("[" + para.IndexOf("in a nutshell ") + "] This is cliched 'in a nutshell'");
             if (lowpara.Contains(" at long last ")) ans.Add("[" + para.IndexOf("at long last ") + "] This is cliched 'at long last'");
@@ -172,7 +172,7 @@ namespace NaNoE
                 ans.Add(" - first: " + para.IndexOf(" very "));
                 foreach (var k in veryDict.Keys)
                 {
-                    if (para.Contains("very " + k)) ans.Add(" - very " + k + " => " + veryDict[k] + " @ " + para.IndexOf("very " + k));
+                    if (para.Contains("very " + k)) ans.Add("[" + para.IndexOf("very " + k) + "] - very " + k + " => " + veryDict[k]);
                 }
             }
 
@@ -180,9 +180,10 @@ namespace NaNoE
             // if (para.Contains("")) ans.Add("[" + para.IndexOf("") + "] Rather minify use '' ");
 
             var speller = RunLongSpellCheck(para);
-            if (speller != null)
+            if (speller.Count != 0)
             {
-                ans.Add("Spelling? " + speller);
+                for (int i = 0; i < speller.Count; i++)
+                    ans.Add("[Spelling] " + speller[i]);
             }
 
             // Tenses
@@ -190,7 +191,7 @@ namespace NaNoE
             {
                 if (para.Contains(k))
                 {
-                    ans.Add("Tense Check: " + k + ": ~" + para.IndexOf(k));
+                    ans.Add("[Tense Check] " + k + " [~" + para.IndexOf(k) + "]");
                 }
             }
 
@@ -212,9 +213,9 @@ namespace NaNoE
         /// Spellcheck entire novel
         /// </summary>
         /// <param name="ling">Line to check</param>
-        internal static string RunLongSpellCheck(string ling)
+        internal static List<string> RunLongSpellCheck(string ling)
         {
-            string spellErrors = "";
+            List<string> errors = new List<string>();
             var words = ling.Split(' ');
             for (int i = 0; i < words.Count(); i++)
             {
@@ -228,15 +229,11 @@ namespace NaNoE
                     {
                         if (truncated.ToUpper() != "I")
                         {
-                            spellErrors += (i + 1).ToString() + ":" + truncated + ", ";
+                            errors.Add((i + 1).ToString() + ":" + truncated);
                         }
                     }
             }
-            if (spellErrors.Length > 0)
-            {
-                return spellErrors;
-            }
-            return null;
+            return errors;
         }
     }
 }
