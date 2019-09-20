@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             this.lstOptions = new System.Windows.Forms.ListBox();
             this.lstContains = new System.Windows.Forms.ListBox();
             this.txtContainsAdd = new System.Windows.Forms.TextBox();
@@ -220,21 +221,21 @@
             // createNewToolStripMenuItem
             // 
             this.createNewToolStripMenuItem.Name = "createNewToolStripMenuItem";
-            this.createNewToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.createNewToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.createNewToolStripMenuItem.Text = "Create New";
             this.createNewToolStripMenuItem.Click += new System.EventHandler(this.CreateNewToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
             // importnneToolStripMenuItem
             // 
             this.importnneToolStripMenuItem.Name = "importnneToolStripMenuItem";
-            this.importnneToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.importnneToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.importnneToolStripMenuItem.Text = "Import .nne";
             this.importnneToolStripMenuItem.Click += new System.EventHandler(this.ImportnneToolStripMenuItem_Click);
             // 
@@ -266,6 +267,7 @@
             this.Controls.Add(this.lstContains);
             this.Controls.Add(this.lstOptions);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MaximumSize = new System.Drawing.Size(1010, 720);
             this.MinimumSize = new System.Drawing.Size(1010, 720);

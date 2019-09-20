@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormEdit));
             this.lstProblems = new System.Windows.Forms.ListBox();
             this.rtbParagraph = new System.Windows.Forms.RichTextBox();
             this.butRefresh = new System.Windows.Forms.Button();
@@ -118,6 +119,7 @@
             this.Controls.Add(this.butRefresh);
             this.Controls.Add(this.rtbParagraph);
             this.Controls.Add(this.lstProblems);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormEdit";
             this.Text = "Edit Paragraph";
             this.Load += new System.EventHandler(this.FormEdit_Load);
