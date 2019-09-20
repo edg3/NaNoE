@@ -89,16 +89,11 @@ namespace NaNoE
             lblPosition.Text = "Position: " + rtbParagraph.SelectionStart.ToString();
         }
 
-        private void LstProblems_SelectedIndexChanged(object sender, EventArgs e)
+        private void LstProblems_DoubleClick(object sender, EventArgs e)
         {
-            if (lstProblems != null)
+            if (lstProblems.SelectedIndex != -1)
             {
-                if (lstProblems.SelectedIndex != -1)
-                {
-                    var selected = lstProblems.SelectedItem.ToString();
-                    var pos = Regex.Match(selected, @"\[(?<numbers>)\]");
-                    int a = 123;
-                }
+                MessageBox.Show(lstProblems.SelectedItem.ToString(), "Read More", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }

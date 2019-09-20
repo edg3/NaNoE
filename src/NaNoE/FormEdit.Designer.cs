@@ -34,6 +34,7 @@
             this.butDone = new System.Windows.Forms.Button();
             this.butStopForNow = new System.Windows.Forms.Button();
             this.lblPosition = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lstProblems
@@ -41,15 +42,15 @@
             this.lstProblems.FormattingEnabled = true;
             this.lstProblems.Location = new System.Drawing.Point(12, 38);
             this.lstProblems.Name = "lstProblems";
-            this.lstProblems.Size = new System.Drawing.Size(782, 186);
+            this.lstProblems.Size = new System.Drawing.Size(346, 186);
             this.lstProblems.TabIndex = 0;
-            this.lstProblems.SelectedIndexChanged += new System.EventHandler(this.LstProblems_SelectedIndexChanged);
+            this.lstProblems.DoubleClick += new System.EventHandler(this.LstProblems_DoubleClick);
             // 
             // rtbParagraph
             // 
-            this.rtbParagraph.Location = new System.Drawing.Point(800, 12);
+            this.rtbParagraph.Location = new System.Drawing.Point(364, 38);
             this.rtbParagraph.Name = "rtbParagraph";
-            this.rtbParagraph.Size = new System.Drawing.Size(357, 212);
+            this.rtbParagraph.Size = new System.Drawing.Size(357, 186);
             this.rtbParagraph.TabIndex = 1;
             this.rtbParagraph.Text = "";
             this.rtbParagraph.SelectionChanged += new System.EventHandler(this.RtbParagraph_SelectionChanged);
@@ -67,7 +68,7 @@
             // 
             // butDone
             // 
-            this.butDone.Location = new System.Drawing.Point(1082, 230);
+            this.butDone.Location = new System.Drawing.Point(646, 230);
             this.butDone.Name = "butDone";
             this.butDone.Size = new System.Drawing.Size(75, 23);
             this.butDone.TabIndex = 3;
@@ -88,17 +89,29 @@
             // lblPosition
             // 
             this.lblPosition.AutoSize = true;
-            this.lblPosition.Location = new System.Drawing.Point(797, 230);
+            this.lblPosition.Location = new System.Drawing.Point(372, 235);
             this.lblPosition.Name = "lblPosition";
             this.lblPosition.Size = new System.Drawing.Size(50, 13);
             this.lblPosition.TabIndex = 5;
             this.lblPosition.Text = "Position: ";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.label1.Location = new System.Drawing.Point(12, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(128, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Double Click to see more:";
+            // 
             // FormEdit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1169, 260);
+            this.ClientSize = new System.Drawing.Size(741, 260);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.lblPosition);
             this.Controls.Add(this.butStopForNow);
             this.Controls.Add(this.butDone);
@@ -121,5 +134,6 @@
         private System.Windows.Forms.Button butDone;
         private System.Windows.Forms.Button butStopForNow;
         private System.Windows.Forms.Label lblPosition;
+        private System.Windows.Forms.Label label1;
     }
 }
