@@ -572,19 +572,17 @@ namespace NaNoE
                 {
                     // Thoughts: this can cause memory waste I suppose
                     var editOpts = NaNoEdit.Process(ObjectiveDB.GetParaFromID(i));
-                    if (editOpts.Count > 0)
-                    {
-                        FormEdit NaNoEditForm = new FormEdit();
-                        NaNoEditForm.Content = ObjectiveDB.GetParaFromID(i);
-                        NaNoEditForm.Edits = editOpts;
-                        var dialogResult = NaNoEditForm.ShowDialog();
+                    
+                    FormEdit NaNoEditForm = new FormEdit();
+                    NaNoEditForm.Content = ObjectiveDB.GetParaFromID(i);
+                    NaNoEditForm.Edits = editOpts;
+                    var dialogResult = NaNoEditForm.ShowDialog();
 
-                        // Editing 'done' or just closed
-                        ObjectiveDB.UpdatePara(i, NaNoEditForm.Content);
+                    // Editing 'done' or just closed
+                    ObjectiveDB.UpdatePara(i, NaNoEditForm.Content);
 
-                        // Just figured I dont mind
-                        if (NaNoEditForm.Continue == false) i = _novel.Count;
-                    }
+                    // Just figured I dont mind
+                    if (NaNoEditForm.Continue == false) i = _novel.Count;
                 }
 
                 UpdateNovelCount();
