@@ -50,6 +50,7 @@
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importnneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportDocXToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lstSpellcheck = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.numStart)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -135,7 +136,7 @@
             // 
             this.rtbInput.Location = new System.Drawing.Point(12, 572);
             this.rtbInput.Name = "rtbInput";
-            this.rtbInput.Size = new System.Drawing.Size(796, 97);
+            this.rtbInput.Size = new System.Drawing.Size(564, 97);
             this.rtbInput.TabIndex = 10;
             this.rtbInput.Text = "";
             this.rtbInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rtbInput_KeyDown);
@@ -248,11 +249,20 @@
             this.exportDocXToolStripMenuItem.Text = "Export DocX";
             this.exportDocXToolStripMenuItem.Click += new System.EventHandler(this.ExportDocXToolStripMenuItem_Click);
             // 
+            // lstSpellcheck
+            // 
+            this.lstSpellcheck.FormattingEnabled = true;
+            this.lstSpellcheck.Location = new System.Drawing.Point(592, 573);
+            this.lstSpellcheck.Name = "lstSpellcheck";
+            this.lstSpellcheck.Size = new System.Drawing.Size(216, 95);
+            this.lstSpellcheck.TabIndex = 19;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(994, 681);
+            this.Controls.Add(this.lstSpellcheck);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.numStart);
             this.Controls.Add(this.butEdit);
@@ -306,6 +316,7 @@
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportDocXToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importnneToolStripMenuItem;
+        private System.Windows.Forms.ListBox lstSpellcheck;
     }
 }
 

@@ -447,6 +447,13 @@ namespace NaNoE
                 WebShowNovel();
                 UpdateNovelCount();
             }
+            else
+            {
+                var paragraph = rtbInput.Text;
+                var errors = NaNoEdit.RunLongSpellCheck(paragraph);
+                lstSpellcheck.Items.Clear();
+                lstSpellcheck.Items.AddRange(errors.ToArray());
+            }
 
             UpdateParagraphCount();
         }
