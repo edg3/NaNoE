@@ -68,7 +68,6 @@ namespace NaNoE
                        .Replace(";", " ")
                        .Replace("\"", " ");
             para += "  ";
-            var lowpara = "  " + para.ToLower();
 
             // =========================================================
             // = Checks added                                          =
@@ -85,95 +84,155 @@ namespace NaNoE
                 }
             }
 
+            string searchString = "";
+
             // Side note: this is definitely going to find things that shouldn't be in this - like portions of other words. "is" is in "sister" for example
             // [ replace 'to be' and 'to have' ]
-            if (lowpara.Contains(" to be ")
-             || lowpara.Contains(" to have ")) ans.Add("[" + para.IndexOf("to ") +"]replace 'to be' and 'to have' with something");
+            if ((searchString = GetLocations(" " + para + " ", " to be ")) != "")
+                ans.Add("[~" + searchString + "] replace 'to be' with something");
+            if ((searchString = GetLocations(" " + para + " ", " to have ")) != "")
+                ans.Add("[~" + searchString + "] replace 'to have' with something");
             // [ ly = 'He quickly ran across the park.' fixed to 'He darted across the park.' ]
-            if (lowpara.Contains("ly "))           ans.Add("[" + para.IndexOf("ly ") + "]replace '-ly' more descriptive: e.g. not 'her eyes were deadly', rather 'with an evil glare she looked at me'");
+            if ((searchString = GetLocations(" " + para + " ", "ly ")) != "")
+                ans.Add("[" + searchString + "] replace '-ly' more descriptive: e.g. not 'her eyes were deadly', rather 'with an evil glare she looked at me'");
             /// [ ing = 'I turned and Mary was glaring at me.' fixed to 'I turned and Mary glared.' ]
-            if (lowpara.Contains("ing "))          ans.Add("[" + para.IndexOf("ing ") + "]replace '-ing' words with minimal words. e.g. 'she is running daily now' with 'she runs every morning now'");
+            if ((searchString = GetLocations(" " + para + " ", "ing ")) != "")
+                ans.Add("[" + searchString + "] replace '-ing' words with minimal words. e.g. 'she is running daily now' with 'she runs every morning now'");
             // [ -> Begin, begins, began, beginning, start, starts, started, starting = 'he started to run' fixed by 'he ran' ]
-            if (lowpara.Contains(" begin "))         ans.Add("[" + para.IndexOf("begin ") +"] Rather don't use 'begin', simplify it");
-            if (lowpara.Contains(" began "))         ans.Add("[" + para.IndexOf("began ") +"] Rather don't use 'began', simplify it");
-            if (lowpara.Contains(" start "))         ans.Add("[" + para.IndexOf("start ") +"] Rather don't use 'start', simplify it");
+            if ((searchString = GetLocations(" " + para + " ", "begin ")) != "")
+                ans.Add("[" + searchString +"] Rather don't use 'begin', simplify it");
+            if ((searchString = GetLocations(" " + para + " ", "began ")) != "")
+                ans.Add("[" + searchString +"] Rather don't use 'began', simplify it");
+            if ((searchString = GetLocations(" " + para + " ", "start ")) != "")
+                ans.Add("[" + searchString +"] Rather don't use 'start', simplify it");
             // [ when, then, suddenly, immediately, always, often, already, finally = 'I immediately ran through the door.' fixed to 'I ran through the door.' ]
-            if (lowpara.Contains(" when "))          ans.Add("[" + para.IndexOf("when ") + "] Rather minify use 'when', make literal, we dont need this leading word");
-            if (lowpara.Contains(" then "))          ans.Add("[" + para.IndexOf("then ") + "] Rather minify use 'then', make literal, we dont need this leading word");
-            if (lowpara.Contains(" suddenly "))      ans.Add("[" + para.IndexOf("suddenly ") + "] Rather minify use 'suddenly', make literal, we dont need this leading word");
-            if (lowpara.Contains(" immediately "))   ans.Add("[" + para.IndexOf("immediately ") + "] Rather minify use 'immediately', make literal, we dont need this leading word");
-            if (lowpara.Contains(" always "))        ans.Add("[" + para.IndexOf("always ") + "] Rather minify use 'always', make literal, we dont need this leading word");
-            if (lowpara.Contains(" often "))         ans.Add("[" + para.IndexOf("often ") +"] Rather minify use 'often', make literal, we dont need this leading word");
-            if (lowpara.Contains(" already "))       ans.Add("[" + para.IndexOf("already ") + "] Rather minify use 'already', make literal, we dont need this leading word");
-            if (lowpara.Contains(" finally "))       ans.Add("[" + para.IndexOf("finally ") + "] Rather minify use 'finally', make literal, we dont need this leading word");
+            if ((searchString = GetLocations(" " + para + " ", " when ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'when', make literal, we dont need this leading word");
+            if ((searchString = GetLocations(" " + para + " ", " then ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'then', make literal, we dont need this leading word");
+            if ((searchString = GetLocations(" " + para + " ", " suddenly ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'suddenly', make literal, we dont need this leading word");
+            if ((searchString = GetLocations(" " + para + " ", " immediately ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'immediately', make literal, we dont need this leading word");
+            if ((searchString = GetLocations(" " + para + " ", " always ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'always', make literal, we dont need this leading word");
+            if ((searchString = GetLocations(" " + para + " ", " often ")) != "")
+                ans.Add("[" + searchString +"] Rather minify use 'often', make literal, we dont need this leading word");
+            if ((searchString = GetLocations(" " + para + " ", " already ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'already', make literal, we dont need this leading word");
+            if ((searchString = GetLocations(" " + para + " ", " finally ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'finally', make literal, we dont need this leading word");
             // [ See, Look, Hear, Know, Realize, Wonder, Decided, Notice, Feel, Remember, Think, That, Of, Really, Very, Down, Up, Then, Start, begin, Just = reword ]
-            if (lowpara.Contains(" see "))           ans.Add("[" + para.IndexOf("see ") +"] Rather minify use 'see' ");
-            if (lowpara.Contains(" look "))          ans.Add("[" + para.IndexOf("look ") +"] Rather minify use 'look' ");
-            if (lowpara.Contains(" hear "))          ans.Add("[" + para.IndexOf("hear ") +"] Rather minify use 'hear' ");
-            if (lowpara.Contains(" know "))          ans.Add("[" + para.IndexOf("know ") +"] Rather minify use 'know' ");
-            if (lowpara.Contains(" realize "))       ans.Add("[" + para.IndexOf("realize ") +"] Rather minify use 'realize' ");
-            if (lowpara.Contains(" realise "))       ans.Add("[" + para.IndexOf("realise ") +"] Rather minify use 'realise' ");
-            if (lowpara.Contains(" wonder "))        ans.Add("[" + para.IndexOf("wonder ") +"] Rather minify use 'wonder' ");
-            if (lowpara.Contains(" decided "))       ans.Add("[" + para.IndexOf("decided ") +"] Rather minify use 'decided' ");
-            if (lowpara.Contains(" notice "))        ans.Add("[" + para.IndexOf("notice ") +"] Rather minify use 'notice' ");
-            if (lowpara.Contains(" feel "))          ans.Add("[" + para.IndexOf("feel ") +"] Rather minify use 'feel' ");
-            if (lowpara.Contains(" remember "))      ans.Add("[" + para.IndexOf("remember ") +"] Rather minify use 'remember' ");
-            if (lowpara.Contains(" think "))         ans.Add("[" + para.IndexOf("think ") +"] Rather minify use 'think' ");
-            if (lowpara.Contains(" that "))          ans.Add("[" + para.IndexOf("that ") +"] Rather minify use 'that' ");
-            if (lowpara.Contains(" of "))            ans.Add("[" + para.IndexOf("of ") +"] Rather minify use 'of' ");
-            if (lowpara.Contains(" really "))        ans.Add("[" + para.IndexOf("really ") +"] Rather minify use 'really', make literal, e.g. 'the swimmer really performed admirably' with 'the swimmer performed admirably'. Slacker descriptive");
-            // if (lowpara.Contains(" very "))          ans.Add("[" + para.IndexOf("very ") +"] Rather minify use 'very'H");
-            if (lowpara.Contains(" down "))          ans.Add("[" + para.IndexOf("down ") +"] Rather minify use 'down'");
-            if (lowpara.Contains(" up "))            ans.Add("[" + para.IndexOf("up ") +"] Rather minify use 'up'");
-            if (lowpara.Contains(" then "))          ans.Add("[" + para.IndexOf("then ") +"] Rather minify use 'then'");
-            if (lowpara.Contains(" start "))         ans.Add("[" + para.IndexOf("start ") +"] Rather minify use 'start'");
-            if (lowpara.Contains(" begin "))         ans.Add("[" + para.IndexOf("begin ") +"] Rather minify use 'begin' ");
-            if (lowpara.Contains(" just "))          ans.Add("[" + para.IndexOf("just ") + "] Rather minify use 'just'. Permission word. e.g. 'I just get bugged by apples' vs 'apples unfortunately bug me'");
+            if ((searchString = GetLocations(" " + para + " ", " see ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'see' (eg. observe, look at, behold, descry, examine, inspect, regard, espy, perceive, comprehend, discern, look on, be present, escort, attend, meet a bet, cover a bet, speak to, speak with, ...)");
+            if ((searchString = GetLocations(" " + para + " ", " look ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'look' (eg. appearance, aspect, looks, expression, gaze, stare, scrutiny, inspection, contemplation, visual search, reconnaissance,glance, quick cast of the eyes, survey, squint, glimpse, peek, peep, ...)");
+            if ((searchString = GetLocations(" " + para + " ", " hear ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'hear' (eg. listen to, hearken, hark, attend to, make out, become aware of, catch, descry, apprehend, take in, detect, perceive by the ear, overhear, eavesdrop, be advised, find out, learn, have it on good authority,preside over, put on trial, ...)");
+            if ((searchString = GetLocations(" " + para + " ", " know ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'know' (eg. be aware of, be cognizant of, be acquainted with, be informed, be in possession of the facts, have knowledge of, comprehend, apprehend, grasp, see into,perceive, discern, distinguish, identify, ...)");
+            if ((searchString = GetLocations(" " + para + " ", " realize ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'realize' (eg. accomplish, actualize, effectuate, make good, recognize, apprehend, discern, clear, make a profit from, obtain, ...");
+            if ((searchString = GetLocations(" " + para + " ", " wonder ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'wonder' (eg. surprise, awe, stupefaction, admiration, wonderment, astonishment, wondering, miracle, curiosity, oddity, rarity, freak, phenomenon, ...)");
+            if ((searchString = GetLocations(" " + para + " ", " decided ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'decided' (eg. settled, decided upon, arranged for, emphatic, determined, clear, clear, clear-cut, categorical, decisive, determined, firm, ...)");
+            if ((searchString = GetLocations(" " + para + " ", " notice ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'notice' (eg, note, notification, intimation , comments, remark, enlightenment, mark, remark, discern, look at, mention, comment on, notify, ...)");
+            if ((searchString = GetLocations(" " + para + " ", " feel ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'feel' (eg. touch, handle, finger, explore, stroke, palm, caress, sense, perceive, apprehend, be aware of, consider, hold,appear, exhibit, fumble, grabble, grope, ...)");
+            if ((searchString = GetLocations(" " + para + " ", "remember")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'remember' (eg. recollect, recognize, summon up, relive, think of, bring to mind, refresh one's memory, be reminded of, revive, keep in mind, retain, memorize, know by heart, learn,bethink, mind, recall, ...)");
+            if ((searchString = GetLocations(" " + para + " ", " think ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'think' (eg. cogitate, reason, deliberate, ideate, muse, ponder, consider, contemplate, deliberate, be convinced, deem, imagine, guess, conceive, invent, recollect, ...)");
+            if ((searchString = GetLocations(" " + para + " ", " that ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'that' (eg. the, this, one, a certain, a well known, a particular, such, even so, all things considered, not so very, not so, rather less, ...)");
+            if ((searchString = GetLocations(" " + para + " ", " of ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'of' (replaced by eg. from, out from, away from, proceed from, about, as concerns, peculiar to, attributed to, characterized by, as regards, in regard to, in reference to, appropriate to, like, belongs to, related to, relation to, native to, consequent to, based on, akin to, connected with, ...)");
+            if ((searchString = GetLocations(" " + para + " ", " really ")) != "")
+                ans.Add("[" + searchString +"] Rather minify use 'really', make literal, e.g. 'the swimmer really performed admirably' with 'the swimmer performed admirably'. Slacker descriptive");
+            if ((searchString = GetLocations(" " + para + " ", " down ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'down' (eg. forward, headlong, downward, downhill, downstairs, below, depressed, underneath, inferior, lowly, below par, downcast, depressed, inoperative, out of order, ...)");
+            if ((searchString = GetLocations(" " + para + " ", " up ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'up' (eg. at the top of, at the crest of, at the summit of, upward, uphill, skyward, heavenward, lapsed, elapsed, run out, under consideration, being scrutinized, after, in order, ...)");
+            if ((searchString = GetLocations(" " + para + " ", " then ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'then' (eg. at that time, before, years ago, at that point, all at once, soon after, before long, next, later, thereupon, but at the same time, on the other hand, ...)");
+            if ((searchString = GetLocations(" " + para + " ", " start ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'start' (eg. inception, commencement, inauguration, source, derivation, spring, commence, rise, inaugurate, start off, rouse, incite, light, set on fire, ...)");
+            if ((searchString = GetLocations(" " + para + " ", " begin ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'begin' (eg. start, cause, initiate, inaugurate, commence, occasion, impel, produce, effect, set in motion, commence, get under way, start, start out, set out, set in, come out, approach, commence, ...)");
+            if ((searchString = GetLocations(" " + para + " ", " just ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'just'. Permission word. e.g. 'I just get bugged by apples' vs 'apples unfortunately bug me'");
             // https://qz.com/647121/five-weak-words-you-should-avoid-and-what-to-use-instead/
-            if (lowpara.Contains(" things ")) ans.Add("[" + para.IndexOf("things ") + "] Rather minify use 'things'. e.g. 'this article said a lot of things' with 'this article discussed the principles of...'");
-            if (lowpara.Contains(" stuff ")) ans.Add("[" + para.IndexOf("stuff ") + "] Rather minify use 'stuff'. e.g. 'this article said a lot of things' with 'this article discussed the principles of...'");
-            if (lowpara.Contains(" i believe ")) ans.Add("[" + para.IndexOf("I believe ") + "] Rather minify use 'I believe'. Doesn't make reader comfident. e.g. 'I believe the reasercher as a great point here' vs. 'the researcher has a great point here'");
-            if (lowpara.Contains(" i feel ")) ans.Add("[" + para.IndexOf("I feel ") + "] Rather minify use 'i feel'. believe e.g. 'I believe the reasercher as a great point here' vs. 'the researcher has a great point here'");
-            if (lowpara.Contains(" i think ")) ans.Add("[" + para.IndexOf("I think ") + "] Rather minify use 'i think'. believe e.g. 'I believe the reasercher as a great point here' vs. 'the researcher has a great point here' ");
-            if (lowpara.Contains(" what ")) ans.Add("[" + para.IndexOf("what ") + "] Rather minify use 'what'. Write in a more active like 'sally mailed the letter' instead of 'the letter was mailed by sally'");
-            if (lowpara.Contains(" is ")) ans.Add("[" + para.IndexOf("is ") + "] Rather minify use 'is'. Write in a more active like 'sally mailed the letter' instead of 'the letter was mailed by sally'");
-            if (lowpara.Contains(" are ")) ans.Add("[" + para.IndexOf("are ") + "] Rather minify use 'are'. Write in a more active like 'sally mailed the letter' instead of 'the letter was mailed by sally'");
-            if (lowpara.Contains(" am ")) ans.Add("[" + para.IndexOf("am ") + "] Rather minify use 'am'. Write in a more active like 'sally mailed the letter' instead of 'the letter was mailed by sally'");
-            if (lowpara.Contains(" very ")) ans.Add("[" + para.IndexOf("very ") + "] Rather minify use 'very'. e.g. 'scientists are very excited with...' with 'scientists are excited with...' is better");
+            if ((searchString = GetLocations(" " + para + " ", " things ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'things'. e.g. 'this article said a lot of things' with 'this article discussed the principles of...'");
+            if ((searchString = GetLocations(" " + para + " ", " stuff ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'stuff'. e.g. 'this article said a lot of things' with 'this article discussed the principles of...'");
+            if ((searchString = GetLocations(" " + para + " ", " i believe ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'I believe'. Doesn't make reader comfident. e.g. 'I believe the reasercher as a great point here' vs. 'the researcher has a great point here'");
+            if ((searchString = GetLocations(" " + para + " ", " i feel ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'i feel'. believe e.g. 'I believe the reasercher as a great point here' vs. 'the researcher has a great point here'");
+            if ((searchString = GetLocations(" " + para + " ", " i think ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'i think'. believe e.g. 'I believe the reasercher as a great point here' vs. 'the researcher has a great point here' ");
+            if ((searchString = GetLocations(" " + para + " ", " what ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'what'. Write in a more active like 'sally mailed the letter' instead of 'the letter was mailed by sally'");
+            if ((searchString = GetLocations(" " + para + " ", " is ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'is'. Write in a more active like 'sally mailed the letter' instead of 'the letter was mailed by sally'");
+            if ((searchString = GetLocations(" " + para + " ", " are ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'are'. Write in a more active like 'sally mailed the letters' instead of 'the letter are mailed by sally'");
+            if ((searchString = GetLocations(" " + para + " ", " am ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'am'. Write in a more active like 'sally mailed the letter' instead of 'the letter was mailed by sally'");
+            // if (lowpara.Contains(" very ")) ans.Add("[" + para.IndexOf("very ") + "] Rather minify use 'very'. e.g. 'scientists are very excited with...' with 'scientists are excited with...' is better");
             // https://www.skillsyouneed.com/write/cliches-to-avoid.html - portion
-            if (lowpara.Contains(" in a nutshell ")) ans.Add("[" + para.IndexOf("in a nutshell ") + "] This is cliched 'in a nutshell'");
-            if (lowpara.Contains(" at long last ")) ans.Add("[" + para.IndexOf("at long last ") + "] This is cliched 'at long last'");
-            if (lowpara.Contains(" going forward ")) ans.Add("[" + para.IndexOf("going forward ") + "] This is cliched 'going forward'");
-            if (lowpara.Contains(" all walks of life ")) ans.Add("[" + para.IndexOf("all walks of life ") + "] This is cliched 'all walks of life'");
-            if (lowpara.Contains(" at the end of the day ")) ans.Add("[" + para.IndexOf("at the end of the day ") + "] This is cliched 'at the end of the day'");
-            if (lowpara.Contains(" bring the table ")) ans.Add("[" + para.IndexOf("bring the table ") + "] This is cliched 'bring the table'");
-            if (lowpara.Contains(" as bold as brass ")) ans.Add("[" + para.IndexOf("as bold as brass ") + "] This is cliched 'as bold as brass'");
-            if (lowpara.Contains(" uphill battle ")) ans.Add("[" + para.IndexOf("uphill battle ") + "] This is cliched 'uphill battle'");
-            if (lowpara.Contains(" if it ain't broke  don't fix it ")) ans.Add("[" + para.IndexOf("if it ain't broke  don't fix it ") + "] This is cliched 'if it ain't broke, don't fix it'");
-            if (lowpara.Contains(" too little  too late ")) ans.Add("[" + para.IndexOf("too little  too late ") + "] This is cliched 'too little, too late'");
-            if (lowpara.Contains(" sleeping like the dead ")) ans.Add("[" + para.IndexOf("sleeping like the dead ") + "] This is cliched 'sleeping like the dead'");
-            if (lowpara.Contains(" actions speak louder than words ")) ans.Add("[" + para.IndexOf("actions speak louder than words ") + "] This is cliched 'actions speak louder than words'");
-            if (lowpara.Contains(" two wrongs don't make a right ")) ans.Add("[" + para.IndexOf("two wrongs don't make a right ") + "] This is cliched 'two wrongs don't make a right'");
-            if (lowpara.Contains(" never say never ")) ans.Add("[" + para.IndexOf("never say never ") + "] This is cliched 'never say never'");
-            if (lowpara.Contains(" laughter is the best medicine ")) ans.Add("[" + para.IndexOf("laughter is the best medicine ") + "] This is cliched 'laughter is the best medicine'");
+            if ((searchString = GetLocations(" " + para + " ", " in a nutshell ")) != "")
+                ans.Add("[" + searchString + "] This is cliched 'in a nutshell'");
+            if ((searchString = GetLocations(" " + para + " ", " at long last ")) != "")
+                ans.Add("[" + searchString + "] This is cliched 'at long last'");
+            if ((searchString = GetLocations(" " + para + " ", " going forward ")) != "")
+                ans.Add("[" + searchString + "] This is cliched 'going forward'");
+            if ((searchString = GetLocations(" " + para + " ", " all walks of life ")) != "")
+                ans.Add("[" + searchString + "] This is cliched 'all walks of life'");
+            if ((searchString = GetLocations(" " + para + " ", " at the end of the day ")) != "")
+                ans.Add("[" + searchString + "] This is cliched 'at the end of the day'");
+            if ((searchString = GetLocations(" " + para + " ", " bring the table")) != "")
+                ans.Add("[" + searchString + "] This is cliched 'bring the table'");
+            if ((searchString = GetLocations(" " + para + " ", " as bold as brass ")) != "")
+                ans.Add("[" + searchString + "] This is cliched 'as bold as brass'");
+            if ((searchString = GetLocations(" " + para + " ", " uphill battle ")) != "")
+                ans.Add("[" + searchString + "] This is cliched 'uphill battle'");
+            if((searchString = GetLocations(" " + para + " ", " if it ain't broke don't fix it ")) != "")
+                ans.Add("[" + searchString + "] This is cliched 'if it ain't broke, don't fix it'");
+            if ((searchString = GetLocations(" " + para + " ", " too little too late")) != "")
+                ans.Add("[" + searchString + "] This is cliched 'too little, too late'");
+            if ((searchString = GetLocations(" " + para + " ", " sleeping like the dead ")) != "")
+                ans.Add("[" + searchString + "] This is cliched 'sleeping like the dead'");
+            if ((searchString = GetLocations(" " + para + " ", " actions speak louder than words ")) != "")
+                ans.Add("[" + searchString + "] This is cliched 'actions speak louder than words'");
+            if ((searchString = GetLocations(" " + para + " ", " two wrongs don't make a right ")) != "")
+                ans.Add("[" + searchString + "] This is cliched 'two wrongs don't make a right'");
+            if ((searchString = GetLocations(" " + para + " ", " never say never ")) != "")
+                ans.Add("[" + searchString + "] This is cliched 'never say never'");
+            if ((searchString = GetLocations(" " + para + " ", " laughter is the best medicine ")) != "")
+                ans.Add("[" + searchString+ "] This is cliched 'laughter is the best medicine'");
             // misc - these can be missed unfortunately
-            if (lowpara.Contains(" one of ")) ans.Add("[" + para.IndexOf("one of ") + "] Rather minify use 'one of'. Be more specific 'one of the sciences' vs 'the scientist' is better");
-            if (lowpara.Contains(" some ")) ans.Add("[" + para.IndexOf("some ") + "] Rather minify use 'some' words (sometimes, someone, etc). It is vague and detracts from the story");
-            if (lowpara.Contains(" thing ")) ans.Add("[" + para.IndexOf("thing ") + "] Rather minify use 'thing'. What thing? Tell us.");
-            if (lowpara.Contains("  therefore ")) ans.Add("[" + para.IndexOf("therefore ") + "] Rather minify use 'therefore', sentences shouldnt start with it");
-            if (lowpara.Contains("  however ")) ans.Add("[" + para.IndexOf("however ") + "] Rather minify use 'however', sentences shouldnt start with it");
-            if (lowpara.Contains("  because ")) ans.Add("[" + para.IndexOf("because ") + "] Rather minify use 'because', sentences shouldn't start with it");
-            if (lowpara.Contains("  and ")) ans.Add("[" + para.IndexOf("and ") + "] Rather minify use 'and', sentences shouldn't start with it");
-            if (lowpara.Contains("  but ")) ans.Add("[" + para.IndexOf("but ") + "] Rather minify use 'but', sentences shouldn't start with it");
+            if ((searchString = GetLocations(" " + para + " ", " one of ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'one of'. Be more specific 'one of the sciences' vs 'the scientist' is better");
+            if ((searchString = GetLocations(" " + para + " ", "  some")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'some' words (sometimes, someone, etc). It is vague and detracts from the story");
+            if ((searchString = GetLocations(" " + para + " ", "  therefore ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'therefore', sentences shouldnt start with it");
+            if ((searchString = GetLocations(" " + para + " ", "  however ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'however', sentences shouldnt start with it");
+            if ((searchString = GetLocations(" " + para + " ", "  because")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'because', sentences shouldn't start with it");
+            if ((searchString = GetLocations(" " + para + " ", "  and ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'and', sentences shouldn't start with it");
+            if ((searchString = GetLocations(" " + para + " ", "  but ")) != "")
+                ans.Add("[" + searchString + "] Rather minify use 'but', sentences shouldn't start with it");
             // Very Accurate = exact
-            if (para.Contains(" very "))
+            if ((searchString = GetLocations(" " + para + " ", " very ")) != "")
             {
-                ans.Add("[ Minimised use of 'very' ]");
-                ans.Add(" - first: " + para.IndexOf(" very "));
-                foreach (var k in veryDict.Keys)
-                {
-                    if (para.Contains("very " + k)) ans.Add(" - very " + k + " => " + veryDict[k] + " @ " + para.IndexOf("very " + k));
-                }
+                ans.Add("[ Minimised use of 'very' ] [" + searchString + "]");
             }
             // https://dianaurban.com/words-you-should-cut-from-your-writing-immediately
             if (para.Contains(" really ")) ans.Add("Words we should delete: really - unwanted modifier, 'he ran very quickly along...' vs. 'he sprinted along...'");
@@ -227,9 +286,10 @@ namespace NaNoE
             // if (para.Contains("")) ans.Add("[" + para.IndexOf("") + "] Rather minify use '' ");
 
             var speller = RunLongSpellCheck(para);
-            if (speller != null)
+            if (speller.Count != 0)
             {
-                ans.Add("Spelling? " + speller);
+                for (int i = 0; i < speller.Count; i++)
+                    ans.Add("[Spelling] " + speller[i] + " [" + FindCharLocation(para, speller[i]) + "]");
             }
 
             // Tenses
@@ -237,7 +297,7 @@ namespace NaNoE
             {
                 if (para.Contains(k))
                 {
-                    ans.Add("Tense Check: " + k + ": ~" + para.IndexOf(k));
+                    ans.Add("[Tense Check] " + k + " [~" + para.IndexOf(k) + "]");
                 }
             }
 
@@ -247,6 +307,29 @@ namespace NaNoE
             // = End Checks                                            =
             // =========================================================
             return ans;
+        }
+
+        /// <summary>
+        /// Find position of spelling error
+        /// </summary>
+        /// <param name="para">The paragraph</param>
+        /// <param name="v">The spelling error</param>
+        /// <returns>String list of positions</returns>
+        private static string FindCharLocation(string para, string v)
+        {
+            var answer = "";
+
+            int i = v.Length;
+            for (int x = 0; x < para.Length - i; x++)
+            {
+                var substring = para.Substring(x, i);
+                if (substring == v)
+                {
+                    answer += (answer.Length > 0 ? ", " : "") + x.ToString();
+                }
+            }
+
+            return answer;
         }
 
         private enum DictionaryDirection {
@@ -259,9 +342,9 @@ namespace NaNoE
         /// Spellcheck entire novel
         /// </summary>
         /// <param name="ling">Line to check</param>
-        internal static string RunLongSpellCheck(string ling)
+        internal static List<string> RunLongSpellCheck(string ling)
         {
-            string spellErrors = "";
+            List<string> errors = new List<string>();
             var words = ling.Split(' ');
             for (int i = 0; i < words.Count(); i++)
             {
@@ -275,15 +358,32 @@ namespace NaNoE
                     {
                         if (truncated.ToUpper() != "I")
                         {
-                            spellErrors += (i + 1).ToString() + ":" + truncated + ", ";
+                            errors.Add("  [" + ling.IndexOf(truncated) + "]" + truncated);
                         }
                     }
             }
-            if (spellErrors.Length > 0)
+            return errors;
+        }
+
+        private static string GetLocations(string line, string what)
+        {
+            var answer = "";
+
+            int i = what.Length;
+            for (int x = 0; x < line.Length - i; x++)
             {
-                return spellErrors;
+                var substring = line.Substring(x, i);
+                if ((substring == what) || (substring.ToLower() == what))
+                {
+                    answer += (answer.Length > 0 ? ", " : "") + (x - 1).ToString();
+                }
+                else if (substring.Replace(',',' ').Replace('.',' ').Replace(';', ' ').Replace('"', ' ').Replace('\'',' ').ToLower() == what)
+                {
+                    answer += (answer.Length > 0 ? ", " : "") + (x - 1).ToString();
+                }
             }
-            return null;
+
+            return answer;
         }
     }
 }
