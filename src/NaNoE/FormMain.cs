@@ -20,7 +20,7 @@ using Xceed.Words.NET;
 ///       -> Chapter numbers in 'WebShowNovel' since we might not do more than 1 paragraph for some reason?
 /// </summary>
 /// 
-/// <remarks>v1.5.3</remarks>
+/// <remarks>v1.5.4</remarks>
 ///
 namespace NaNoE
 {
