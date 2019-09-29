@@ -318,6 +318,8 @@ namespace NaNoE
                                 lstContains.Items.Add(txtContainsAdd.Text);
                                 ObjectiveDB.RunCMD("INSERT INTO helpers (name) VALUES ('" + txtContainsAdd.Text.Replace("'", "''") + "');");
                                 txtContainsAdd.Text = "";
+
+                                lstContains.SelectedItem = lstContains.Items[lstContains.Items.Count - 1];
                             }
                             else
                             {
@@ -332,6 +334,8 @@ namespace NaNoE
                                 lstContains.Items.Add(txtContainsAdd.Text);
                                 ObjectiveDB.RunCMD("INSERT INTO plots (name)  VALUES ('" + txtContainsAdd.Text.Replace("'", "''") + "');");
                                 txtContainsAdd.Text = "";
+
+                                lstContains.SelectedItem = lstContains.Items[lstContains.Items.Count - 1];
                             }
                             else
                             {
