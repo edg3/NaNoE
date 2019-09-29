@@ -19,6 +19,9 @@ using Xceed.Words.NET;
 ///   -=- Potentially:
 ///       -> Chapter numbers in 'WebShowNovel' since we might not do more than 1 paragraph for some reason?
 /// </summary>
+/// 
+/// <remarks>v1.5.3</remarks>
+///
 namespace NaNoE
 {
     public partial class FormMain : Form
