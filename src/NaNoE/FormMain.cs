@@ -828,5 +828,21 @@ namespace NaNoE
                 }
             }
         }
+
+        private void TxtContainsAdd_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                butContainsAdd_Click(sender, e);
+            }
+        }
+
+        private void TxtContainerAdd_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                butContainerAdd_Click(sender, e);
+            }
+        }
     }
 }

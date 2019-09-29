@@ -82,6 +82,7 @@
             this.txtContainsAdd.Name = "txtContainsAdd";
             this.txtContainsAdd.Size = new System.Drawing.Size(374, 20);
             this.txtContainsAdd.TabIndex = 4;
+            this.txtContainsAdd.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtContainsAdd_KeyDown);
             // 
             // butContainsAdd
             // 
@@ -109,6 +110,7 @@
             this.txtContainerAdd.Name = "txtContainerAdd";
             this.txtContainerAdd.Size = new System.Drawing.Size(374, 20);
             this.txtContainerAdd.TabIndex = 7;
+            this.txtContainerAdd.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TxtContainerAdd_KeyDown);
             // 
             // butContainerAdd
             // 
