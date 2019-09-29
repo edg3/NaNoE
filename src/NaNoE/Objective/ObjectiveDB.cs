@@ -126,5 +126,10 @@ namespace NaNoE.Objective
         {
             return s.Replace("'", "''");
         }
+
+        internal static void DeleteParagraph(int i)
+        {
+            RunCMD("DELETE FROM paragraphs WHERE id = " + i + ";");
+        }
     }
 }

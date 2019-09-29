@@ -599,8 +599,7 @@ namespace NaNoE
                     var removal = e.Url.AbsolutePath.ToString().Remove(0, 1);
                     int i = int.Parse(removal);
 
-                    var para = _novel[i];
-                    ObjectiveDB.RunCMD("DELETE FROM paragraphs WHERE para = '" + para.Replace("'", "''") + "';");
+                    ObjectiveDB.DeleteParagraph(i);
                     UpdateNovelCount();
                     WebShowNovel();
                     
