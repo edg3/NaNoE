@@ -190,7 +190,7 @@ namespace NaNoE
                     case "[chapter]": midPoint += "<hr /><div><b>[Chapter Here]</b> [ <i><a href=\"]" + ObjectiveDB.GetParaID(lines[i]).ToString() + "\">Del</a></i> ]</div><br /><br />"; break;
                     // TODO: fix bug on next line for how it works - if you start a novel it doesnt fit logic for the first few lines
                     //        - it starts on a negative number
-                    default: midPoint += "&nbsp;<i>" + ((_novel.Count < 5) ? i + 1 : ObjectiveDB.CountParagraphs() - 4 + i).ToString() + "</i>&nbsp;&nbsp;<div>" + lines[i] + "&nbsp;&nbsp[ <i><a href=\"[" + ObjectiveDB.GetParaID(lines[i]).ToString() + "\">Edit</a>,&nbsp;<a href=\"]" + ObjectiveDB.GetParaID(lines[i]) + "\">Del</a></i> ]</div><br />"; break;
+                    default: midPoint += "&nbsp;<i>" + ObjectiveDB.GetParaID(lines[i]).ToString() + "</i>&nbsp;&nbsp;<div>" + lines[i] + "&nbsp;&nbsp[ <i><a href=\"[" + ObjectiveDB.GetParaID(lines[i]).ToString() + "\">Edit</a>,&nbsp;<a href=\"]" + ObjectiveDB.GetParaID(lines[i]) + "\">Del</a></i> ]</div><br />"; break;
                 }
             }
 
