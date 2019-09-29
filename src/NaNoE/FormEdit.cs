@@ -73,13 +73,13 @@ namespace NaNoE
 
         private void butDone_Click(object sender, EventArgs e)
         {
-            if (ParagraphID != -1) ObjectiveDB.RunCMD("UPDATE paragraphs SET para = '" + Content.Replace("'", "''") + "' WHERE id = " + ParagraphID + ";");
+            if (ParagraphID != -1) ObjectiveDB.UpdatePara(ParagraphID, Content);
             this.Close();
         }
 
         private void butStopForNow_Click(object sender, EventArgs e)
         {
-            if (ParagraphID != -1) ObjectiveDB.RunCMD("UPDATE paragraphs SET para = '" + Content.Replace("'", "''") + "' WHERE id = " + ParagraphID + ";");
+            if (ParagraphID != -1) ObjectiveDB.UpdatePara(ParagraphID, Content);
             Continue = false;
             this.Close();
         }

@@ -153,7 +153,7 @@ namespace NaNoE
                 return ans;
             }
         }
-        
+
         /// <summary>
         /// Interface Refreshing Code
         /// </summary>
@@ -187,10 +187,10 @@ namespace NaNoE
             {
                 switch (lines[i])
                 {
-                    case "[chapter]": midPoint += "<hr /><div><b>[Chapter Here]</b> [ <i><a href=\"]" + (_novel.Count - 5 + i).ToString() + "\">Del</a></i> ]</div><br /><br />"; break;
+                    case "[chapter]": midPoint += "<hr /><div><b>[Chapter Here]</b> [ <i><a href=\"]" + ObjectiveDB.GetParaID(lines[i]).ToString() + "\">Del</a></i> ]</div><br /><br />"; break;
                     // TODO: fix bug on next line for how it works - if you start a novel it doesnt fit logic for the first few lines
                     //        - it starts on a negative number
-                    default: midPoint += "&nbsp;<i>" + ((_novel.Count < 5) ? i + 1 : ObjectiveDB.CountParagraphs() - 4 + i).ToString() + "</i>&nbsp;&nbsp;<div>" + lines[i] + "&nbsp;&nbsp[ <i><a href=\"[" + (_novel.Count - 5 + i).ToString() + "\">Edit</a>,&nbsp;<a href=\"]" + (_novel.Count - 5 + i).ToString() + "\">Del</a></i> ]</div><br />"; break;
+                    default: midPoint += "&nbsp;<i>" + ((_novel.Count < 5) ? i + 1 : ObjectiveDB.CountParagraphs() - 4 + i).ToString() + "</i>&nbsp;&nbsp;<div>" + lines[i] + "&nbsp;&nbsp[ <i><a href=\"[" + ObjectiveDB.GetParaID(lines[i]).ToString() + "\">Edit</a>,&nbsp;<a href=\"]" + ObjectiveDB.GetParaID(lines[i]) + "\">Del</a></i> ]</div><br />"; break;
                 }
             }
 
@@ -568,19 +568,19 @@ namespace NaNoE
             {
                 var removal = e.Url.AbsolutePath.ToString().Remove(0, 1);
                 int i = int.Parse(removal);
-                if (_novel[i] != "[chapter]")
+                if (ObjectiveDB.GetParaFromID(i) != "[chapter]")
                 {
                     // Thoughts: this can cause memory waste I suppose
-                    var editOpts = NaNoEdit.Process(_novel[i]);
+                    var editOpts = NaNoEdit.Process(ObjectiveDB.GetParaFromID(i));
                     if (editOpts.Count > 0)
                     {
                         FormEdit NaNoEditForm = new FormEdit();
-                        NaNoEditForm.Content = _novel[i];
+                        NaNoEditForm.Content = ObjectiveDB.GetParaFromID(i);
                         NaNoEditForm.Edits = editOpts;
                         var dialogResult = NaNoEditForm.ShowDialog();
 
                         // Editing 'done' or just closed
-                        _novel[i] = NaNoEditForm.Content;
+                        ObjectiveDB.UpdatePara(i, NaNoEditForm.Content);
 
                         // Just figured I dont mind
                         if (NaNoEditForm.Continue == false) i = _novel.Count;

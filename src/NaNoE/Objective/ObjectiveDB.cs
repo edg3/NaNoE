@@ -9,9 +9,10 @@ using System.Threading.Tasks;
 
 namespace NaNoE.Objective
 {
-    class ObjectiveDB
+    public class ObjectiveDB
     {
         public static SQLiteConnection Connection { get; private set; }
+        public static ObjectiveDB ConnectionHelper { get; private set; }
         public static string Name { get; private set; }
         public ObjectiveDB(string fileName)
         {
@@ -29,6 +30,8 @@ namespace NaNoE.Objective
             Connection.Open();
 
             Name = fileName;
+
+            ConnectionHelper = this;
         }
 
         public static void TestNew()
@@ -59,7 +62,7 @@ namespace NaNoE.Objective
         private static void CountWords()
         {
             WordCount = 0;
-            var paras = RunCMD("SELECT * FROM paragraphs WHERE para != '[chapter]'");
+            var paras = RunCMD("SELECT para FROM paragraphs WHERE para != '[chapter]'");
             if (paras != null)
             {
                 if (paras.HasRows)
@@ -67,7 +70,7 @@ namespace NaNoE.Objective
                     paras.Read();
                     do
                     {
-                        var para = paras.GetString(1);
+                        var para = paras.GetString(0);
                         var split = para.Split(' ');
                         WordCount += split.Length;
                     }
@@ -76,6 +79,21 @@ namespace NaNoE.Objective
             }
 
             threadUsed = null;
+        }
+
+        public static int GetParaID(string line)
+        {
+            if (line == "[chapter]") return -1;
+            var para = RunCMD("SELECT id FROM paragraphs WHERE para = '" + StringReplacement(line) + "'");
+            para.Read();
+            return para.GetInt32(0);
+        }
+
+        public static string GetParaFromID(int i)
+        {
+            var para = RunCMD("SELECT para FROM paragraphs WHERE id=" + i);
+            para.Read();
+            return para.GetString(0);
         }
 
         public static SQLiteDataReader RunCMD(string sql)
@@ -97,6 +115,16 @@ namespace NaNoE.Objective
                 return val.GetInt32(0);
             }
             return -1;
+        }
+
+        internal static void UpdatePara(int i, string content)
+        {
+            RunCMD("UPDATE paragraphs SET para = '" + StringReplacement(content) + "' WHERE id = " + i.ToString());
+        }
+
+        internal static string StringReplacement(string s)
+        {
+            return s.Replace("'", "''");
         }
     }
 }
