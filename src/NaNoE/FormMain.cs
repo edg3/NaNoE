@@ -230,15 +230,20 @@ namespace NaNoE
 
         // Update the count of the novel
         // Note: consider this can keep numbers and symbols as words
+        Thread updateCount;
         public void UpdateNovelCount()
         {
-            Thread t = new Thread(new ThreadStart(UpdateNovelCountThread));
-            t.Start();
+            if (updateCount == null)
+            {
+                updateCount = new Thread(new ThreadStart(UpdateNovelCountThread));
+                updateCount.Start();
+            }
         }
 
         private void UpdateNovelCountThread()
         {
             ObjectiveDB.DBCount();
+            updateCount = null;
         }
 
         // Update the count within the paragraph
@@ -507,7 +512,6 @@ namespace NaNoE
                 }
             }
 
-            UpdateNovelCount();
             WebShowNovel();
 
             MessageBox.Show("Edit Helper Complete");
