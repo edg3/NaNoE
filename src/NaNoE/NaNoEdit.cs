@@ -329,6 +329,7 @@ namespace NaNoE
                     {
                         ans.Add("Bad word: [before " + (i + 1).ToString() + "] " + s);
                     }
+                    s = "";
                 }
             }
 
