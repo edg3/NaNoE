@@ -893,6 +893,10 @@ namespace NaNoE
                                 }
                                 else
                                 {
+                                    if (para.Text.Contains('\t'))
+                                    {
+                                        para.ReplaceText("\t", "");
+                                    }
                                     ObjectiveDB.RunCMD("INSERT INTO paragraphs (para) VALUES ('" + para.Text.Replace("'", "''") + "');");
                                 }
                             }
