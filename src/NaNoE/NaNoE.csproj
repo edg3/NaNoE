@@ -170,6 +170,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="bad">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="grammarhelp.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

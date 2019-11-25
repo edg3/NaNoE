@@ -24,6 +24,7 @@ namespace NaNoE
         private static SpellChecker spellChecker = new PlatformSpellCheck.SpellChecker();
         private static Dictionary<string, string> tenseDict = new Dictionary<string, string>();
         private static Dictionary<string, string> veryDict = new Dictionary<string, string>();
+        private static List<string> badDict = new List<string>();
 
         /// <summary>
         /// Load the file, generate the array, remove the file itself from memory
@@ -53,6 +54,17 @@ namespace NaNoE
                 }
             }
             verys.Close();
+
+            var bads = File.OpenRead("bad");
+            using (StreamReader badReader = new StreamReader(bads))
+            {
+                string line = null;
+                while ((line = badReader.ReadLine()) != null)
+                {
+                    badDict.Add(line);
+                }
+            }
+            bads.Close();
         }
 
         /// <summary>
@@ -286,12 +298,45 @@ namespace NaNoE
                 }
             }
 
+            CheckBad(ans, para);
+
             // Debug
             //ans.Add("This isnt a problem. Just a test.");
             // =========================================================
             // = End Checks                                            =
             // =========================================================
             return ans;
+        }
+
+        /// <summary>
+        /// Look through to see if para contains a bad word
+        /// </summary>
+        /// <param name="ans">The list of "errors"</param>
+        /// <param name="para">The paragraph to check</param>
+        private static void CheckBad(List<string> ans, string para)
+        {
+            var s = "";
+            for (int i = 0; i < para.Length; i++)
+            {
+                if (para[i] != ' ')
+                {
+                    s += para[i];
+                }
+                else
+                {
+                    s = s.Replace(".", "").Replace(",", "").Replace(";", "").Replace("\"", "").Replace("'", "").ToLower();
+                    if (badDict.Contains(s))
+                    {
+                        ans.Add("Bad word: [before " + (i + 1).ToString() + "] " + s);
+                    }
+                }
+            }
+
+            s = s.Replace(".", "").Replace(",", "").Replace(";", "").Replace("\"", "").Replace("'", "").ToLower();
+            if (badDict.Contains(s))
+            {
+                ans.Add("Bad word: [at end] " + s);
+            }
         }
 
         /// <summary>
