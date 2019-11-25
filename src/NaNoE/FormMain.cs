@@ -856,5 +856,54 @@ namespace NaNoE
                 butContainerAdd_Click(sender, e);
             }
         }
+
+        private void importDocXToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "DocX|*.docx";
+            openFileDialog.Title = "Please choose the DocX to open";
+            openFileDialog.ShowDialog();
+
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Filter = "SQLite|*.sqlite";
+            saveFileDialog1.Title = "Please choose the save name";
+            saveFileDialog1.ShowDialog();
+
+            // If the file name is not an empty string open it for saving.  
+            if (saveFileDialog1.FileName != "")
+            {
+                if (File.Exists(saveFileDialog1.FileName))
+                {
+                    MessageBox.Show("Please don't choose an existing file.", "Not new.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                InitiateDB(saveFileDialog1.FileName);
+                using (var stream = File.Open(openFileDialog.FileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                {
+                    using (var doc = DocX.Load(stream))
+                    {
+                        foreach (var para in doc.Paragraphs)
+                        {
+                            if (para.Text.Length > 4)
+                            {
+                                if (para.Text.Substring(0, 3) == "Ch.")
+                                {
+                                    ObjectiveDB.RunCMD("INSERT INTO paragraphs (para) VALUES ('[chapter]');");
+                                }
+                                else
+                                {
+                                    ObjectiveDB.RunCMD("INSERT INTO paragraphs (para) VALUES ('" + para.Text.Replace("'", "''") + "');");
+                                }
+                            }
+                        }
+                    }
+                }
+
+                MessageBox.Show("DocX imported. Reloading the database.", "Success.", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                InitiateDB(saveFileDialog1.FileName);
+            }
+        }
     }
 }

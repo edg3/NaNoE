@@ -51,6 +51,7 @@
             this.importnneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportDocXToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lstSpellcheck = new System.Windows.Forms.ListBox();
+            this.importDocXToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.numStart)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -204,7 +205,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.exportDocXToolStripMenuItem});
+            this.exportDocXToolStripMenuItem,
+            this.importDocXToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(994, 24);
@@ -224,21 +226,21 @@
             // createNewToolStripMenuItem
             // 
             this.createNewToolStripMenuItem.Name = "createNewToolStripMenuItem";
-            this.createNewToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.createNewToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.createNewToolStripMenuItem.Text = "Create New";
             this.createNewToolStripMenuItem.Click += new System.EventHandler(this.CreateNewToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
             // importnneToolStripMenuItem
             // 
             this.importnneToolStripMenuItem.Name = "importnneToolStripMenuItem";
-            this.importnneToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.importnneToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.importnneToolStripMenuItem.Text = "Import .nne";
             this.importnneToolStripMenuItem.Click += new System.EventHandler(this.ImportnneToolStripMenuItem_Click);
             // 
@@ -256,6 +258,13 @@
             this.lstSpellcheck.Name = "lstSpellcheck";
             this.lstSpellcheck.Size = new System.Drawing.Size(216, 95);
             this.lstSpellcheck.TabIndex = 19;
+            // 
+            // importDocXToolStripMenuItem
+            // 
+            this.importDocXToolStripMenuItem.Name = "importDocXToolStripMenuItem";
+            this.importDocXToolStripMenuItem.Size = new System.Drawing.Size(86, 20);
+            this.importDocXToolStripMenuItem.Text = "Import DocX";
+            this.importDocXToolStripMenuItem.Click += new System.EventHandler(this.importDocXToolStripMenuItem_Click);
             // 
             // FormMain
             // 
@@ -317,6 +326,7 @@
         private System.Windows.Forms.ToolStripMenuItem exportDocXToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importnneToolStripMenuItem;
         private System.Windows.Forms.ListBox lstSpellcheck;
+        private System.Windows.Forms.ToolStripMenuItem importDocXToolStripMenuItem;
     }
 }
 
