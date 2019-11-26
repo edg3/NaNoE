@@ -25,6 +25,8 @@ namespace NaNoE
         private static Dictionary<string, string> tenseDict = new Dictionary<string, string>();
         private static Dictionary<string, string> veryDict = new Dictionary<string, string>();
         private static List<string> badDict = new List<string>();
+        private static string[] ignoredLy = new string[] { "fly", "ally", "sly", "ply", "rely", "family" };
+        private static string[] ignoredIng = new string[] { "ting", "ring", "sing", "ding", "king", "ping", "wing", "morning" };
 
         /// <summary>
         /// Load the file, generate the array, remove the file itself from memory
@@ -99,17 +101,19 @@ namespace NaNoE
             string searchString = "";
 
             // Side note: this is definitely going to find things that shouldn't be in this - like portions of other words. "is" is in "sister" for example
+
+            // [ ly = 'He quickly ran across the park.' fixed to 'He darted across the park.' ]
+            if ((searchString = GetLocations(" " + para + " ", "ly ", ignoredLy)) != "")
+                ans.Add("[" + searchString + "] replace '-ly' more descriptive: e.g. not 'her eyes were deadly', rather 'with an evil glare she looked at me'");
+            /// [ ing = 'I turned and Mary was glaring at me.' fixed to 'I turned and Mary glared.' ]
+            if ((searchString = GetLocations(" " + para + " ", "ing ", ignoredIng)) != "")
+                ans.Add("[" + searchString + "] replace '-ing' words with minimal words. e.g. 'she is running daily now' with 'she runs every morning now'");
+
             // [ replace 'to be' and 'to have' ]
             if ((searchString = GetLocations(" " + para + " ", " to be ")) != "")
                 ans.Add("[~" + searchString + "] replace 'to be' with something");
             if ((searchString = GetLocations(" " + para + " ", " to have ")) != "")
                 ans.Add("[~" + searchString + "] replace 'to have' with something");
-            // [ ly = 'He quickly ran across the park.' fixed to 'He darted across the park.' ]
-            if ((searchString = GetLocations(" " + para + " ", "ly ")) != "")
-                ans.Add("[" + searchString + "] replace '-ly' more descriptive: e.g. not 'her eyes were deadly', rather 'with an evil glare she looked at me'");
-            /// [ ing = 'I turned and Mary was glaring at me.' fixed to 'I turned and Mary glared.' ]
-            if ((searchString = GetLocations(" " + para + " ", "ing ")) != "")
-                ans.Add("[" + searchString + "] replace '-ing' words with minimal words. e.g. 'she is running daily now' with 'she runs every morning now'");
             // [ -> Begin, begins, began, beginning, start, starts, started, starting = 'he started to run' fixed by 'he ran' ]
             if ((searchString = GetLocations(" " + para + " ", "begin ")) != "")
                 ans.Add("[" + searchString +"] Rather don't use 'begin', simplify it");
@@ -400,6 +404,8 @@ namespace NaNoE
         {
             var answer = "";
 
+            line = line.ToLower();
+
             int i = what.Length;
             for (int x = 0; x < line.Length - i; x++)
             {
@@ -411,6 +417,45 @@ namespace NaNoE
                 else if (substring.Replace(',',' ').Replace('.',' ').Replace(';', ' ').Replace('"', ' ').Replace('\'',' ').ToLower() == what)
                 {
                     answer += (answer.Length > 0 ? ", " : "") + (x - 1).ToString();
+                }
+            }
+
+            return answer;
+        }
+
+        private static string GetLocations(string line, string what, string[] ignore)
+        {
+            var answer = "";
+
+            line = line.ToLower();
+
+            int i = what.Length;
+            for (int x = 0; x < line.Length - i; x++)
+            {
+                var substring = line.Substring(x, i);
+                bool run = true;
+                for (int y = 0; y < ignore.Count(); y++)
+                {
+                    int len = ignore[y].Length;
+                    if (x - (len - 3) >= 0)
+                    {
+                       if (line.Substring(x - (len - 3), len) == ignore[y])
+                       {
+                           run = false;
+                            break;
+                       }
+                    }
+                }
+                if (run)
+                {
+                    if ((substring == what) || (substring.ToLower() == what))
+                    {
+                        answer += (answer.Length > 0 ? ", " : "") + (x - 1).ToString();
+                    }
+                    else if (substring.Replace(',', ' ').Replace('.', ' ').Replace(';', ' ').Replace('"', ' ').Replace('\'', ' ').ToLower() == what)
+                    {
+                        answer += (answer.Length > 0 ? ", " : "") + (x - 1).ToString();
+                    }
                 }
             }
 
