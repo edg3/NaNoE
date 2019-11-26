@@ -25,8 +25,8 @@ namespace NaNoE
         private static Dictionary<string, string> tenseDict = new Dictionary<string, string>();
         private static Dictionary<string, string> veryDict = new Dictionary<string, string>();
         private static List<string> badDict = new List<string>();
-        private static string[] ignoredLy = new string[] { "fly", "ally", "sly", "ply", "rely", "family" };
-        private static string[] ignoredIng = new string[] { "ting", "ring", "sing", "ding", "king", "ping", "wing", "morning" };
+        private static string[] ignoredLy = new string[] { "fly ", "ally ", "sly ", "ply ", "rely ", "family " };
+        private static string[] ignoredIng = new string[] { "ting ", "ring ", "sing ", "ding ", "king ", "ping ", "wing ", "morning " };
         private static string suggestedDialogue = "[suggested]\n" +
                                                   " Anger: Shouted, bellowed, yelled, snapped, cautioned, rebuked.\n\n" +
                                                   "Affection: Consoled, comforted, reassured, admired, soothed.\n\n" +
