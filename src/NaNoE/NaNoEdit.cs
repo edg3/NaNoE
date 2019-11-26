@@ -25,8 +25,8 @@ namespace NaNoE
         private static Dictionary<string, string> tenseDict = new Dictionary<string, string>();
         private static Dictionary<string, string> veryDict = new Dictionary<string, string>();
         private static List<string> badDict = new List<string>();
-        private static string[] ignoredLy = new string[] { "fly ", "ally ", "sly ", "ply ", "rely ", "family " };
-        private static string[] ignoredIng = new string[] { "ting ", "ring ", "sing ", "ding ", "king ", "ping ", "wing ", "morning " };
+        private static string[] ignoredLy = new string[] { "fly", "ally", "sly", "ply ", "rely", "family" };
+        private static string[] ignoredIng = new string[] { "ting", "ring", "sing ", "ding", "king ", "ping", "wing", "morning" };
         private static string suggestedDialogue = "[suggested]\n" +
                                                   " Anger: Shouted, bellowed, yelled, snapped, cautioned, rebuked.\n\n" +
                                                   "Affection: Consoled, comforted, reassured, admired, soothed.\n\n" +
@@ -447,33 +447,37 @@ namespace NaNoE
             for (int x = 0; x < line.Length - i; x++)
             {
                 var substring = line.Substring(x, i);
-                bool run = true;
-                for (int y = 0; y < ignore.Count(); y++)
+                if ((substring == what) || (substring.ToLower() == what))
                 {
-                    int len = ignore[y].Length;
-                    if (x - (len - 3) >= 0)
-                    {
-                       if (line.Substring(x - (len - 3), len) == ignore[y])
-                       {
-                           run = false;
-                            break;
-                       }
-                    }
+                    if (!CheckIgnored(line, what, ignore, x)) answer += (answer.Length > 0 ? ", " : "") + (x - 1).ToString();
                 }
-                if (run)
+                else if (substring.Replace(',', ' ').Replace('.', ' ').Replace(';', ' ').Replace('"', ' ').Replace('\'', ' ').ToLower() == what)
                 {
-                    if ((substring == what) || (substring.ToLower() == what))
-                    {
-                        answer += (answer.Length > 0 ? ", " : "") + (x - 1).ToString();
-                    }
-                    else if (substring.Replace(',', ' ').Replace('.', ' ').Replace(';', ' ').Replace('"', ' ').Replace('\'', ' ').ToLower() == what)
-                    {
-                        answer += (answer.Length > 0 ? ", " : "") + (x - 1).ToString();
-                    }
+                    if (!CheckIgnored(line, what, ignore, x)) answer += (answer.Length > 0 ? ", " : "") + (x - 1).ToString();
                 }
             }
 
             return answer;
+        }
+
+        private static bool CheckIgnored(string line, string srchStr, string[] ignore, int x)
+        {
+            foreach (var ignoreWord in ignore)
+            {
+                if (x - ignoreWord.Length >= 0)
+                {
+                    for (int q = x - ignoreWord.Length; q < x + srchStr.Length; q++)
+                    {
+                        var l = line.Substring(q, ignoreWord.Length);
+                        if (ignoreWord == l)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            return false;
         }
     }
 }
