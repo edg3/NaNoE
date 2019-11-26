@@ -27,6 +27,18 @@ namespace NaNoE
         private static List<string> badDict = new List<string>();
         private static string[] ignoredLy = new string[] { "fly", "ally", "sly", "ply", "rely", "family" };
         private static string[] ignoredIng = new string[] { "ting", "ring", "sing", "ding", "king", "ping", "wing", "morning" };
+        private static string suggestedDialogue = "[suggested]\n" +
+                                                  " Anger: Shouted, bellowed, yelled, snapped, cautioned, rebuked.\n\n" +
+                                                  "Affection: Consoled, comforted, reassured, admired, soothed.\n\n" +
+                                                  "Excitement: Shouted, yelled, babbled, gushed, exclaimed.\n\n" +
+                                                  "Fear: Whispered, stuttered, stammered, gasped, urged, hissed, babbled, blurted.\n\n" +
+                                                  "Determination: Declared, insisted, maintained, commanded.\n\n" +
+                                                  "Happiness: Sighed, murmured, gushed, laughed.\n\n" +
+                                                  "Sadness: Cried, mumbled, sobbed, sighed, lamented.\n\n" +
+                                                  "Conflict: Jabbed, sneered, rebuked, hissed, scolded, demanded, threatened, insinuated, spat, glowered.\n\n" +
+                                                  "Making up: Apologised, relented, agreed, reassured, placated, assented.\n\n" +
+                                                  "Amusement: Teased, joked, laughed, chuckled, chortled, sniggered, tittered, guffawed, giggled, roared.\n\n" + 
+                                                  "Storytelling: Related, recounted, continued, emphasized, remembered, recalled, resumed, concluded.";
 
         /// <summary>
         /// Load the file, generate the array, remove the file itself from memory
@@ -262,9 +274,11 @@ namespace NaNoE
             if ((searchString = GetLocations(" " + para + " ", " quite ")) != "")    ans.Add("[" + searchString + "] Words we should delete: quite - it isn't 'rather dull' its 'dull'");
             if ((searchString = GetLocations(" " + para + " ", " somewhat ")) != "") ans.Add("[" + searchString + "] Words we should delete: somewhat - it isn't 'rather dull' its 'dull'");
             if ((searchString = GetLocations(" " + para + " ", " somehow ")) != "")  ans.Add("[" + searchString + "] Words we should delete: somehow - it isn't 'rather dull' its 'dull'");
-            if ((searchString = GetLocations(" " + para + " ", " said ")) != "") ans.Add("[" + searchString + "] Words we should adjust: 'said' dialogue tags - rather remove them, we dont need to tell the reader they are talking due to \" tages? - perhaps opt for surrounding dialogue with actions like '... last week\". John slumped onto his chair. \"I didn't... - the note here is allow the reader to rely on tracking it themselves"); ;
-            if ((searchString = GetLocations(" " + para + " ", " replied ")) != "") ans.Add("[" + searchString + "] Words we should adjust: 'replied' dialogue tags - rather remove them, we dont need to tell the reader they are talking due to \" tages? - perhaps opt for surrounding dialogue with actions like '... last week\". John slumped onto his chair. \"I didn't... - the note here is allow the reader to rely on tracking it themselves"); ;
-            if ((searchString = GetLocations(" " + para + " ", " asked ")) != "") ans.Add("[" + searchString + "] Words we should adjust: 'asked' dialogue tags - rather remove them, we dont need to tell the reader they are talking due to \" tages? - perhaps opt for surrounding dialogue with actions like '... last week\". John slumped onto his chair. \"I didn't... - the note here is allow the reader to rely on tracking it themselves"); ;
+
+            if ((searchString = GetLocations(" " + para + " ", " said ")) != "") ans.Add("[" + searchString + "] Words we should adjust: 'said' dialogue tags - " + suggestedDialogue); ;
+            if ((searchString = GetLocations(" " + para + " ", " replied ")) != "") ans.Add("[" + searchString + "] Words we should adjust: 'replied' dialogue tags - " + suggestedDialogue); ;
+            if ((searchString = GetLocations(" " + para + " ", " asked ")) != "") ans.Add("[" + searchString + "] Words we should adjust: 'asked' dialogue tags - " + suggestedDialogue); ;
+
             if ((searchString = GetLocations(" " + para + " ", " down ")) != "")        ans.Add("[" + searchString + "] Words we should delete: down - I sat down on the floor could be I sat on the floor");
             if ((searchString = GetLocations(" " + para + " ", " up ")) != "")          ans.Add("[" + searchString + "] Words we should delete: up - I stood up could be I stood");
             if ((searchString = GetLocations(" " + para + " ", " wonder ")) != "")      ans.Add("[" + searchString + "] Words we should delete: wonder - we have the reader listening to thoughts, why wonder? rather let the reader know");
