@@ -327,7 +327,7 @@ namespace NaNoE
                     s = s.Replace(".", "").Replace(",", "").Replace(";", "").Replace("\"", "").Replace("'", "").ToLower();
                     if (badDict.Contains(s))
                     {
-                        ans.Add("Bad word: [before " + (i + 1).ToString() + "] " + s);
+                        ans.Add("Potentially bad word: [before " + (i + 1).ToString() + "] " + s);
                     }
                     s = "";
                 }
