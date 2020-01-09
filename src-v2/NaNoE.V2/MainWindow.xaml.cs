@@ -23,6 +23,8 @@ namespace NaNoE.V2
         public MainWindow()
         {
             InitializeComponent();
+
+            NovelWebView.Initiate();
         }
     }
 }
