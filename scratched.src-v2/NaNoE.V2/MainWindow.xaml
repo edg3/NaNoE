@@ -16,12 +16,15 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100" />
                 <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="100" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="butOpen" Content="Open" Margin="1" />
+            <Button x:Name="butNew" Grid.Column="0" Content="New" Margin="1" Click="butNew_Click" />
+            
+            <Button x:Name="butOpen" Grid.Column="1" Content="Open" Margin="1" Click="butOpen_Click" />
 
-            <Button x:Name="butExport" Grid.Column="1" Content="Export" IsEnabled="False" Margin="1" />
+            <Button x:Name="butExport" Grid.Column="2" Content="Export" IsEnabled="False" Margin="1" />
         </Grid>
 
         <Grid Grid.Row="1">
@@ -41,7 +44,6 @@
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition />
-                    <RowDefinition Height="100" />
                 </Grid.RowDefinitions>
 
                 <Grid>
@@ -54,6 +56,7 @@
 
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="5" />
                             <RowDefinition Height="20" />
                             <RowDefinition Height="20" />
                             <RowDefinition Height="20" />
@@ -64,24 +67,31 @@
                             <RowDefinition />
                         </Grid.RowDefinitions>
 
-                        <Button x:Name="butNavStart" Grid.Row="0">S</Button>
-                        <Button x:Name="butNavUp4" Grid.Row="1">-4</Button>
-                        <Button x:Name="butNavUp1" Grid.Row="2">-1</Button>
+                        <Button x:Name="butNavStart" Grid.Row="1">S</Button>
+                        <Button x:Name="butNavUp4" Grid.Row="2">-4</Button>
+                        <Button x:Name="butNavUp1" Grid.Row="3">-1</Button>
 
-                        <Label Content="Nav" Grid.Row="3" FontSize="8" Margin="-5,0,0,0"/>
+                        <Label Content="Nav" Grid.Row="4" FontSize="8" Margin="-5,0,0,0"/>
 
-                        <Button x:Name="butNavDown1" Grid.Row="4">+1</Button>
-                        <Button x:Name="butNavDown4" Grid.Row="5">+4</Button>
-                        <Button x:Name="butNavEnd" Grid.Row="6">E</Button>
+                        <Button x:Name="butNavDown1" Grid.Row="5">+1</Button>
+                        <Button x:Name="butNavDown4" Grid.Row="6">+4</Button>
+                        <Button x:Name="butNavEnd" Grid.Row="7">E</Button>
                     </Grid>
                 </Grid>
-
-                <TextBox x:Name="txtInput" Grid.Row="1" Margin="5"></TextBox>
             </Grid>
 
             <!-- Edit suggestions -->
             <Label Content="Edit Suggestions:" Grid.Column="1" />
-            <ListView x:Name="lstEdits" Grid.Row="1" Grid.Column="2" Margin="5"/>
+            <Grid Grid.Row="1" Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <ListView x:Name="lstEdits" Grid.Row="0" Margin="5" />
+
+                <ListView x:Name="lstIdeas" Grid.Row="1" Margin="5" />
+            </Grid>
         </Grid>
     </Grid>
 </Window>

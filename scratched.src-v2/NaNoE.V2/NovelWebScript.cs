@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NaNoE.V2.NovelElements
+namespace NaNoE.V2
 {
-    class ChapterElement : INovelElement
+    [ComVisible(true)]
+    class NovelWebScript
     {
-        public string GetWeb()
+        public void OnEnter()
         {
-            throw new NotImplementedException();
+
         }
     }
 }

@@ -16,7 +16,9 @@ namespace NaNoE.V2
         private string _css = @"
                                body { background: #DDD }
                                ";
-        private string _html2 = @"</style></head><body>";
+        private string _html2 = @"</style>" + 
+                                "<script type=\"text/javascript\">function OnEnter() { window.external.OnEnter(); }"
+                                + "</head><body>";
         private string _html3 = @"</body></html>";
 
         internal static void Initiate(WebBrowser webView)
@@ -27,6 +29,7 @@ namespace NaNoE.V2
         private NovelWebView(WebBrowser webView)
         {
             _webView = webView;
+            _webView.ObjectForScripting = new NovelWebScript();
         }
 
         private int _index = 0;
@@ -38,7 +41,7 @@ namespace NaNoE.V2
 
         public void RefreshView()
         {
-            if (true)
+            if (!NovelDB.Connected)
             {
                 _webView.NavigateToString(_html1 + _css + _html2 +
                                             "Content" +
@@ -46,7 +49,18 @@ namespace NaNoE.V2
             }
             else
             {
-                throw new NotImplementedException();
+                var elements = NovelDB.GetView();
+                var shownElements = "";
+                for (int i = 0; i < elements.Count; i++)
+                {
+                    shownElements += "<div>" + elements[i].GetWeb() + "<br /></div>";
+                }
+
+                shownElements += "<hr/><textarea></textarea>";
+
+                _webView.NavigateToString(_html1 + _css + _html2 +
+                            shownElements +
+                          _html3);
             }
         }
 

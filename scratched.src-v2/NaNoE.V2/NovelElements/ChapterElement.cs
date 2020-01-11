@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace NaNoE.V2.NovelElements
 {
-    class ParagraphElement : INovelElement
+    class ChapterElement : INovelElement
     {
         public string GetWeb()
         {
-            throw new NotImplementedException();
+            return "Chapter";
         }
     }
 }
