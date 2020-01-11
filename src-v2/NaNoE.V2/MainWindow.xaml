@@ -57,10 +57,22 @@
                             <RowDefinition Height="20" />
                             <RowDefinition Height="20" />
                             <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
+                            <RowDefinition Height="20" />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        
-                        <!-- navigation, potentially -1, +1, -10, +10, start, end buttons? -->
+
+                        <Button x:Name="butNavStart" Grid.Row="0">S</Button>
+                        <Button x:Name="butNavUp4" Grid.Row="1">-4</Button>
+                        <Button x:Name="butNavUp1" Grid.Row="2">-1</Button>
+
+                        <Label Content="Nav" Grid.Row="3" FontSize="8" Margin="-5,0,0,0"/>
+
+                        <Button x:Name="butNavDown1" Grid.Row="4">+1</Button>
+                        <Button x:Name="butNavDown4" Grid.Row="5">+4</Button>
+                        <Button x:Name="butNavEnd" Grid.Row="6">E</Button>
                     </Grid>
                 </Grid>
 
@@ -68,7 +80,7 @@
             </Grid>
 
             <!-- Edit suggestions -->
-            <Label Content="Edits:" Grid.Column="1" />
+            <Label Content="Edit Suggestions:" Grid.Column="1" />
             <ListView x:Name="lstEdits" Grid.Row="1" Grid.Column="2" Margin="5"/>
         </Grid>
     </Grid>

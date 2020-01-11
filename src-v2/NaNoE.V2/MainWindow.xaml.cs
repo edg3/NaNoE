@@ -24,7 +24,8 @@ namespace NaNoE.V2
         {
             InitializeComponent();
 
-            NovelWebView.Initiate();
+            NovelWebView.Initiate(webView);
+            NovelWebView.Instance.RefreshView();
         }
     }
 }
