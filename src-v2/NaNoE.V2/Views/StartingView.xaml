@@ -33,10 +33,10 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="butNew" Grid.Column="0" Grid.Row="0" Content="New" Background="LightGreen" Margin="2" />
+            <Button x:Name="butNew" Grid.Column="0" Grid.Row="0" Content="New" Background="LightGreen" Margin="2" Click="butNew_Click" />
             <Label Content="Create New Novel" Grid.Column="1" Grid.Row="0" Foreground="#BBB" VerticalAlignment="Center" />
 
-            <Button x:Name="butOpen" Grid.Column="0" Grid.Row="1" Content="Open" Background="LightGreen" Margin="2" />
+            <Button x:Name="butOpen" Grid.Column="0" Grid.Row="1" Content="Open" Background="LightGreen" Margin="2" Click="butOpen_Click" />
             <Label Content="Open Existing Novel" Grid.Column="1" Grid.Row="1" Foreground="#BBB" VerticalAlignment="Center" />
 
         </Grid>

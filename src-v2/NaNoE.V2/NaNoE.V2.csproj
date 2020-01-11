@@ -79,7 +79,11 @@
     <Compile Include="Models\IElement.cs" />
     <Compile Include="Models\NoteElement.cs" />
     <Compile Include="Models\ParagraphElement.cs" />
+    <Compile Include="ViewModels\EndViewModel.cs" />
     <Compile Include="ViewModels\StartingViewModel.cs" />
+    <Compile Include="Views\EndView.xaml.cs">
+      <DependentUpon>EndView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\StartingView.xaml.cs">
       <DependentUpon>StartingView.xaml</DependentUpon>
     </Compile>
@@ -95,6 +99,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\EndView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\StartingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

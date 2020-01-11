@@ -1,5 +1,4 @@
-﻿using NaNoE.V2.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,25 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace NaNoE.V2
+namespace NaNoE.V2.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for EndView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class EndView : UserControl
     {
-        private static MainWindow _instance;
-        public static MainWindow Instance { get { return _instance; } }
-
-        public MainWindow()
+        public EndView()
         {
             InitializeComponent();
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            _instance = this;
-            DataContext = new StartingViewModel();
         }
     }
 }

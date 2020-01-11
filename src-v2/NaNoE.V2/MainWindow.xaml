@@ -12,6 +12,9 @@
         <DataTemplate x:Name="startingViewTemplate" DataType="{x:Type viewmodels:StartingViewModel}">
             <views:StartingView DataContext="{Binding}" />
         </DataTemplate>
+        <DataTemplate x:Name="endViewTemplate" DataType="{x:Type viewmodels:EndViewModel}">
+            <views:EndView DataContext="{Binding}" />
+        </DataTemplate>
     </Window.Resources>
     <Grid Background="#222">
         <Grid.ColumnDefinitions>
