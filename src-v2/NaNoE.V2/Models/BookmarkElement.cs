@@ -6,16 +6,11 @@ using System.Threading.Tasks;
 
 namespace NaNoE.V2.Models
 {
-    class ParagraphElement : IElement
+    class BookmarkElement : IElement
     {
         public string WebView()
         {
             throw new NotImplementedException();
-        }
-
-        public override string ToString()
-        {
-            return "Paragraph";
         }
     }
 }

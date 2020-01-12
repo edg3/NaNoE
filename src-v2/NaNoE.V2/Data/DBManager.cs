@@ -1,4 +1,6 @@
-﻿using System;
+﻿using NaNoE.V2.Models;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
@@ -22,6 +24,7 @@ namespace NaNoE.V2.Data
                 return _instance;
             }
         }
+
         private DBManager() { }
 
         private SQLiteConnection _connection;
@@ -89,6 +92,11 @@ namespace NaNoE.V2.Data
             }
 
             return returns;
+        }
+
+        internal List<IElement> GetElements(int v)
+        {
+            return new List<IElement>() { (IElement)(new ChapterElement()), (IElement)(new ParagraphElement()), (IElement)(new NoteElement()) };
         }
     }
 }
