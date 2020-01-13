@@ -18,11 +18,13 @@
         <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled">
             <StackPanel Margin="5">
                 <StackPanel.Resources>
+                    <!-- Chapters -->
                     <DataTemplate DataType="{x:Type models:ChapterElement}">
                         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*" />
                                 <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="100" />
                                 <ColumnDefinition Width="100" />
                             </Grid.ColumnDefinitions>
                             <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -39,8 +41,20 @@
                                 <Button Grid.Row="1" Content="Add Pa. \/" />
                                 <Button Grid.Row="2" Content="Del Item" Background="Red"/>
                             </Grid>
+                            <Grid Grid.Column="3">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20" />
+                                    <RowDefinition Height="20" />
+                                    <RowDefinition Height="20" />
+                                </Grid.RowDefinitions>
+                                <Button Grid.Row="0" Content="Edit" Background="Yellow"/>
+                                <Button Grid.Row="1" Content="Add Note \/"  Foreground="Pink"/>
+                                <Button Grid.Row="2" Content="Add Bookmark \/" Foreground="Orange" />
+                            </Grid>
                         </Grid>
                     </DataTemplate>
+
+                    <!-- Paragraphs -->
                     <DataTemplate DataType="{x:Type models:ParagraphElement}">
                         <Grid VerticalAlignment="Stretch" Grid.ColumnSpan="1">
                             <Grid.ColumnDefinitions>
@@ -70,11 +84,14 @@
                                     <RowDefinition Height="20" />
                                     <RowDefinition Height="20" />
                                 </Grid.RowDefinitions>
-                                <Button Grid.Row="1" Content="Add Note \/" />
-                                <Button Grid.Row="2" Content="Add Bookmark \/" />
+                                <Button Grid.Row="0" Content="Edit" Background="Yellow"/>
+                                <Button Grid.Row="1" Content="Add Note \/"  Foreground="Pink"/>
+                                <Button Grid.Row="2" Content="Add Bookmark \/" Foreground="Orange" />
                             </Grid>
                         </Grid>
                     </DataTemplate>
+
+                    <!-- Note -->
                     <DataTemplate DataType="{x:Type models:NoteElement}">
                         <Grid VerticalAlignment="Stretch" Grid.ColumnSpan="1">
                             <Grid.ColumnDefinitions>
@@ -84,7 +101,7 @@
                                 <ColumnDefinition Width="100" />
                             </Grid.ColumnDefinitions>
                             <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="{Binding}"/>
+                                <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="{Binding}" Foreground="Pink"/>
                             </Grid>
                             <Grid Grid.Column="2">
                                 <Grid.RowDefinitions>
@@ -104,11 +121,14 @@
                                     <RowDefinition Height="20" />
                                     <RowDefinition Height="20" />
                                 </Grid.RowDefinitions>
-                                <Button Grid.Row="1" Content="Add Note \/" />
-                                <Button Grid.Row="2" Content="Add Bookmark \/" />
+                                <Button Grid.Row="0" Content="Edit" Background="Yellow"/>
+                                <Button Grid.Row="1" Content="Add Note \/" Foreground="Pink" />
+                                <Button Grid.Row="2" Content="Add Bookmark \/" Foreground="Orange" />
                             </Grid>
                         </Grid>
                     </DataTemplate>
+
+                    <!-- Writing -->
                     <DataTemplate DataType="{x:Type models:WritingElement}">
                         <Grid VerticalAlignment="Stretch" Grid.ColumnSpan="1">
                             <Grid.ColumnDefinitions>
@@ -118,7 +138,7 @@
                                 <ColumnDefinition Width="100" />
                             </Grid.ColumnDefinitions>
                             <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
-                                <TextBlock TextWrapping="Wrap" Text="{Binding}"/>
+                                <TextBox Width="400" Height="200" HorizontalScrollBarVisibility="Disabled"/>
                             </Grid>
                             <Grid Grid.Column="2">
                                 <Grid.RowDefinitions>
@@ -138,8 +158,46 @@
                                     <RowDefinition Height="20" />
                                     <RowDefinition Height="20" />
                                 </Grid.RowDefinitions>
-                                <Button Grid.Row="1" Content="Add Note \/" />
-                                <Button Grid.Row="2" Content="Add Bookmark \/" />
+                                <Button Grid.Row="0" Content="Edit" Background="Yellow"/>
+                                <Button Grid.Row="1" Content="Add Note \/" Foreground="Pink" />
+                                <Button Grid.Row="2" Content="Add Bookmark \/" Foreground="Orange" />
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+
+                    <!-- Bookmark -->
+                    <DataTemplate DataType="{x:Type models:BookmarkElement}">
+                        <Grid VerticalAlignment="Stretch" Grid.ColumnSpan="1" MinWidth="610">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="100" />
+                            </Grid.ColumnDefinitions>
+                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                                <TextBlock TextWrapping="Wrap" Text="{Binding}" Foreground="Orange"/>
+                            </Grid>
+                            <Grid Grid.Column="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20" />
+                                    <RowDefinition Height="20" />
+                                    <RowDefinition Height="20" />
+                                    <RowDefinition Height="23" />
+                                </Grid.RowDefinitions>
+                                <Button Grid.Row="0" Content="Add Ch. \/" />
+                                <Button Grid.Row="1" Content="Add Pa. \/" />
+                                <Button Grid.Row="2" Content="Del Item" Background="Red"/>
+                                <Label  Grid.Row="3" Content="Num: " FontSize="12"/>
+                            </Grid>
+                            <Grid Grid.Column="3">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20" />
+                                    <RowDefinition Height="20" />
+                                    <RowDefinition Height="20" />
+                                </Grid.RowDefinitions>
+                                <Button Grid.Row="0" Content="Edit" Background="Yellow"/>
+                                <Button Grid.Row="1" Content="Add Note \/" Foreground="Pink"/>
+                                <Button Grid.Row="2" Content="Add Bookmark \/" Foreground="Orange" />
                             </Grid>
                         </Grid>
                     </DataTemplate>

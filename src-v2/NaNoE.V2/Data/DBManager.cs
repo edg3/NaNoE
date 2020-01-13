@@ -96,7 +96,13 @@ namespace NaNoE.V2.Data
 
         internal List<IElement> GetElements(int v)
         {
-            return new List<IElement>() { (IElement)(new ChapterElement()), (IElement)(new ParagraphElement()), (IElement)(new NoteElement()) };
+            return new List<IElement>() { 
+                (IElement)(new ChapterElement()), 
+                (IElement)(new ParagraphElement()), 
+                (IElement)(new NoteElement()),
+                (IElement)(new BookmarkElement()),
+                (IElement)(new WritingElement())
+            };
         }
     }
 }

@@ -12,5 +12,10 @@ namespace NaNoE.V2.Models
         {
             throw new NotImplementedException();
         }
+
+        public override string ToString()
+        {
+            return "Bookmark";
+        }
     }
 }
