@@ -6,6 +6,7 @@ using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace NaNoE.V2.Data
 {
@@ -25,7 +26,10 @@ namespace NaNoE.V2.Data
             }
         }
 
-        private DBManager() { }
+        private DBManager()
+        {
+            _run = new RunCommand();
+        }
 
         private SQLiteConnection _connection;
         public bool Connected { get { return _connection != null; } }
@@ -97,12 +101,18 @@ namespace NaNoE.V2.Data
         internal List<IElement> GetElements(int v)
         {
             return new List<IElement>() { 
-                (IElement)(new ChapterElement()), 
-                (IElement)(new ParagraphElement()), 
-                (IElement)(new NoteElement()),
-                (IElement)(new BookmarkElement()),
-                (IElement)(new WritingElement())
+                (IElement)(new ChapterElement(1)), 
+                (IElement)(new ParagraphElement(2)), 
+                (IElement)(new NoteElement(3)),
+                (IElement)(new BookmarkElement(4)),
+                (IElement)(new WritingElement(5))
             };
+        }
+
+        ICommand _run;
+        public ICommand Run
+        {
+            get { return _run; }
         }
     }
 }

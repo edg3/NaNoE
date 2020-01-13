@@ -8,6 +8,12 @@ namespace NaNoE.V2.Models
 {
     class NoteElement : IElement
     {
+        public NoteElement(int id) : base(id)
+        {
+
+        }
+
+
         public string WebView()
         {
             throw new NotImplementedException();

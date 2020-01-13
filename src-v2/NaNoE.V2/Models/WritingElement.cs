@@ -8,6 +8,11 @@ namespace NaNoE.V2.Models
 {
     class WritingElement : IElement
     {
+        public WritingElement(int id) : base(id)
+        {
+
+        }
+
         public string WebView()
         {
             throw new NotImplementedException();

@@ -8,6 +8,12 @@ namespace NaNoE.V2.Models
 {
     class ChapterElement : IElement
     {
+        public ChapterElement(int id) : base(id)
+        {
+
+        }
+
+
         public string WebView()
         {
             throw new NotImplementedException();

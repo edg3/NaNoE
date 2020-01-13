@@ -8,6 +8,12 @@ namespace NaNoE.V2.Models
 {
     class ParagraphElement : IElement
     {
+        public ParagraphElement(int id) : base(id)
+        {
+
+        }
+
+
         public string WebView()
         {
             throw new NotImplementedException();
