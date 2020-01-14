@@ -23,9 +23,9 @@ namespace NaNoE.V2.Models
             throw new NotImplementedException();
         }
 
-        public ICommand Run
+        public ICommand RunAddChapter
         {
-            get { return DBManager.Instance.Run; }
+            get { return DBManager.Instance.RunAddChapter; }
         }
     }
 }

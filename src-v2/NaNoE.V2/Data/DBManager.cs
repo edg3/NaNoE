@@ -28,7 +28,7 @@ namespace NaNoE.V2.Data
 
         private DBManager()
         {
-            _run = new RunCommand();
+            _runAddChapter = new RunAddChapterCommand();
         }
 
         private SQLiteConnection _connection;
@@ -61,37 +61,46 @@ namespace NaNoE.V2.Data
 
         private void CreateTables()
         {
-            string elementTableCreate = "CREATE TABLE elements (id int identity(1,1), idbefore int, idafter int, type int(1), externalid int)";
+            // 0 - Chapter
+            // 1 - Paragraph
+            // 2 - Note
+            // 3 - Bookmark
+
+            string elementTableCreate = "CREATE TABLE elements (id int identity(1,1), idbefore int, idafter int, type int, externalid int)";
             ExecSQLNonQuery(elementTableCreate);
 
             string paragraphTableCreate = "CREATE TABLE paragraphs (id int identity(1,1), content text)";
             ExecSQLNonQuery(paragraphTableCreate);
-
-            string chapterTableCreate = "CREATE TABLE chapters (id int identity(1,1))";
-            ExecSQLNonQuery(chapterTableCreate);
         }
 
-        private void ExecSQLNonQuery(string sql)
+        internal void ExecSQLNonQuery(string sql)
         {
             SQLiteCommand cmd = new SQLiteCommand(sql, _connection);
             cmd.ExecuteNonQuery();
         }
 
-        private List<string[]> ExecSQLQuery(string sql, int answerSize)
+        internal List<object[]> ExecSQLQuery(string sql, int answerSize)
         {
             SQLiteCommand cmd = new SQLiteCommand(sql, _connection);
-            List<string[]> returns = new List<string[]>();
+            List<object[]> returns = new List<object[]>();
             string[] line;
             using (var reader = cmd.ExecuteReader())
             {
-                while (reader.Read())
+                if (reader.HasRows)
                 {
-                    line = new string[answerSize];
-                    for (int i = 0; i < answerSize; i++)
+                    while (reader.Read())
                     {
-                        line[i] = reader.GetString(i);
+                        try
+                        {
+                            line = new string[answerSize];
+                            for (int i = 0; i < answerSize; i++)
+                            {
+                                line[i] = reader.GetString(i);
+                            }
+                            returns.Add(line);
+                        }
+                        catch { }
                     }
-                    returns.Add(line);
                 }
             }
 
@@ -100,19 +109,43 @@ namespace NaNoE.V2.Data
 
         internal List<IElement> GetElements(int v)
         {
-            return new List<IElement>() { 
-                (IElement)(new ChapterElement(1)), 
-                (IElement)(new ParagraphElement(2)), 
-                (IElement)(new NoteElement(3)),
-                (IElement)(new BookmarkElement(4)),
-                (IElement)(new WritingElement(5))
-            };
+            var answer = new List<IElement>();
+
+            var response = ExecSQLQuery("SELECT * FROM elements elements ORDER BY id DESC LIMIT 3", 5);
+            for (int i = response.Count - 1; i >= 0; i++)
+            {
+                var what = (int)((response[i])[3]);
+                switch (what)
+                {
+                    case 0: // Chapter
+                        {
+                            answer.Add(new ChapterElement((int)((response[i])[0])));
+                        } break;
+                }
+            }
+
+            int max = -1;
+            var findMax = ExecSQLQuery("SELECT MAX(id) FROM elements", 1);
+            if (findMax.Count != 0)
+            {
+                max = (int)((findMax[0])[0]);
+            }
+            if (answer.Count == 0)
+            {
+                answer.Add(new WritingElement(-1));
+            }
+            else if (answer[answer.Count - 1].ID == max)
+            {
+                answer.Add(new WritingElement(-1));
+            }
+
+            return answer;
         }
 
-        ICommand _run;
-        public ICommand Run
+        ICommand _runAddChapter;
+        public ICommand RunAddChapter
         {
-            get { return _run; }
+            get { return _runAddChapter; }
         }
     }
 }
