@@ -71,6 +71,12 @@ namespace NaNoE.V2.Data
 
             string paragraphTableCreate = "CREATE TABLE paragraphs (id int identity(1,1), content text)";
             ExecSQLNonQuery(paragraphTableCreate);
+
+            string noteTableCreate = "CREATE TABLE notes (id int identity(1,1), content text)";
+            ExecSQLNonQuery(noteTableCreate);
+
+            string bookmarkTableCreate = "CREATE TABLE bookmarks (id int identity(1,1), content text)";
+            ExecSQLNonQuery(bookmarkTableCreate);
         }
 
         internal void ExecSQLNonQuery(string sql)
