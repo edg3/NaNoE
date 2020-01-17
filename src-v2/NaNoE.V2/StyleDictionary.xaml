@@ -149,7 +149,7 @@
                                     <RowDefinition Height="20" />
                                     <RowDefinition Height="23" />
                                 </Grid.RowDefinitions>
-                                <Button Grid.Row="0" Content="Add Ch. /\" />
+                                <Button Grid.Row="0" CommandParameter="-1" Command="{Binding RunAddChapter}" Content="Add Ch. /\" />
                                 <Label Grid.Row="3" Content="Num: " FontSize="12"/>
                             </Grid>
                             <Grid Grid.Column="3">

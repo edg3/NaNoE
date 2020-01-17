@@ -42,6 +42,14 @@ namespace NaNoE.V2.Data
 
             _connection = new SQLiteConnection("Data Source=" + file);
             _connection.Open();
+
+            GenerateMap();
+
+            _position = _map.Count - 2;
+            if (_position < 0)
+            {
+                _position = 0;
+            }
         }
 
         public void Create(string file)
@@ -57,6 +65,10 @@ namespace NaNoE.V2.Data
             _connection.Open();
 
             CreateTables();
+
+            GenerateMap();
+
+            _position = 0;
         }
 
         private void CreateTables()
@@ -113,20 +125,42 @@ namespace NaNoE.V2.Data
             return returns;
         }
 
-        internal List<IElement> GetElements(int v)
+        internal List<IElement> GetElements()
         {
             var answer = new List<IElement>();
 
-            var response = ExecSQLQuery("SELECT * FROM elements elements ORDER BY id DESC LIMIT 3", 5);
-            for (int i = response.Count - 1; i >= 0; i++)
+            List<int> prepare = new List<int>();
+            for (int i = _position; i < _map.Count && i < _position + 3; i++)
             {
+                prepare.Add(_map[_position]);
+            }
+
+            for (int i = 0; i < prepare.Count; i++)
+            {
+                var response = ExecSQLQuery("SELECT id, idbefore, idafter, type, externalid FROM elements elements WHERE id = " + prepare[i], 5);
                 var what = (int)((response[i])[3]);
                 switch (what)
                 {
                     case 0: // Chapter
                         {
                             answer.Add(new ChapterElement((int)((response[i])[0])));
-                        } break;
+                        }
+                        break;
+                    case 1: // Paragraph
+                        {
+                            answer.Add(new ParagraphElement((int)((response[i])[0])));
+                        }
+                        break;
+                    case 2: // Note
+                        {
+                            answer.Add(new NoteElement((int)((response[i])[0])));
+                        }
+                        break;
+                    case 4: // Bookmark
+                        {
+                            answer.Add(new BookmarkElement((int)((response[i])[0])));
+                        }
+                        break;
                 }
             }
 
@@ -159,6 +193,13 @@ namespace NaNoE.V2.Data
         {
             _map = new List<int>();
 
+            var test = ExecSQLQuery("SELECT COUNT(id) FROM elements", 1);
+
+            if (test.Count == 0)
+            {
+                return;
+            }
+
             var response = ExecSQLQuery("SELECT id, afterid FROM elements", 2);
 
             if (response.Count > 0)
@@ -175,6 +216,17 @@ namespace NaNoE.V2.Data
                     response.Remove(item);
                     _map.Add((int)(item[0]));
                 }
+            }
+        }
+
+        private int _position;
+        public int Position { get { return _position; } }
+
+        public void IncreasePosition()
+        {
+            if (_position < _map.Count - 3)
+            {
+                ++_position;
             }
         }
     }

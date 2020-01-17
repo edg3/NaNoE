@@ -11,6 +11,6 @@ namespace NaNoE.V2.ViewModels
 {
     class EndViewModel
     {
-        public List<IElement> Data { get { return DBManager.Instance.GetElements(-1); } }
+        public List<IElement> Data { get { return DBManager.Instance.GetElements(); } }
     }
 }
