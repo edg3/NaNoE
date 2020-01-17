@@ -153,5 +153,29 @@ namespace NaNoE.V2.Data
         {
             get { return _runAddChapter; }
         }
+
+        private List<int> _map;
+        private void GenerateMap()
+        {
+            _map = new List<int>();
+
+            var response = ExecSQLQuery("SELECT id, afterid FROM elements", 2);
+
+            if (response.Count > 0)
+            {
+                var item = response[0];
+                response.Remove(item);
+                _map.Add((int)(item[0]));
+
+                while (response.Count > 0)
+                {
+                    item = (from element in response
+                            where response[0] == item[1]
+                            select element).First();
+                    response.Remove(item);
+                    _map.Add((int)(item[0]));
+                }
+            }
+        }
     }
 }

@@ -97,7 +97,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Data\DBManager.cs" />
-    <Compile Include="Data\RunCommand.cs" />
+    <Compile Include="Data\RunAddChapterCommand.cs" />
     <Compile Include="Models\BookmarkElement.cs" />
     <Compile Include="Models\ChapterElement.cs" />
     <Compile Include="Models\IElement.cs" />
