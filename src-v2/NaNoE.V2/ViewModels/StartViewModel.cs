@@ -41,8 +41,8 @@ namespace NaNoE.V2.ViewModels
         private CommandBase _openNovelCommand;
         public CommandBase OpenNovelCommand
         {
-            get { return _openLastNovelCommand; }
-            set { _openLastNovelCommand = value; }
+            get { return _openNovelCommand; }
+            set { _openNovelCommand = value; }
         }
         private void _OpenNovel()
         {
