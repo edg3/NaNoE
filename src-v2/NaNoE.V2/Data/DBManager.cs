@@ -193,7 +193,12 @@ namespace NaNoE.V2.Data
 
         public void InsertNote(int where, string text)
         {
-            throw new NotImplementedException();
+            ExecSQLNonQuery("INSERT INTO notes (text)" +
+                            " VALUES ('" + ProcessText(text) + "')");
+            var answer = ExecSQLQuery("SELECT max(id) FROM notes", 1);
+            var id = int.Parse((answer[0])[0].ToString());
+
+            InsertElement(where, 2, id);
         }
 
         public void InsertParagraph(int where, string text, bool flagged)
