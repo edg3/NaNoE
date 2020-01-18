@@ -155,7 +155,7 @@ namespace NaNoE.V2.Data
             }
 
             ExecSQLNonQuery("INSERT INTO elements (idbefore, idafter, type, externalid)" +
-                         "VALUES (" +
+                         " VALUES (" +
                             where + "," +
                             idafter + "," +
                             type + "," +
@@ -178,12 +178,17 @@ namespace NaNoE.V2.Data
 
         public void InsertChapter(int where)
         {
-            throw new NotImplementedException();
+            InsertElement(where, 0, 0);
         }
 
         public void InsertBookmark(int where, string text)
         {
-            throw new NotImplementedException();
+            ExecSQLNonQuery("INSERT INTO bookmarks (text)" +
+                            " VALUES ('" + ProcessText(text) + "')");
+            var answer = ExecSQLQuery("SELECT max(id) FROM bookmarks", 1);
+            var id = int.Parse((answer[0])[0].ToString());
+
+            InsertElement(where, 3, id);
         }
 
         public void InsertNote(int where, string text)
@@ -195,5 +200,11 @@ namespace NaNoE.V2.Data
         {
             throw new NotImplementedException();
         }
+
+        private string ProcessText(string text)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
