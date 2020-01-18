@@ -63,7 +63,11 @@
     <Compile Include="Data\CommandBase.cs" />
     <Compile Include="Data\Navigator.cs" />
     <Compile Include="Data\ViewModelLocator.cs" />
+    <Compile Include="ViewModels\NovelEndViewModel.cs" />
     <Compile Include="ViewModels\StartViewModel.cs" />
+    <Compile Include="Views\NovelEndView.xaml.cs">
+      <DependentUpon>NovelEndView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\StartView.xaml.cs">
       <DependentUpon>StartView.xaml</DependentUpon>
     </Compile>
@@ -80,6 +84,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\NovelEndView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\StartView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

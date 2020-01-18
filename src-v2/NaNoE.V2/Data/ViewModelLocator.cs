@@ -37,10 +37,17 @@ namespace NaNoE.V2.Data
         /// <summary>
         /// Instances of all ViewModels we are using
         /// </summary>
+        
         private StartViewModel _startVM = new StartViewModel();
         public StartViewModel StartVM
         {
             get { return _startVM; }
+        }
+
+        private NovelEndViewModel _novelEndVM = new NovelEndViewModel();
+        public NovelEndViewModel NovelEndVM
+        {
+            get { return _novelEndVM; }
         }
     }
 }
