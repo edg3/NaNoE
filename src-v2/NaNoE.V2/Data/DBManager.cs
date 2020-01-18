@@ -203,7 +203,7 @@ namespace NaNoE.V2.Data
 
         private string ProcessText(string text)
         {
-            throw new NotImplementedException();
+            return text.Replace("'", "''");
         }
 
     }
