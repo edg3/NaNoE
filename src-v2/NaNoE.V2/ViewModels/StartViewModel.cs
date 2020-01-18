@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,7 +47,18 @@ namespace NaNoE.V2.ViewModels
         }
         private void _OpenNovel()
         {
-            Debug.Assert(false, "Open Novel command");
+            Microsoft.Win32.OpenFileDialog ofd = new Microsoft.Win32.OpenFileDialog();
+            ofd.FileName = "SQLite Novel";
+            ofd.DefaultExt = ".sqlite";
+            ofd.Filter = "SQLite Novels (.sqlite)|*.sqlite";
+
+            Nullable<bool> result = ofd.ShowDialog();
+
+            if (result == true)
+            {
+                DBManager.Instance.Load(ofd.FileName);
+                Navigator.Instance.Goto("novelend");
+            }
         }
 
         /// <summary>
@@ -60,7 +72,26 @@ namespace NaNoE.V2.ViewModels
         }
         private void _NewNovel()
         {
-            Debug.Assert(false, "New Novel command");
+            Microsoft.Win32.SaveFileDialog sfd = new Microsoft.Win32.SaveFileDialog();
+            sfd.FileName = "SQLite Novel";
+            sfd.DefaultExt = ".sqlite";
+            sfd.Filter = "SQLite Novels (.sqlite)|*.sqlite";
+            sfd.OverwritePrompt = false;
+
+            Nullable<bool> result = sfd.ShowDialog();
+
+            if (result == true)
+            {
+                if (File.Exists(sfd.FileName))
+                {
+                    MessageBox.Show("Can't use name of already created files.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    DBManager.Instance.Create(sfd.FileName);
+                    Navigator.Instance.Goto("novelend");
+                }
+            }
         }
 
         /// <summary>
@@ -74,7 +105,15 @@ namespace NaNoE.V2.ViewModels
         }
         private void _OpenLastNovel()
         {
-            Debug.Assert(false, "Open Last Novel command");
+            if (LastNovel == "None")
+            {
+                MessageBox.Show("Can't open 'None'.", "Oops...", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+            
+            DBManager.Instance.Load(LastNovel);
+            // TODO: Open last should go to same position
+            Navigator.Instance.Goto("novelend");
         }
     }
 }

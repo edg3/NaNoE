@@ -76,6 +76,7 @@ namespace NaNoE.V2.Data
             switch (name)
             {
                 case "start": window = new StartView(); break;
+                default: throw new NotImplementedException();
             }
 
             if (null != window)
