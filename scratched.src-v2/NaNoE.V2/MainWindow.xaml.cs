@@ -1,6 +1,6 @@
-﻿using System;
+﻿using NaNoE.V2.ViewModels;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,52 +21,18 @@ namespace NaNoE.V2
     /// </summary>
     public partial class MainWindow : Window
     {
+        private static MainWindow _instance;
+        public static MainWindow Instance { get { return _instance; } }
+
         public MainWindow()
         {
             InitializeComponent();
-
-            NovelWebView.Initiate(webView);
-            NovelWebView.Instance.RefreshView();
         }
 
-        private void butNew_Click(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Microsoft.Win32.SaveFileDialog sfd = new Microsoft.Win32.SaveFileDialog();
-            sfd.FileName = "SQLite Novel";
-            sfd.DefaultExt = ".sqlite";
-            sfd.Filter = "SQLite Novels (.sqlite)|*.sqlite";
-            sfd.OverwritePrompt = false;
-
-            Nullable<bool> result = sfd.ShowDialog();
-
-            if (result == true)
-            {
-                if (File.Exists(sfd.FileName))
-                {
-                    MessageBox.Show("Can't use name of already created files.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                else
-                {
-                    NovelDB.Create(sfd.FileName);
-                }
-            }
-        }
-
-        private void butOpen_Click(object sender, RoutedEventArgs e)
-        {
-            Microsoft.Win32.OpenFileDialog ofd = new Microsoft.Win32.OpenFileDialog();
-            ofd.FileName = "SQLite Novel";
-            ofd.DefaultExt = ".sqlite";
-            ofd.Filter = "SQLite Novels (.sqlite)|*.sqlite";
-
-            Nullable<bool> result = ofd.ShowDialog();
-
-            if (result == true)
-            {
-                NovelDB.Load(ofd.FileName);
-
-                NovelWebView.Instance.RefreshView();
-            }
+            _instance = this;
+            DataContext = new StartingViewModel();
         }
     }
 }

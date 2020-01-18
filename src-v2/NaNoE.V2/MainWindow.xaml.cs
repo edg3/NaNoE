@@ -1,5 +1,4 @@
-﻿using NaNoE.V2.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,18 +20,9 @@ namespace NaNoE.V2
     /// </summary>
     public partial class MainWindow : Window
     {
-        private static MainWindow _instance;
-        public static MainWindow Instance { get { return _instance; } }
-
         public MainWindow()
         {
             InitializeComponent();
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            _instance = this;
-            DataContext = new StartingViewModel();
         }
     }
 }

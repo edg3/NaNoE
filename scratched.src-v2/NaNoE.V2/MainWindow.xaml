@@ -4,94 +4,32 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NaNoE.V2"
+        xmlns:viewmodels="clr-namespace:NaNoE.V2.ViewModels"
+        xmlns:views="clr-namespace:NaNoE.V2.Views"
+        xmlns:models="clr-namespace:NaNoE.V2.Models"
         mc:Ignorable="d"
-        Title="NaNoE v2.0.0-beta" Height="600" Width="800">
-    <Grid>
+        Title="NaNoE v2.0-beta" Height="600" Width="800" Loaded="Window_Loaded">
+    <Grid Background="#222">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition />
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+
         <Grid.RowDefinitions>
-            <RowDefinition Height="25" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="5" />
             <RowDefinition />
+            <RowDefinition Height="20" />
         </Grid.RowDefinitions>
+        
+        <!-- Menu -->
+        <Menu Grid.Row="1" Grid.Column="1" Background="#222"/>
 
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100" />
-                <ColumnDefinition Width="100" />
-                <ColumnDefinition Width="100" />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-
-            <Button x:Name="butNew" Grid.Column="0" Content="New" Margin="1" Click="butNew_Click" />
-            
-            <Button x:Name="butOpen" Grid.Column="1" Content="Open" Margin="1" Click="butOpen_Click" />
-
-            <Button x:Name="butExport" Grid.Column="2" Content="Export" IsEnabled="False" Margin="1" />
-        </Grid>
-
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="26" />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="200" />
-            </Grid.ColumnDefinitions>
-
-            <!-- Page Title -->
-            <Label x:Name="lblCount" Content="W: 0" />
-
-            <!-- Novel Writing-->
-            <Grid Grid.Row="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="20" />
-                    </Grid.ColumnDefinitions>
-
-                    <WebBrowser x:Name="webView" Margin="5"/>
-
-                    <Grid Grid.Column="1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="5" />
-                            <RowDefinition Height="20" />
-                            <RowDefinition Height="20" />
-                            <RowDefinition Height="20" />
-                            <RowDefinition Height="20" />
-                            <RowDefinition Height="20" />
-                            <RowDefinition Height="20" />
-                            <RowDefinition Height="20" />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-
-                        <Button x:Name="butNavStart" Grid.Row="1">S</Button>
-                        <Button x:Name="butNavUp4" Grid.Row="2">-4</Button>
-                        <Button x:Name="butNavUp1" Grid.Row="3">-1</Button>
-
-                        <Label Content="Nav" Grid.Row="4" FontSize="8" Margin="-5,0,0,0"/>
-
-                        <Button x:Name="butNavDown1" Grid.Row="5">+1</Button>
-                        <Button x:Name="butNavDown4" Grid.Row="6">+4</Button>
-                        <Button x:Name="butNavEnd" Grid.Row="7">E</Button>
-                    </Grid>
-                </Grid>
-            </Grid>
-
-            <!-- Edit suggestions -->
-            <Label Content="Edit Suggestions:" Grid.Column="1" />
-            <Grid Grid.Row="1" Grid.Column="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-
-                <ListView x:Name="lstEdits" Grid.Row="0" Margin="5" />
-
-                <ListView x:Name="lstIdeas" Grid.Row="1" Margin="5" />
-            </Grid>
-        </Grid>
+        <!-- Interface -->
+        <ContentControl Grid.Row="3" Grid.Column="1" Content="{Binding}" />
+        
+        <!-- Note: View use User Control (WPF) in Views -->
     </Grid>
 </Window>
