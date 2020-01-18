@@ -145,6 +145,12 @@ namespace NaNoE.V2.Data
             return returns;
         }
 
+        /// <summary>
+        /// Insert an element into the novel
+        /// </summary>
+        /// <param name="where">The ID where the element will be places</param>
+        /// <param name="type">What the type of the element is (see CreateTables)</param>
+        /// <param name="external">External element ID to link to</param>
         private void InsertElement(int where, int type, int external)
         {
             int idafter = 0;
@@ -176,11 +182,20 @@ namespace NaNoE.V2.Data
             }
         }
 
+        /// <summary>
+        /// Insert a chapter into the novel
+        /// </summary>
+        /// <param name="where">The ID before this position</param>
         public void InsertChapter(int where)
         {
             InsertElement(where, 0, 0);
         }
 
+        /// <summary>
+        /// Insert a bookmark into the novel
+        /// </summary>
+        /// <param name="where">The ID before this position</param>
+        /// <param name="text">The label of the bookmark</param>
         public void InsertBookmark(int where, string text)
         {
             ExecSQLNonQuery("INSERT INTO bookmarks (text)" +
@@ -191,6 +206,11 @@ namespace NaNoE.V2.Data
             InsertElement(where, 3, id);
         }
 
+        /// <summary>
+        /// Insert a note into the novel
+        /// </summary>
+        /// <param name="where">The ID before this position</param>
+        /// <param name="text">The note's contents</param>
         public void InsertNote(int where, string text)
         {
             ExecSQLNonQuery("INSERT INTO notes (text)" +
@@ -201,11 +221,27 @@ namespace NaNoE.V2.Data
             InsertElement(where, 2, id);
         }
 
+        /// <summary>
+        /// Insert a paragraph into the novel
+        /// </summary>
+        /// <param name="where">The ID before this position</param>
+        /// <param name="text">The paragraph text</param>
+        /// <param name="flagged">Whether it should be ignored in Edits</param>
         public void InsertParagraph(int where, string text, bool flagged)
         {
-            throw new NotImplementedException();
+            ExecSQLNonQuery("INSERT INTO paragraphs (text, flagged)" +
+                            " VALUES ('" + ProcessText(text) + "', " + (flagged ? "True" : "False") + ")");
+            var answer = ExecSQLQuery("SELECT max(id) FROM paragraphs", 1);
+            var id = int.Parse((answer[0])[0].ToString());
+
+            InsertElement(where, 1, id);
         }
 
+        /// <summary>
+        /// Fix ' characters for SQL
+        /// </summary>
+        /// <param name="text">Text to process</param>
+        /// <returns>Text with double '</returns>
         private string ProcessText(string text)
         {
             return text.Replace("'", "''");
