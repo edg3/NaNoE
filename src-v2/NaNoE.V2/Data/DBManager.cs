@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NaNoE.V2.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
@@ -247,5 +248,40 @@ namespace NaNoE.V2.Data
             return text.Replace("'", "''");
         }
 
+        internal List<ModelBase> GetEnd()
+        {
+            // TODO: move this to position
+            List<ModelBase> answer = new List<ModelBase>();
+
+            var elements = ExecSQLQuery("SELECT id, idbefore, idafter, type, externalid FROM elements", 5);
+            for (int i = 0; i < elements.Count; i++)
+            {
+                switch ((elements[i])[3])
+                {
+                    case 0: // Chapter
+                        {
+                            answer.Add(new ModelBase((int)((elements[i])[0]), (int)((elements[i])[1]), (int)((elements[i])[2]), 0, 0));
+                        }
+                        break;
+                    case 1: // Paragraph
+                        {
+
+                        }
+                        break;
+                    case 2: // Note
+                        {
+
+                        }
+                        break;
+                    case 3: // Bookmark
+                        {
+
+                        }
+                        break;
+                }
+            }
+
+            return answer;
+        }
     }
 }
