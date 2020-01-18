@@ -144,5 +144,56 @@ namespace NaNoE.V2.Data
 
             return returns;
         }
+
+        private void InsertElement(int where, int type, int external)
+        {
+            int idafter = 0;
+            if (where != 0)
+            {
+                var afteranswer = ExecSQLQuery("SELECT afterid FROM elements WHERE id = " + where, 1);
+                idafter = int.Parse((afteranswer[0])[0].ToString());
+            }
+
+            ExecSQLNonQuery("INSERT INTO elements (idbefore, idafter, type, externalid)" +
+                         "VALUES (" +
+                            where + "," +
+                            idafter + "," +
+                            type + "," +
+                            external +
+                         ")");
+            var answer = ExecSQLQuery("SELECT max(id) FROM elements", 1);
+            var id = int.Parse((answer[0])[0].ToString());
+
+            if (where != 0)
+            {
+                ExecSQLNonQuery("UPDATE elements SET idafter = " + id +
+                                " WHERE id = " + where);
+            }
+            if (idafter != 0)
+            {
+                ExecSQLNonQuery("UPDATE elements SET idbefore = " + id +
+                                " WHERE id = " + idafter);
+            }
+        }
+
+        public void InsertChapter(int where)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InsertBookmark(int where, string text)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InsertNote(int where, string text)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void InsertParagraph(int where, string text, bool flagged)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
