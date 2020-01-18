@@ -70,7 +70,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\BookmarkModel.cs" />
     <Compile Include="Models\ModelBase.cs" />
+    <Compile Include="Models\NoteModel.cs" />
     <Compile Include="Models\ParagraphModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
