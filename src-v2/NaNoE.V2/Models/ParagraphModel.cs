@@ -10,9 +10,25 @@ namespace NaNoE.V2.Models
     class ParagraphModel : ModelBase
     {
         /// <summary>
-        /// Paragraph contents
+        /// Initiate Paragraph
         /// </summary>
-        private string _text;
+        /// <param name="id">Element ID</param>
+        /// <param name="before">ID Before</param>
+        /// <param name="after">ID After</param>
+        /// <param name="elType">Element type</param>
+        /// <param name="external">External ID</param>
+        /// <param name="text">Text</param>
+        /// <param name="flagged">Flagged</param>
+        public ParagraphModel(int id, int before, int after, int elType, int external, string text, bool flagged) : base(id, before, after, elType, external)
+        {
+            _text = text;
+            _flagged = flagged;
+        }
+
+    /// <summary>
+    /// Paragraph contents
+    /// </summary>
+    private string _text;
         public string Text
         {
             get { return _text; }

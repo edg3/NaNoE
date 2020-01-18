@@ -13,6 +13,23 @@ namespace NaNoE.V2.Models
     class ModelBase : INotifyPropertyChanged
     {
         /// <summary>
+        /// Initiate Element structure
+        /// </summary>
+        /// <param name="id">Element's ID</param>
+        /// <param name="before">ID of previous Element</param>
+        /// <param name="after">ID of following Element</param>
+        /// <param name="elType">Type of Element</param>
+        /// <param name="external">External ID</param>
+        public ModelBase(int id, int before, int after, int elType, int external)
+        {
+            _id = id;
+            _idBefore = before;
+            _idAfter = after;
+            _elementType = elType;
+            _externalID = external;
+        }
+
+        /// <summary>
         /// Everything in the DB has an ID
         ///  - Note: This can differ from tables
         /// </summary>
