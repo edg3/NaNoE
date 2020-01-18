@@ -1,5 +1,4 @@
-﻿using NaNoE.V2.Data;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,20 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace NaNoE.V2
+namespace NaNoE.V2.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for StartView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class StartView : Window
     {
-        public MainWindow()
+        public StartView()
         {
             InitializeComponent();
-
-            new ViewModelLocator();
-            new Navigator(frmNav);
-            Navigator.Instance.Goto("start");
         }
     }
 }

@@ -5,8 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NaNoE.V2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="480" Width="640">
+    <Grid Background="#222">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <!-- Menu -->
         
+        <!-- Content -->
+        <Frame
+            x:Name="frmNav"
+            Grid.Row="1"
+            Background="White"
+            NavigationUIVisibility="Hidden"
+            Margin="2,2,2,2">
+        </Frame>
     </Grid>
 </Window>
