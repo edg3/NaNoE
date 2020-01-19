@@ -28,6 +28,18 @@ namespace NaNoE.V2
             new ViewModelLocator();
             new Navigator(frmNav);
             Navigator.Instance.Goto("start");
+
+            // Commands we use in views
+            _runAddChapter = new RunAddChapterCommand();
+        }
+
+        /// <summary>
+        /// Add Chapter Command
+        /// </summary>
+        ICommand _runAddChapter;
+        public ICommand RunAddChapter
+        {
+            get { return _runAddChapter; }
         }
     }
 }

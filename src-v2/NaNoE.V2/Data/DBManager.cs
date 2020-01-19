@@ -260,7 +260,13 @@ namespace NaNoE.V2.Data
                 {
                     case 0: // Chapter
                         {
-                            
+                            answer.Add(new ModelBase(
+                                    int.Parse((elements[i])[0].ToString()),
+                                    int.Parse((elements[i])[1].ToString()),
+                                    int.Parse((elements[i])[2].ToString()),
+                                    int.Parse((elements[i])[3].ToString()),
+                                    0
+                                ));
                         }
                         break;
                     case 1: // Paragraph
@@ -291,6 +297,15 @@ namespace NaNoE.V2.Data
             answer.Add(new WritingModel(id));
 
             return answer;
+        }
+
+        /// <summary>
+        /// Get ID of last Element
+        /// </summary>
+        /// <returns>ID of last Element</returns>
+        internal int GetEndID()
+        {
+            throw new NotImplementedException();
         }
     }
 }

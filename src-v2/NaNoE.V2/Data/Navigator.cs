@@ -48,6 +48,14 @@ namespace NaNoE.V2.Data
         }
 
         /// <summary>
+        /// Fix for App.xaml
+        /// </summary>
+        public Navigator()
+        {
+            throw new Exception("Navigator needs a host fram.");
+        }
+
+        /// <summary>
         /// Keeps the Views from stacking up
         /// </summary>
         private void _host_Navigated(object sender, NavigationEventArgs e)
