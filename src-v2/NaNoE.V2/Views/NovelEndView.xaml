@@ -7,6 +7,14 @@
         mc:Ignorable="d"
         Title="NovelEndView" Height="450" Width="800">
     <Grid Background="#222" DataContext="{Binding NovelEndVM, Source={StaticResource ViewModelLocator}}">
-        
+        <ListView
+            x:Name="lstElements"
+            Background="#333"
+            Margin="3"
+            ItemsSource="{Binding View}"
+            ItemTemplate="{DynamicResource tmplElements}"
+            HorizontalContentAlignment="Stretch"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+        </ListView>
     </Grid>
 </Window>

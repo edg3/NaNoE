@@ -260,7 +260,7 @@ namespace NaNoE.V2.Data
                 {
                     case 0: // Chapter
                         {
-                            answer.Add(new ModelBase((int)((elements[i])[0]), (int)((elements[i])[1]), (int)((elements[i])[2]), 0, 0));
+                            
                         }
                         break;
                     case 1: // Paragraph
@@ -280,6 +280,15 @@ namespace NaNoE.V2.Data
                         break;
                 }
             }
+            
+            int id = 0;
+            if (elements.Count > 0)
+            {
+                var item = elements[elements.Count - 1];
+                id = int.Parse(item[0].ToString());
+            }
+
+            answer.Add(new WritingModel(id));
 
             return answer;
         }

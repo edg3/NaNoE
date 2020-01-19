@@ -63,6 +63,7 @@
     <Compile Include="Data\CommandBase.cs" />
     <Compile Include="Data\Navigator.cs" />
     <Compile Include="Data\ViewModelLocator.cs" />
+    <Compile Include="Models\WritingModel.cs" />
     <Compile Include="ViewModels\NovelEndViewModel.cs" />
     <Compile Include="ViewModels\StartViewModel.cs" />
     <Compile Include="Views\NovelEndView.xaml.cs">
