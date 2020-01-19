@@ -15,7 +15,7 @@ namespace NaNoE.V2.Data
         {
             return true;
         }
-        //string elementTableCreate = "CREATE TABLE elements (id int identity(1,1), idbefore int, idafter int, type int, externalid int)";
+        
         public void Execute(object parameter)
         {
             if (parameter.ToString() == "-1")
