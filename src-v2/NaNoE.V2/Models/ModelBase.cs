@@ -1,9 +1,11 @@
-﻿using System;
+﻿using NaNoE.V2.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace NaNoE.V2.Models
 {
@@ -27,6 +29,9 @@ namespace NaNoE.V2.Models
             _idAfter = after;
             _elementType = elType;
             _externalID = external;
+
+            // Commands we use in each of the views
+            _runAddChapter = new RunAddChapterCommand();
         }
 
         /// <summary>
@@ -108,6 +113,15 @@ namespace NaNoE.V2.Models
         {
             get { return _externalID; }
             // Note: Not changeable
+        }
+
+        /// <summary>
+        /// Add Chapter Command
+        /// </summary>
+        ICommand _runAddChapter;
+        public ICommand RunAddChapter
+        {
+            get { return _runAddChapter; }
         }
 
     }
