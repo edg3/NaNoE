@@ -315,21 +315,23 @@ namespace NaNoE.V2.Data
                 return;
             }
 
-            var response = ExecSQLQuery("SELECT rowid, idafter FROM elements", 2);
+            var response = ExecSQLQuery("SELECT rowid, idbefore, idafter FROM elements", 3);
 
             if (response.Count > 0)
             {
-                var item = response[0];
+                var item = (from i in response
+                            where int.Parse(i[2].ToString()) == 0
+                            select i).First();
                 response.Remove(item);
-                _map.Add(int.Parse(item[0].ToString()));
+                _map.Insert(0, int.Parse(item[0].ToString()));
 
                 while (response.Count > 0)
                 {
-                    item = (from element in response
-                            where response[0] == item[1]
-                            select element).First();
+                    item = (from e in response
+                            where e[0].ToString() == item[1].ToString()
+                            select e).First();
                     response.Remove(item);
-                    _map.Add((int)(item[0]));
+                    _map.Insert(0, int.Parse(item[0].ToString()));
                 }
             }
         }
