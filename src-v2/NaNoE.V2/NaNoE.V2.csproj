@@ -84,7 +84,10 @@
     </ApplicationDefinition>
     <Compile Include="Data\CommandBase.cs" />
     <Compile Include="Data\Navigator.cs" />
+    <Compile Include="Data\RunAddBookmarkCommand.cs" />
     <Compile Include="Data\RunAddChapterCommand.cs" />
+    <Compile Include="Data\RunAddNoteCommand.cs" />
+    <Compile Include="Data\RunAddParagraphCommand.cs" />
     <Compile Include="Data\ViewModelLocator.cs" />
     <Compile Include="Models\WritingModel.cs" />
     <Compile Include="ViewModels\NovelEndViewModel.cs" />

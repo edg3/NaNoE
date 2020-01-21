@@ -21,7 +21,7 @@ namespace NaNoE.V2.Data
             var where = parameter.ToString();
             var end = DBManager.Instance.GetEndID();
 
-            if (where == "-1")
+            if (where == "0")
             {
                 DBManager.Instance.InsertChapter(end);
                 var id = DBManager.Instance.GetMaxId("elements");
