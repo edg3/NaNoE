@@ -18,17 +18,18 @@ namespace NaNoE.V2.Data
         
         public void Execute(object parameter)
         {
-            if (parameter.ToString() == "-1")
-            {
-                var where = DBManager.Instance.GetEndID();
+            var where = parameter.ToString();
+            var end = DBManager.Instance.GetEndID();
 
-                DBManager.Instance.InsertChapter(where + 1);
+            if (where == "-1")
+            {
+                DBManager.Instance.InsertChapter(end);
                 var id = DBManager.Instance.GetMaxId("elements");
-                if (where != 0)
+                if (end != 0)
                 {
                     DBManager.Instance.ExecSQLNonQuery("UPDATE elements " +
-                                       "SET idafter = " + id + " " +
-                                       "WHERE rowid = " + where);
+                                       "SET idafter = " + end + " " +
+                                       "WHERE rowid = " + id);
                 }
             }
             else

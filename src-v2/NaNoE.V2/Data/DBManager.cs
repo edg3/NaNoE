@@ -355,7 +355,7 @@ namespace NaNoE.V2.Data
         {
             if (_map.Count == 0)
             {
-                return _map.Count;
+                return 0;
             }
 
             return _map[_map.Count - 1];
