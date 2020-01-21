@@ -32,7 +32,7 @@ namespace NaNoE.V2.Data
         /// </summary>
         private DBManager()
         {
-
+            
         }
 
         /// <summary>
@@ -58,6 +58,8 @@ namespace NaNoE.V2.Data
 
             _connection = new SQLiteConnection("Data Source=" + file);
             _connection.Open();
+
+            GenerateMap();
         }
 
         /// <summary>
@@ -77,6 +79,8 @@ namespace NaNoE.V2.Data
             _connection.Open();
 
             CreateTables();
+
+            GenerateMap();
         }
 
         /// <summary>
@@ -89,16 +93,16 @@ namespace NaNoE.V2.Data
             // 2 - Note
             // 3 - Bookmark
 
-            string elementTableCreate = "CREATE TABLE elements (id int identity(1,1), idbefore int, idafter int, type int, externalid int)";
+            string elementTableCreate = "CREATE TABLE elements (idbefore int, idafter int, type int, externalid int)";
             ExecSQLNonQuery(elementTableCreate);
 
-            string paragraphTableCreate = "CREATE TABLE paragraphs (id int identity(1,1), content text, bool flagged)";
+            string paragraphTableCreate = "CREATE TABLE paragraphs (content text, flagged bool)";
             ExecSQLNonQuery(paragraphTableCreate);
 
-            string noteTableCreate = "CREATE TABLE notes (id int identity(1,1), content text)";
+            string noteTableCreate = "CREATE TABLE notes (content text)";
             ExecSQLNonQuery(noteTableCreate);
 
-            string bookmarkTableCreate = "CREATE TABLE bookmarks (id int identity(1,1), content text)";
+            string bookmarkTableCreate = "CREATE TABLE bookmarks (content text)";
             ExecSQLNonQuery(bookmarkTableCreate);
         }
 
@@ -122,7 +126,7 @@ namespace NaNoE.V2.Data
         {
             SQLiteCommand cmd = new SQLiteCommand(sql, _connection);
             List<object[]> returns = new List<object[]>();
-            string[] line;
+            object[] line;
             using (var reader = cmd.ExecuteReader())
             {
                 if (reader.HasRows)
@@ -131,11 +135,8 @@ namespace NaNoE.V2.Data
                     {
                         try
                         {
-                            line = new string[answerSize];
-                            for (int i = 0; i < answerSize; i++)
-                            {
-                                line[i] = reader.GetString(i);
-                            }
+                            line = new object[answerSize];
+                            reader.GetValues(line);
                             returns.Add(line);
                         }
                         catch { }
@@ -155,9 +156,9 @@ namespace NaNoE.V2.Data
         private void InsertElement(int where, int type, int external)
         {
             int idafter = 0;
-            if (where != 0)
+            if (where > 1)
             {
-                var afteranswer = ExecSQLQuery("SELECT afterid FROM elements WHERE id = " + where, 1);
+                var afteranswer = ExecSQLQuery("SELECT idafter FROM elements WHERE rowid = " + where, 1);
                 idafter = int.Parse((afteranswer[0])[0].ToString());
             }
 
@@ -168,18 +169,17 @@ namespace NaNoE.V2.Data
                             type + "," +
                             external +
                          ")");
-            var answer = ExecSQLQuery("SELECT max(id) FROM elements", 1);
-            var id = int.Parse((answer[0])[0].ToString());
+            var id = GetMaxId("elements");
 
             if (where != 0)
             {
                 ExecSQLNonQuery("UPDATE elements SET idafter = " + id +
-                                " WHERE id = " + where);
+                                " WHERE rowid = " + where);
             }
             if (idafter != 0)
             {
                 ExecSQLNonQuery("UPDATE elements SET idbefore = " + id +
-                                " WHERE id = " + idafter);
+                                " WHERE rowid = " + idafter);
             }
         }
 
@@ -201,8 +201,7 @@ namespace NaNoE.V2.Data
         {
             ExecSQLNonQuery("INSERT INTO bookmarks (text)" +
                             " VALUES ('" + ProcessText(text) + "')");
-            var answer = ExecSQLQuery("SELECT max(id) FROM bookmarks", 1);
-            var id = int.Parse((answer[0])[0].ToString());
+            var id = GetMaxId("bookmarks");
 
             InsertElement(where, 3, id);
         }
@@ -216,8 +215,7 @@ namespace NaNoE.V2.Data
         {
             ExecSQLNonQuery("INSERT INTO notes (text)" +
                             " VALUES ('" + ProcessText(text) + "')");
-            var answer = ExecSQLQuery("SELECT max(id) FROM notes", 1);
-            var id = int.Parse((answer[0])[0].ToString());
+            var id = GetMaxId("notes");
 
             InsertElement(where, 2, id);
         }
@@ -232,8 +230,7 @@ namespace NaNoE.V2.Data
         {
             ExecSQLNonQuery("INSERT INTO paragraphs (text, flagged)" +
                             " VALUES ('" + ProcessText(text) + "', " + (flagged ? "True" : "False") + ")");
-            var answer = ExecSQLQuery("SELECT max(id) FROM paragraphs", 1);
-            var id = int.Parse((answer[0])[0].ToString());
+            var id = GetMaxId("paragraphs");
 
             InsertElement(where, 1, id);
         }
@@ -253,7 +250,7 @@ namespace NaNoE.V2.Data
             // TODO: move this to position
             List<ModelBase> answer = new List<ModelBase>();
 
-            var elements = ExecSQLQuery("SELECT id, idbefore, idafter, type, externalid FROM elements", 5);
+            var elements = ExecSQLQuery("SELECT rowid, idbefore, idafter, type, externalid FROM elements", 5);
             for (int i = 0; i < elements.Count; i++)
             {
                 switch ((elements[i])[3])
@@ -300,12 +297,77 @@ namespace NaNoE.V2.Data
         }
 
         /// <summary>
+        /// Initial map of elements in DB
+        /// </summary>
+        private List<int> _map;
+        private void GenerateMap()
+        {
+            _map = new List<int>();
+
+            var test = GetMaxId("elements");
+
+            if (test == 0)
+            {
+                return;
+            }
+
+            var response = ExecSQLQuery("SELECT rowid, idafter FROM elements", 2);
+
+            if (response.Count > 0)
+            {
+                var item = response[0];
+                response.Remove(item);
+                _map.Add(int.Parse(item[0].ToString()));
+
+                while (response.Count > 0)
+                {
+                    item = (from element in response
+                            where response[0] == item[1]
+                            select element).First();
+                    response.Remove(item);
+                    _map.Add((int)(item[0]));
+                }
+            }
+        }
+
+        /// <summary>
+        /// View position
+        /// </summary>
+        private int _position;
+        public int Position { get { return _position; } }
+
+        /// <summary>
+        /// Move position down 1
+        /// </summary>
+        public void IncreasePosition()
+        {
+            if (_position < _map.Count - 3)
+            {
+                ++_position;
+            }
+        }
+
+        /// <summary>
         /// Get ID of last Element
         /// </summary>
         /// <returns>ID of last Element</returns>
         internal int GetEndID()
         {
-            throw new NotImplementedException();
+            if (_map.Count == 0)
+            {
+                return _map.Count;
+            }
+
+            return _map[_map.Count - 1];
+        }
+
+        internal int GetMaxId(string v)
+        {
+            var cmd = "SELECT Max(rowid) FROM " + v;
+            SQLiteCommand sqlCmd = new SQLiteCommand(cmd, _connection);
+            object val = sqlCmd.ExecuteScalar();
+            if (val.ToString() == "") return 0;
+            return int.Parse(val.ToString());
         }
     }
 }

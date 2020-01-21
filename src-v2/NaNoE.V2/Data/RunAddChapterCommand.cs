@@ -23,13 +23,12 @@ namespace NaNoE.V2.Data
                 var where = DBManager.Instance.GetEndID();
 
                 DBManager.Instance.InsertChapter(where + 1);
-                var tmp = DBManager.Instance.ExecSQLQuery("SELECT MAX(id) FROM elements", 1);
-                var id = (int)(((tmp)[0])[0]);
+                var id = DBManager.Instance.GetMaxId("elements");
                 if (where != 0)
                 {
                     DBManager.Instance.ExecSQLNonQuery("UPDATE elements " +
                                        "SET idafter = " + id + " " +
-                                       "WHERE id = " + where);
+                                       "WHERE rowid = " + where);
                 }
             }
             else
