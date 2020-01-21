@@ -34,7 +34,17 @@ namespace NaNoE.V2.Data
             }
             else
             {
-                throw new NotImplementedException();
+                var surounding = DBManager.Instance.GetSurrounding(where);
+                var afterId = surounding[1];
+
+                DBManager.Instance.InsertChapter(int.Parse(where));
+                var id = DBManager.Instance.GetMaxId("elements");
+                if (afterId != 0)
+                {
+                    DBManager.Instance.ExecSQLNonQuery("UPDATE elements " +
+                                       "SET idafter = " + end + " " +
+                                       "WHERE rowid = " + id);
+                }
             }
 
             Navigator.Instance.Goto("novelend");

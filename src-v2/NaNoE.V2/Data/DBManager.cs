@@ -156,7 +156,7 @@ namespace NaNoE.V2.Data
         private void InsertElement(int where, int type, int external)
         {
             int idafter = 0;
-            if (where > 1)
+            if (where >= 1)
             {
                 var afteranswer = ExecSQLQuery("SELECT idafter FROM elements WHERE rowid = " + where, 1);
                 idafter = int.Parse((afteranswer[0])[0].ToString());
@@ -361,6 +361,11 @@ namespace NaNoE.V2.Data
             return _map[_map.Count - 1];
         }
 
+        /// <summary>
+        /// Get the Max(rowid) From Table
+        /// </summary>
+        /// <param name="v">Table parameter</param>
+        /// <returns>Max(ID) from Table</returns>
         internal int GetMaxId(string v)
         {
             var cmd = "SELECT Max(rowid) FROM " + v;
@@ -368,6 +373,23 @@ namespace NaNoE.V2.Data
             object val = sqlCmd.ExecuteScalar();
             if (val.ToString() == "") return 0;
             return int.Parse(val.ToString());
+        }
+
+        /// <summary>
+        /// Get the idbefore and idafter needed in the interaction
+        /// </summary>
+        /// <param name="where">ID where the function was called</param>
+        /// <returns>int [idbefore, idafter]</returns>
+        internal int[] GetSurrounding(string where)
+        {
+            var answer = new int[2];
+
+            var elementIds = ExecSQLQuery("SELECT idbefore, idafter FROM elements WHERE rowid = " + where, 2);
+
+            answer[0] = int.Parse((elementIds[0])[0].ToString());
+            answer[1] = int.Parse((elementIds[0])[0].ToString());
+
+            return answer;
         }
     }
 }
