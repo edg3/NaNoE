@@ -124,5 +124,9 @@ namespace NaNoE.V2.Models
             get { return _runAddChapter; }
         }
 
+        public int WhereOnMap
+        {
+            get { return DBManager.Instance.GetMapPosition(ID); }
+        }
     }
 }

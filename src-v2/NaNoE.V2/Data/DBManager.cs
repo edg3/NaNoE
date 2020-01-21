@@ -153,15 +153,8 @@ namespace NaNoE.V2.Data
         /// <param name="where">The ID where the element will be places</param>
         /// <param name="type">What the type of the element is (see CreateTables)</param>
         /// <param name="external">External element ID to link to</param>
-        private void InsertElement(int where, int type, int external)
+        private void InsertElement(int where, int idafter, int type, int external)
         {
-            int idafter = 0;
-            if (where >= 1)
-            {
-                var afteranswer = ExecSQLQuery("SELECT idafter FROM elements WHERE rowid = " + where, 1);
-                idafter = int.Parse((afteranswer[0])[0].ToString());
-            }
-
             ExecSQLNonQuery("INSERT INTO elements (idbefore, idafter, type, externalid)" +
                          " VALUES (" +
                             where + "," +
@@ -189,7 +182,18 @@ namespace NaNoE.V2.Data
         /// <param name="where">The ID before this position</param>
         public void InsertChapter(int where)
         {
-            InsertElement(where, 0, 0);
+            int idafter = 0;
+            if (where != -1)
+            {
+                var after = ExecSQLQuery("SELECT idafter FROM elements WHERE rowid = " + where, 1);
+                idafter = int.Parse((after[0])[0].ToString());
+            }
+            else
+            {
+                where = 0;
+            }
+
+            InsertElement(where, idafter, 0, 0);
         }
 
         /// <summary>
@@ -203,7 +207,7 @@ namespace NaNoE.V2.Data
                             " VALUES ('" + ProcessText(text) + "')");
             var id = GetMaxId("bookmarks");
 
-            InsertElement(where, 3, id);
+            InsertElement(where, 0, 3, id);
         }
 
         /// <summary>
@@ -217,7 +221,7 @@ namespace NaNoE.V2.Data
                             " VALUES ('" + ProcessText(text) + "')");
             var id = GetMaxId("notes");
 
-            InsertElement(where, 2, id);
+            InsertElement(where, 0, 2, id);
         }
 
         /// <summary>
@@ -232,7 +236,7 @@ namespace NaNoE.V2.Data
                             " VALUES ('" + ProcessText(text) + "', " + (flagged ? "True" : "False") + ")");
             var id = GetMaxId("paragraphs");
 
-            InsertElement(where, 1, id);
+            InsertElement(where, 0, 1, id);
         }
 
         /// <summary>
@@ -374,22 +378,14 @@ namespace NaNoE.V2.Data
             if (val.ToString() == "") return 0;
             return int.Parse(val.ToString());
         }
-
+        
         /// <summary>
-        /// Get the idbefore and idafter needed in the interaction
+        /// Get the position of an ID in the novel
         /// </summary>
-        /// <param name="where">ID where the function was called</param>
-        /// <returns>int [idbefore, idafter]</returns>
-        internal int[] GetSurrounding(string where)
+        /// <returns>Where in the map this ID resides</returns>
+        internal int GetMapPosition(int id)
         {
-            var answer = new int[2];
-
-            var elementIds = ExecSQLQuery("SELECT idbefore, idafter FROM elements WHERE rowid = " + where, 2);
-
-            answer[0] = int.Parse((elementIds[0])[0].ToString());
-            answer[1] = int.Parse((elementIds[0])[0].ToString());
-
-            return answer;
+            return _map.FindIndex(a => a == id);
         }
     }
 }

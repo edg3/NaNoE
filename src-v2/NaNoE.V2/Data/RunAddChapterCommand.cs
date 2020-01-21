@@ -18,34 +18,10 @@ namespace NaNoE.V2.Data
         
         public void Execute(object parameter)
         {
-            var where = parameter.ToString();
-            var end = DBManager.Instance.GetEndID();
+            // Where on map
+            var pos = int.Parse(parameter.ToString());
 
-            if (where == "0")
-            {
-                DBManager.Instance.InsertChapter(end);
-                var id = DBManager.Instance.GetMaxId("elements");
-                if (end != 0)
-                {
-                    DBManager.Instance.ExecSQLNonQuery("UPDATE elements " +
-                                       "SET idafter = " + end + " " +
-                                       "WHERE rowid = " + id);
-                }
-            }
-            else
-            {
-                var surounding = DBManager.Instance.GetSurrounding(where);
-                var afterId = surounding[1];
-
-                DBManager.Instance.InsertChapter(int.Parse(where));
-                var id = DBManager.Instance.GetMaxId("elements");
-                if (afterId != 0)
-                {
-                    DBManager.Instance.ExecSQLNonQuery("UPDATE elements " +
-                                       "SET idafter = " + end + " " +
-                                       "WHERE rowid = " + id);
-                }
-            }
+            DBManager.Instance.InsertChapter(pos);
 
             Navigator.Instance.Goto("novelend");
         }
