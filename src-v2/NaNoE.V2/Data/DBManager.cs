@@ -292,7 +292,16 @@ namespace NaNoE.V2.Data
                         break;
                     case 2: // Note
                         {
-
+                            var note = ExecSQLQuery("SELECT content FROM notes WHERE id = " + +int.Parse((elements[i])[3].ToString()), 1);
+                            var content = (note[0])[0].ToString();
+                            answer.Insert(0, new NoteModel(
+                                    int.Parse((elements[i])[0].ToString()),
+                                    int.Parse((elements[i])[1].ToString()),
+                                    int.Parse((elements[i])[2].ToString()),
+                                    int.Parse((elements[i])[3].ToString()),
+                                    int.Parse((elements[i])[4].ToString()),
+                                    content
+                                ));
                         }
                         break;
                     case 3: // Bookmark
