@@ -249,19 +249,23 @@ namespace NaNoE.V2.Data
             return text.Replace("'", "''");
         }
 
+        /// <summary>
+        /// Retrieves the end of the novel
+        /// </summary>
+        /// <returns>End of Novel</returns>
         internal List<ModelBase> GetEnd()
         {
             // TODO: move this to position
             List<ModelBase> answer = new List<ModelBase>();
 
-            var elements = ExecSQLQuery("SELECT rowid, idbefore, idafter, type, externalid FROM elements", 5);
+            var elements = ExecSQLQuery("SELECT rowid, idbefore, idafter, type, externalid FROM elements ORDER BY rowid DESC LIMIT 2", 5);
             for (int i = 0; i < elements.Count; i++)
             {
                 switch ((elements[i])[3])
                 {
                     case 0: // Chapter
                         {
-                            answer.Add(new ModelBase(
+                            answer.Insert(0, new ModelBase(
                                     int.Parse((elements[i])[0].ToString()),
                                     int.Parse((elements[i])[1].ToString()),
                                     int.Parse((elements[i])[2].ToString()),
@@ -272,7 +276,18 @@ namespace NaNoE.V2.Data
                         break;
                     case 1: // Paragraph
                         {
-
+                            var paragraph = ExecSQLQuery("SELECT content, flagged FROM paragraphs WHERE id = " + int.Parse((elements[i])[3].ToString()), 2);
+                            var content = (paragraph[0])[0].ToString();
+                            var flagged = bool.Parse((paragraph[0])[1].ToString()) == true;
+                            answer.Insert(0, new ParagraphModel(
+                                    int.Parse((elements[i])[0].ToString()),
+                                    int.Parse((elements[i])[1].ToString()),
+                                    int.Parse((elements[i])[2].ToString()),
+                                    int.Parse((elements[i])[3].ToString()),
+                                    int.Parse((elements[i])[4].ToString()),
+                                    content,
+                                    flagged
+                                ));
                         }
                         break;
                     case 2: // Note
