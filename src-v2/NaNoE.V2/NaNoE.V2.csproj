@@ -97,6 +97,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Data\CommandBase.cs" />
+    <Compile Include="Data\HelperVars.cs" />
     <Compile Include="Data\Navigator.cs" />
     <Compile Include="Data\RunAddBookmarkCommand.cs" />
     <Compile Include="Data\RunAddChapterCommand.cs" />

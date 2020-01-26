@@ -20,10 +20,26 @@ namespace NaNoE.V2.ViewModels
         }
 
         /// <summary>
+        /// The last ID in the map update by the View Model Locator
+        /// </summary>
+        public int EndPosition
+        {
+            get { return HelperVars.Position; }
+        }
+
+        /// <summary>
         /// Initiate the View Model
         /// </summary>
         public NovelEndViewModel()
         {
+            _addParagraph = new RunAddParagraphCommand();
+        }
+
+
+        private RunAddParagraphCommand _addParagraph;
+        public RunAddParagraphCommand AddParagraph
+        {
+            get { return _addParagraph; }
         }
     }
 }

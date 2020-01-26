@@ -47,7 +47,11 @@ namespace NaNoE.V2.Data
         private NovelEndViewModel _novelEndVM = new NovelEndViewModel();
         public NovelEndViewModel NovelEndVM
         {
-            get { return _novelEndVM; }
+            get
+            {
+                HelperVars.Position = DBManager.Instance.GetEndID();
+                return _novelEndVM;
+            }
         }
     }
 }

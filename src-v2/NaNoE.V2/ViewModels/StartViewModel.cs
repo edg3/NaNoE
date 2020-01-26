@@ -21,9 +21,9 @@ namespace NaNoE.V2.ViewModels
             //        - LastNovel
             LastNovel = "None";
 
-            OpenNovelCommand = new CommandBase(new Action(_OpenNovel));
-            NewNovelCommand = new CommandBase(new Action(_NewNovel));
-            OpenLastNovelCommand = new CommandBase(new Action(_OpenLastNovel));
+            OpenNovelCommand = new CommandBase() { Act = new Action(_OpenNovel) };
+            NewNovelCommand = new CommandBase() { Act = new Action(_NewNovel) };
+            OpenLastNovelCommand = new CommandBase() { Act = new Action(_OpenLastNovel) };
         }
 
         /// <summary>

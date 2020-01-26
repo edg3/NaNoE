@@ -13,9 +13,15 @@ namespace NaNoE.V2.Data
         /// Command to execute
         /// </summary>
         private Action _action;
-        public CommandBase(Action action)
+        public Action Act
         {
-            _action = action;
+            get { return _action; }
+            set { _action = value; }
+        }
+        
+        public CommandBase()
+        {
+            
         }
 
         public event EventHandler CanExecuteChanged;
@@ -36,7 +42,7 @@ namespace NaNoE.V2.Data
         /// <param name="parameter">Unused</param>
         public void Execute(object parameter)
         {
-            _action();
+            if (null != _action) _action();
         }
     }
 }

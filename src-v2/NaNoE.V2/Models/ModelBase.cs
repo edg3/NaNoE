@@ -32,6 +32,7 @@ namespace NaNoE.V2.Models
 
             // Commands we use in each of the views
             _runAddChapter = new RunAddChapterCommand();
+            _runAddParagraph = new RunAddParagraphCommand();
         }
 
         /// <summary>
@@ -122,6 +123,15 @@ namespace NaNoE.V2.Models
         public ICommand RunAddChapter
         {
             get { return _runAddChapter; }
+        }
+
+        /// <summary>
+        /// Add paragraph command
+        /// </summary>
+        ICommand _runAddParagraph;
+        public ICommand RunAddParagraph
+        {
+            get { return _runAddParagraph; }
         }
 
         /// <summary>

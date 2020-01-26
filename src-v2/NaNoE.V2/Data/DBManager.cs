@@ -328,7 +328,7 @@ namespace NaNoE.V2.Data
                 id = int.Parse(item[0].ToString());
             }
 
-            answer.Add(new WritingModel(id));
+            answer.Add(new WritingModel(id,"",false));
 
             return answer;
         }

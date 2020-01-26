@@ -7,18 +7,16 @@ using System.Windows.Input;
 
 namespace NaNoE.V2.Data
 {
-    class RunAddParagraphCommand : ICommand
+    internal class RunAddParagraphCommand : CommandBase
     {
-        public event EventHandler CanExecuteChanged;
-
-        public bool CanExecute(object parameter)
+        public RunAddParagraphCommand() : base()
         {
-            return true;
+            base.Act = this.FnAct;
         }
 
-        public void Execute(object parameter)
+        public void FnAct()
         {
-            throw new NotImplementedException();
+            var test = 1;
         }
     }
 }
