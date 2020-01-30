@@ -26,6 +26,7 @@ namespace NaNoE.V2.Models
                         DBManager.Instance.GetEndID(),
                         _content,
                         false);
+                    Navigator.Instance.Goto("novelend");
                 }
                 else
                 {

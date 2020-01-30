@@ -174,6 +174,17 @@ namespace NaNoE.V2.Data
                 ExecSQLNonQuery("UPDATE elements SET idbefore = " + id +
                                 " WHERE rowid = " + idafter);
             }
+
+            int post = 0;
+            for (int i = 0; i < _map.Count; i++)
+            {
+                if (_map[i] == where)
+                {
+                    post = i + 1;
+                    break;
+                }
+            }
+            _map.Insert(post, id);
         }
 
         /// <summary>
@@ -348,30 +359,25 @@ namespace NaNoE.V2.Data
                 return;
             }
 
-            var response = ExecSQLQuery("SELECT rowid, idbefore, idafter FROM elements", 3);
+            var response = ExecSQLQuery("SELECT rowid, idbefore FROM elements", 2);
 
             if (response.Count > 0)
             {
                 var item = (from i in response
-                            where int.Parse(i[2].ToString()) == 0
+                            /* idbefore == 0 => start */
+                            where int.Parse(i[1].ToString()) == 0
                             select i).First();
                 response.Remove(item);
                 _map.Insert(0, int.Parse(item[0].ToString()));
 
                 while (response.Count > 0)
                 {
-                    if (response.Count != 1)
-                    {
-                        item = (from e in response
-                                where e[0].ToString() == item[1].ToString()
-                                select e).First();
-                    }
-                    else
-                    {
-                        item = response[0];
-                    }
+                    item = (from i in response
+                                /* idbefore = end of _map */
+                            where int.Parse(i[1].ToString()) == int.Parse(item[0].ToString())
+                            select i).First();
                     response.Remove(item);
-                    _map.Insert(0, int.Parse(item[0].ToString()));
+                    _map.Add(int.Parse(item[0].ToString()));
                 }
             }
         }
