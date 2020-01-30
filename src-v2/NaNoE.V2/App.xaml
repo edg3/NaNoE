@@ -68,7 +68,7 @@
                                     <ColumnDefinition Width="100" />
                                 </Grid.ColumnDefinitions>
                                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                    <TextBlock TextWrapping="Wrap" Text="{Binding}"/>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding Text}"/>
                                 </Grid>
                                 <Grid Grid.Column="2">
                                     <Grid.RowDefinitions>

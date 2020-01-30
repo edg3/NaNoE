@@ -22,7 +22,10 @@ namespace NaNoE.V2.Models
             {
                 if (value.Last() == '\n')
                 {
-                    throw new NotImplementedException(); 
+                    DBManager.Instance.InsertParagraph(
+                        DBManager.Instance.GetEndID(),
+                        _content,
+                        false);
                 }
                 else
                 {

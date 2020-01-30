@@ -203,7 +203,7 @@ namespace NaNoE.V2.Data
         /// <param name="text">The label of the bookmark</param>
         public void InsertBookmark(int where, string text)
         {
-            ExecSQLNonQuery("INSERT INTO bookmarks (text)" +
+            ExecSQLNonQuery("INSERT INTO bookmarks (content)" +
                             " VALUES ('" + ProcessText(text) + "')");
             var id = GetMaxId("bookmarks");
 
@@ -217,7 +217,7 @@ namespace NaNoE.V2.Data
         /// <param name="text">The note's contents</param>
         public void InsertNote(int where, string text)
         {
-            ExecSQLNonQuery("INSERT INTO notes (text)" +
+            ExecSQLNonQuery("INSERT INTO notes (content)" +
                             " VALUES ('" + ProcessText(text) + "')");
             var id = GetMaxId("notes");
 
@@ -232,7 +232,7 @@ namespace NaNoE.V2.Data
         /// <param name="flagged">Whether it should be ignored in Edits</param>
         public void InsertParagraph(int where, string text, bool flagged)
         {
-            ExecSQLNonQuery("INSERT INTO paragraphs (text, flagged)" +
+            ExecSQLNonQuery("INSERT INTO paragraphs (content, flagged)" +
                             " VALUES ('" + ProcessText(text) + "', " + (flagged ? "True" : "False") + ")");
             var id = GetMaxId("paragraphs");
 
@@ -276,7 +276,7 @@ namespace NaNoE.V2.Data
                         break;
                     case 1: // Paragraph
                         {
-                            var paragraph = ExecSQLQuery("SELECT content, flagged FROM paragraphs WHERE id = " + int.Parse((elements[i])[3].ToString()), 2);
+                            var paragraph = ExecSQLQuery("SELECT content, flagged FROM paragraphs WHERE rowid = " + int.Parse((elements[i])[3].ToString()), 2);
                             var content = (paragraph[0])[0].ToString();
                             var flagged = bool.Parse((paragraph[0])[1].ToString()) == true;
                             answer.Insert(0, new ParagraphModel(
@@ -292,7 +292,7 @@ namespace NaNoE.V2.Data
                         break;
                     case 2: // Note
                         {
-                            var note = ExecSQLQuery("SELECT content FROM notes WHERE id = " + int.Parse((elements[i])[3].ToString()), 1);
+                            var note = ExecSQLQuery("SELECT content FROM notes WHERE rowid = " + int.Parse((elements[i])[3].ToString()), 1);
                             var content = (note[0])[0].ToString();
                             answer.Insert(0, new NoteModel(
                                     int.Parse((elements[i])[0].ToString()),
@@ -306,7 +306,7 @@ namespace NaNoE.V2.Data
                         break;
                     case 3: // Bookmark
                         {
-                            var bookmark = ExecSQLQuery("SELECT content FROM bookmarks WHERE id = " + int.Parse((elements[i])[3].ToString()), 1);
+                            var bookmark = ExecSQLQuery("SELECT content FROM bookmarks WHERE rowid = " + int.Parse((elements[i])[3].ToString()), 1);
                             var content = (bookmark[0])[0].ToString();
                             answer.Insert(0, new BookmarkModel(
                                     int.Parse((elements[i])[0].ToString()),
@@ -360,9 +360,16 @@ namespace NaNoE.V2.Data
 
                 while (response.Count > 0)
                 {
-                    item = (from e in response
-                            where e[0].ToString() == item[1].ToString()
-                            select e).First();
+                    if (response.Count != 1)
+                    {
+                        item = (from e in response
+                                where e[0].ToString() == item[1].ToString()
+                                select e).First();
+                    }
+                    else
+                    {
+                        item = response[0];
+                    }
                     response.Remove(item);
                     _map.Insert(0, int.Parse(item[0].ToString()));
                 }

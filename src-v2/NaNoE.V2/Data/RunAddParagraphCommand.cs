@@ -7,6 +7,7 @@ using System.Windows.Input;
 
 namespace NaNoE.V2.Data
 {
+    // Herpa derp
     internal class RunAddParagraphCommand : CommandBase
     {
         public RunAddParagraphCommand() : base()
