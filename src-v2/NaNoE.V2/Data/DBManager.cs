@@ -287,7 +287,7 @@ namespace NaNoE.V2.Data
                         break;
                     case 1: // Paragraph
                         {
-                            var paragraph = ExecSQLQuery("SELECT content, flagged FROM paragraphs WHERE rowid = " + int.Parse((elements[i])[3].ToString()), 2);
+                            var paragraph = ExecSQLQuery("SELECT content, flagged FROM paragraphs WHERE rowid = " + int.Parse((elements[i])[4].ToString()), 2);
                             var content = (paragraph[0])[0].ToString();
                             var flagged = bool.Parse((paragraph[0])[1].ToString()) == true;
                             answer.Insert(0, new ParagraphModel(
@@ -303,7 +303,7 @@ namespace NaNoE.V2.Data
                         break;
                     case 2: // Note
                         {
-                            var note = ExecSQLQuery("SELECT content FROM notes WHERE rowid = " + int.Parse((elements[i])[3].ToString()), 1);
+                            var note = ExecSQLQuery("SELECT content FROM notes WHERE rowid = " + int.Parse((elements[i])[4].ToString()), 1);
                             var content = (note[0])[0].ToString();
                             answer.Insert(0, new NoteModel(
                                     int.Parse((elements[i])[0].ToString()),
@@ -317,7 +317,7 @@ namespace NaNoE.V2.Data
                         break;
                     case 3: // Bookmark
                         {
-                            var bookmark = ExecSQLQuery("SELECT content FROM bookmarks WHERE rowid = " + int.Parse((elements[i])[3].ToString()), 1);
+                            var bookmark = ExecSQLQuery("SELECT content FROM bookmarks WHERE rowid = " + int.Parse((elements[i])[4].ToString()), 1);
                             var content = (bookmark[0])[0].ToString();
                             answer.Insert(0, new BookmarkModel(
                                     int.Parse((elements[i])[0].ToString()),
