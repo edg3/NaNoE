@@ -203,7 +203,7 @@ namespace NaNoE.V2.Data
         public void InsertChapter(int where)
         {
             int idafter = 0;
-            if (where != -1)
+            if (where != 0)
             {
                 var after = ExecSQLQuery("SELECT idafter FROM elements WHERE rowid = " + where, 1);
                 idafter = int.Parse((after[0])[0].ToString());

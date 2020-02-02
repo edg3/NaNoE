@@ -20,7 +20,11 @@ namespace NaNoE.V2.Data
 
         public void Execute(object parameter)
         {
-            DBManager.Instance.InsertParagraph((int)parameter, Content, false);
+
+            if (int.Parse(parameter.ToString()) == DBManager.Instance.GetEndID())
+            {
+                DBManager.Instance.InsertParagraph((int)parameter, Content, false);
+            }
         }
     }
 }

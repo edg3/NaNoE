@@ -32,14 +32,7 @@ namespace NaNoE.V2.ViewModels
         /// </summary>
         public NovelEndViewModel()
         {
-            _addParagraph = new RunAddParagraphCommand();
-        }
 
-
-        private RunAddParagraphCommand _addParagraph;
-        public RunAddParagraphCommand AddParagraph
-        {
-            get { return _addParagraph; }
         }
     }
 }

@@ -98,7 +98,6 @@
     </ApplicationDefinition>
     <Compile Include="Data\CommandBase.cs" />
     <Compile Include="Data\CommandMap.cs" />
-    <Compile Include="Data\GridChanged.cs" />
     <Compile Include="Data\HelperVars.cs" />
     <Compile Include="Data\Navigator.cs" />
     <Compile Include="Data\RunAddBookmarkCommand.cs" />

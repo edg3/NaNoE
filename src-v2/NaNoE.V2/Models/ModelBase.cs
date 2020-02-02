@@ -117,7 +117,7 @@ namespace NaNoE.V2.Models
         /// </summary>
         public int WhereOnMap
         {
-            get { return DBManager.Instance.GetMapPosition(ID); }
+            get { return DBManager.Instance.GetEndID(); }
         }
 
         /// <summary>
