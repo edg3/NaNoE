@@ -269,67 +269,86 @@ namespace NaNoE.V2.Data
             // TODO: move this to position
             List<ModelBase> answer = new List<ModelBase>();
 
-            var elements = ExecSQLQuery("SELECT rowid, idbefore, idafter, type, externalid FROM elements ORDER BY rowid DESC LIMIT 2", 5);
-            for (int i = 0; i < elements.Count; i++)
+            List<object[]> elements = null;
+            if (_map.Count == 1)
             {
-                switch ((elements[i])[3])
+                elements = ExecSQLQuery("SELECT rowid, idbefore, idafter, type, externalid FROM elements WHERE rowid = " + _map[0], 5);
+            }
+            else if (_map.Count > 1)
+            {
+                elements = ExecSQLQuery("SELECT rowid, idbefore, idafter, type, externalid FROM elements WHERE rowid = " + _map[_map.Count - 2], 5);
+                
+                var last = ExecSQLQuery("SELECT rowid, idbefore, idafter, type, externalid FROM elements WHERE rowid = " + _map[_map.Count - 1], 5);
+                elements.Add(last[0]);
+            }
+
+            if (elements != null)
+            {
+                for (int i = 0; i < elements.Count; i++)
                 {
-                    case 0: // Chapter
-                        {
-                            answer.Insert(0, new ModelBase(
-                                    int.Parse((elements[i])[0].ToString()),
-                                    int.Parse((elements[i])[1].ToString()),
-                                    int.Parse((elements[i])[2].ToString()),
-                                    int.Parse((elements[i])[3].ToString()),
-                                    0
-                                ));
-                        }
-                        break;
-                    case 1: // Paragraph
-                        {
-                            var paragraph = ExecSQLQuery("SELECT content, flagged FROM paragraphs WHERE rowid = " + int.Parse((elements[i])[4].ToString()), 2);
-                            var content = (paragraph[0])[0].ToString();
-                            var flagged = bool.Parse((paragraph[0])[1].ToString()) == true;
-                            answer.Insert(0, new ParagraphModel(
-                                    int.Parse((elements[i])[0].ToString()),
-                                    int.Parse((elements[i])[1].ToString()),
-                                    int.Parse((elements[i])[2].ToString()),
-                                    int.Parse((elements[i])[3].ToString()),
-                                    int.Parse((elements[i])[4].ToString()),
-                                    content,
-                                    flagged
-                                ));
-                        }
-                        break;
-                    case 2: // Note
-                        {
-                            var note = ExecSQLQuery("SELECT content FROM notes WHERE rowid = " + int.Parse((elements[i])[4].ToString()), 1);
-                            var content = (note[0])[0].ToString();
-                            answer.Insert(0, new NoteModel(
-                                    int.Parse((elements[i])[0].ToString()),
-                                    int.Parse((elements[i])[1].ToString()),
-                                    int.Parse((elements[i])[2].ToString()),
-                                    int.Parse((elements[i])[3].ToString()),
-                                    int.Parse((elements[i])[4].ToString()),
-                                    content
-                                ));
-                        }
-                        break;
-                    case 3: // Bookmark
-                        {
-                            var bookmark = ExecSQLQuery("SELECT content FROM bookmarks WHERE rowid = " + int.Parse((elements[i])[4].ToString()), 1);
-                            var content = (bookmark[0])[0].ToString();
-                            answer.Insert(0, new BookmarkModel(
-                                    int.Parse((elements[i])[0].ToString()),
-                                    int.Parse((elements[i])[1].ToString()),
-                                    int.Parse((elements[i])[2].ToString()),
-                                    int.Parse((elements[i])[3].ToString()),
-                                    int.Parse((elements[i])[4].ToString()),
-                                    content
-                                ));
-                        }
-                        break;
+                    switch ((elements[i])[3])
+                    {
+                        case 0: // Chapter
+                            {
+                                answer.Add(new ModelBase(
+                                        int.Parse((elements[i])[0].ToString()),
+                                        int.Parse((elements[i])[1].ToString()),
+                                        int.Parse((elements[i])[2].ToString()),
+                                        int.Parse((elements[i])[3].ToString()),
+                                        0
+                                    ));
+                            }
+                            break;
+                        case 1: // Paragraph
+                            {
+                                var paragraph = ExecSQLQuery("SELECT content, flagged FROM paragraphs WHERE rowid = " + int.Parse((elements[i])[4].ToString()), 2);
+                                var content = (paragraph[0])[0].ToString();
+                                var flagged = bool.Parse((paragraph[0])[1].ToString()) == true;
+                                answer.Add(new ParagraphModel(
+                                        int.Parse((elements[i])[0].ToString()),
+                                        int.Parse((elements[i])[1].ToString()),
+                                        int.Parse((elements[i])[2].ToString()),
+                                        int.Parse((elements[i])[3].ToString()),
+                                        int.Parse((elements[i])[4].ToString()),
+                                        content,
+                                        flagged
+                                    ));
+                            }
+                            break;
+                        case 2: // Note
+                            {
+                                var note = ExecSQLQuery("SELECT content FROM notes WHERE rowid = " + int.Parse((elements[i])[4].ToString()), 1);
+                                var content = (note[0])[0].ToString();
+                                answer.Add(new NoteModel(
+                                        int.Parse((elements[i])[0].ToString()),
+                                        int.Parse((elements[i])[1].ToString()),
+                                        int.Parse((elements[i])[2].ToString()),
+                                        int.Parse((elements[i])[3].ToString()),
+                                        int.Parse((elements[i])[4].ToString()),
+                                        content
+                                    ));
+                            }
+                            break;
+                        case 3: // Bookmark
+                            {
+                                var bookmark = ExecSQLQuery("SELECT content FROM bookmarks WHERE rowid = " + int.Parse((elements[i])[4].ToString()), 1);
+                                var content = (bookmark[0])[0].ToString();
+                                answer.Add(new BookmarkModel(
+                                        int.Parse((elements[i])[0].ToString()),
+                                        int.Parse((elements[i])[1].ToString()),
+                                        int.Parse((elements[i])[2].ToString()),
+                                        int.Parse((elements[i])[3].ToString()),
+                                        int.Parse((elements[i])[4].ToString()),
+                                        content
+                                    ));
+                            }
+                            break;
+                    }
                 }
+            }
+            else
+            {
+                elements = new List<object[]>();
             }
             
             int id = 0;
