@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace NaNoE.V2
 {
@@ -13,5 +14,10 @@ namespace NaNoE.V2
     /// </summary>
     public partial class App : Application
     {
+        private void TextBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            var txt = (TextBox)sender;
+            txt.Focus();
+        }
     }
 }
