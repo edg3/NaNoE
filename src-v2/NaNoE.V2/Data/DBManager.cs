@@ -28,11 +28,20 @@ namespace NaNoE.V2.Data
         }
 
         /// <summary>
+        /// Map of the commands available
+        /// </summary>
+        private CommandMap _commands;
+        public CommandMap Commands
+        {
+            get { return _commands; }
+        }
+
+        /// <summary>
         /// Instantiate
         /// </summary>
         private DBManager()
         {
-            
+            _commands = new CommandMap();
         }
 
         /// <summary>
@@ -405,6 +414,7 @@ namespace NaNoE.V2.Data
         /// View position
         /// </summary>
         private int _position;
+
         public int Position { get { return _position; } }
 
         /// <summary>

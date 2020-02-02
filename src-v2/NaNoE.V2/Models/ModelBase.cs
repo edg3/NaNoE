@@ -29,10 +29,6 @@ namespace NaNoE.V2.Models
             _idAfter = after;
             _elementType = elType;
             _externalID = external;
-
-            // Commands we use in each of the views
-            _runAddChapter = new RunAddChapterCommand();
-            _runAddParagraph = new RunAddParagraphCommand();
         }
 
         /// <summary>
@@ -117,29 +113,19 @@ namespace NaNoE.V2.Models
         }
 
         /// <summary>
-        /// Add Chapter Command
-        /// </summary>
-        ICommand _runAddChapter;
-        public ICommand RunAddChapter
-        {
-            get { return _runAddChapter; }
-        }
-
-        /// <summary>
-        /// Add paragraph command
-        /// </summary>
-        ICommand _runAddParagraph;
-        public ICommand RunAddParagraph
-        {
-            get { return _runAddParagraph; }
-        }
-
-        /// <summary>
         /// Find Map position
         /// </summary>
         public int WhereOnMap
         {
             get { return DBManager.Instance.GetMapPosition(ID); }
+        }
+
+        /// <summary>
+        /// Command mapping
+        /// </summary>
+        public CommandMap Commands
+        {
+            get { return DBManager.Instance.Commands; }
         }
     }
 }
