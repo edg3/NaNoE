@@ -21,9 +21,9 @@ namespace NaNoE.V2.ViewModels
             //        - LastNovel
             LastNovel = "None";
 
-            OpenNovelCommand = new ICommand() { Act = new Action(_OpenNovel) };
-            NewNovelCommand = new ICommand() { Act = new Action(_NewNovel) };
-            OpenLastNovelCommand = new ICommand() { Act = new Action(_OpenLastNovel) };
+            OpenNovelCommand = new CommandBase() { Act = new Action(_OpenNovel) };
+            NewNovelCommand = new CommandBase() { Act = new Action(_NewNovel) };
+            OpenLastNovelCommand = new CommandBase() { Act = new Action(_OpenLastNovel) };
         }
 
         /// <summary>
@@ -39,8 +39,8 @@ namespace NaNoE.V2.ViewModels
         /// <summary>
         /// Function to open an existing novel database
         /// </summary>
-        private ICommand _openNovelCommand;
-        public ICommand OpenNovelCommand
+        private CommandBase _openNovelCommand;
+        public CommandBase OpenNovelCommand
         {
             get { return _openNovelCommand; }
             set { _openNovelCommand = value; }
@@ -64,8 +64,8 @@ namespace NaNoE.V2.ViewModels
         /// <summary>
         /// Function to create a new novel database
         /// </summary>
-        private ICommand _newNovelCommand;
-        public ICommand NewNovelCommand
+        private CommandBase _newNovelCommand;
+        public CommandBase NewNovelCommand
         {
             get { return _newNovelCommand; }
             set { _newNovelCommand = value; }
@@ -97,8 +97,8 @@ namespace NaNoE.V2.ViewModels
         /// <summary>
         /// Opens the last novel we used
         /// </summary>
-        private ICommand _openLastNovelCommand;
-        public ICommand OpenLastNovelCommand
+        private CommandBase _openLastNovelCommand;
+        public CommandBase OpenLastNovelCommand
         {
             get { return _openLastNovelCommand; }
             set { _openLastNovelCommand = value; }

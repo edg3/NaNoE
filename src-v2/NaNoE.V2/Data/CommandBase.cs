@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace NaNoE.V2.Data
 {
-    public class ICommand : System.Windows.Input.ICommand
+    public class CommandBase : ICommand
     {
         /// <summary>
         /// Command to execute
@@ -19,7 +19,7 @@ namespace NaNoE.V2.Data
             set { _action = value; }
         }
         
-        public ICommand()
+        public CommandBase()
         {
             
         }
