@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace NaNoE.V2.Data
 {
-    class RunDeleteCommand : ICommand
+    class RunDeleteCommand : System.Windows.Input.ICommand
     {
         public event EventHandler CanExecuteChanged;
 

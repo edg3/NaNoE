@@ -7,17 +7,20 @@ using System.Windows.Input;
 
 namespace NaNoE.V2.Data
 {
-    // Herpa derp
-    internal class RunAddParagraphCommand : CommandBase
+    internal class RunAddParagraphCommand : System.Windows.Input.ICommand
     {
-        public RunAddParagraphCommand() : base()
+        public string Content { get; internal set; }
+
+        public event EventHandler CanExecuteChanged;
+
+        public bool CanExecute(object parameter)
         {
-            base.Act = this.FnAct;
+            return true;
         }
 
-        public void FnAct()
+        public void Execute(object parameter)
         {
-            var test = 1;
+            DBManager.Instance.InsertParagraph((int)parameter, Content, false);
         }
     }
 }

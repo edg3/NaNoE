@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace NaNoE.V2.Data
 {
-    class RunAddBookmarkCommand : ICommand
+    class RunAddBookmarkCommand : System.Windows.Input.ICommand
     {
         public event EventHandler CanExecuteChanged;
 

@@ -20,18 +20,19 @@ namespace NaNoE.V2.Models
             get { return _content; }
             set 
             {
-                if (value.Last() == '\n')
+                if (value.Length > 0)
                 {
-                    DBManager.Instance.InsertParagraph(
-                        DBManager.Instance.GetEndID(),
-                        _content,
-                        false);
-                    Navigator.Instance.Goto("novelend");
-                }
-                else
-                {
-                    _content = value;
-                    Changed("Content");
+                    if (value.Last() == '\n')
+                    {
+                        (DBManager.Instance.Commands.RunAddParagraph as RunAddParagraphCommand).Content = _content;
+                        DBManager.Instance.Commands.RunAddParagraph.Execute(DBManager.Instance.GetEndID());
+                        Navigator.Instance.Goto("novelend");
+                    }
+                    else
+                    {
+                        _content = value;
+                        Changed("Content");
+                    }
                 }
             }
         }

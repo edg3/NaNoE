@@ -25,8 +25,8 @@ namespace NaNoE.V2.Data
         /// <summary>
         /// Add Chapter Command
         /// </summary>
-        ICommand _runAddChapter;
-        public ICommand RunAddChapter
+        System.Windows.Input.ICommand _runAddChapter;
+        public System.Windows.Input.ICommand RunAddChapter
         {
             get { return _runAddChapter; }
         }
@@ -34,8 +34,8 @@ namespace NaNoE.V2.Data
         /// <summary>
         /// Add paragraph command
         /// </summary>
-        ICommand _runAddParagraph;
-        public ICommand RunAddParagraph
+        System.Windows.Input.ICommand _runAddParagraph;
+        public System.Windows.Input.ICommand RunAddParagraph
         {
             get { return _runAddParagraph; }
         }
@@ -43,8 +43,8 @@ namespace NaNoE.V2.Data
         /// <summary>
         /// Add bookmark command
         /// </summary>
-        ICommand _runAddBookmark;
-        public ICommand RunAddBookmark
+        System.Windows.Input.ICommand _runAddBookmark;
+        public System.Windows.Input.ICommand RunAddBookmark
         {
             get { return _runAddBookmark; }
         }
@@ -52,8 +52,8 @@ namespace NaNoE.V2.Data
         /// <summary>
         /// Add note command
         /// </summary>
-        private ICommand _runAddNote;
-        public ICommand RunAddNote
+        private System.Windows.Input.ICommand _runAddNote;
+        public System.Windows.Input.ICommand RunAddNote
         {
             get { return _runAddNote; }
         }
@@ -61,8 +61,8 @@ namespace NaNoE.V2.Data
         /// <summary>
         /// Delete command
         /// </summary>
-        private ICommand _runDelete;
-        public ICommand RunDelete
+        private System.Windows.Input.ICommand _runDelete;
+        public System.Windows.Input.ICommand RunDelete
         {
             get { return _runDelete; }
         }
@@ -70,8 +70,8 @@ namespace NaNoE.V2.Data
         /// <summary>
         /// Edit command
         /// </summary>
-        private ICommand _runEdit;
-        public ICommand RunEdit
+        private System.Windows.Input.ICommand _runEdit;
+        public System.Windows.Input.ICommand RunEdit
         {
             get { return _runEdit; }
         }
