@@ -85,6 +85,7 @@ namespace NaNoE.V2.Data
             {
                 case "start": window = new StartView(); break;
                 case "novelend": window = new NovelEndView(); break;
+                case "addnote": window = new AddNoteView(); break;
                 default: throw new NotImplementedException();
             }
 

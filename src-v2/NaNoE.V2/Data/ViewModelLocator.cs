@@ -53,5 +53,11 @@ namespace NaNoE.V2.Data
                 return _novelEndVM;
             }
         }
+
+        private NovelAddNoteViewModel _novelAddNoteVM = new NovelAddNoteViewModel();
+        public NovelAddNoteViewModel NovelAddNoteVM
+        {
+            get { return _novelAddNoteVM; }
+        }
     }
 }

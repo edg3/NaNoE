@@ -108,8 +108,12 @@
     <Compile Include="Data\RunEditCommand.cs" />
     <Compile Include="Data\ViewModelLocator.cs" />
     <Compile Include="Models\WritingModel.cs" />
+    <Compile Include="ViewModels\NovelAddNoteViewModel.cs" />
     <Compile Include="ViewModels\NovelEndViewModel.cs" />
     <Compile Include="ViewModels\StartViewModel.cs" />
+    <Compile Include="Views\AddNoteView.xaml.cs">
+      <DependentUpon>AddNoteView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\NovelEndView.xaml.cs">
       <DependentUpon>NovelEndView.xaml</DependentUpon>
     </Compile>
@@ -129,6 +133,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\AddNoteView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\NovelEndView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
