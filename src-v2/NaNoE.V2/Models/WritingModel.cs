@@ -1,4 +1,5 @@
 ﻿using NaNoE.V2.Data;
+using NaNoE.V2.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,10 +25,17 @@ namespace NaNoE.V2.Models
                 {
                     if (value.Last() == '\n')
                     {
-                        // TODO - note command possibility?
-                        (DBManager.Instance.Commands.RunAddParagraph as RunAddParagraphCommand).Content = _content;
-                        DBManager.Instance.Commands.RunAddParagraph.Execute(DBManager.Instance.GetEndID());
-                        Navigator.Instance.Goto("novelend");
+                        var viewmodel = HelperVars.ViewModelToWrite;
+                        if (viewmodel is NovelEndViewModel)
+                        {
+                            (DBManager.Instance.Commands.RunAddParagraph as RunAddParagraphCommand).Content = _content;
+                            DBManager.Instance.Commands.RunAddParagraph.Execute(DBManager.Instance.GetEndID());
+                            Navigator.Instance.Goto("novelend");
+                        }
+                        else
+                        {
+                            throw new NotImplementedException();
+                        }
                     }
                     else
                     {

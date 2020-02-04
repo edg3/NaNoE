@@ -552,10 +552,13 @@ namespace NaNoE.V2.Data
 
             if (element1 != null)
             {
-                var element2 = GetID(element1.IDAfter);
-                if (element2 != null)
+                if (element1.IDAfter != 0)
                 {
-                    answer.Add(element2);
+                    var element2 = GetID(element1.IDAfter);
+                    if (element2 != null)
+                    {
+                        answer.Add(element2);
+                    }
                 }
             }
 

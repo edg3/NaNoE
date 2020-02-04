@@ -83,9 +83,9 @@ namespace NaNoE.V2.Data
 
             switch (name)
             {
-                case "start": window = new StartView(); break;
-                case "novelend": window = new NovelEndView(); break;
-                case "addnote": window = new AddNoteView(); break;
+                case "start": window = new StartView(); HelperVars.ViewModelToWrite = ViewModelLocator.Instance.StartVM; break;
+                case "novelend": window = new NovelEndView(); HelperVars.ViewModelToWrite = ViewModelLocator.Instance.NovelEndVM; break;
+                case "addnote": window = new AddNoteView(); HelperVars.ViewModelToWrite = ViewModelLocator.Instance.NovelAddNoteVM; break;
                 default: throw new NotImplementedException();
             }
 

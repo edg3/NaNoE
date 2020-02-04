@@ -14,5 +14,12 @@ namespace NaNoE.V2.Data
             get { return _position; }
             set { _position = value; }
         }
+
+        private static object _viewModelToWrite;
+        public static object ViewModelToWrite
+        {
+            get { return _viewModelToWrite; }
+            set { _viewModelToWrite = value; }
+        }
     }
 }
