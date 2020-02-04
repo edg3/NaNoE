@@ -20,8 +20,7 @@ namespace NaNoE.V2.Data
         {
             ViewModelLocator.Instance.NovelAddNoteVM.IDAfter = int.Parse(parameter.ToString());
 
-            // TODO - this should fetch ID of possition
-            ViewModelLocator.Instance.NovelAddNoteVM.Models = DBManager.Instance.GetSurrounded(DBManager.Instance.GetEndID());
+            ViewModelLocator.Instance.NovelAddNoteVM.Models = DBManager.Instance.GetSurrounded(ViewModelLocator.Instance.NovelAddNoteVM.IDAfter);
 
             Navigator.Instance.Goto("addnote");
         }
