@@ -24,6 +24,7 @@ namespace NaNoE.V2.Models
                 {
                     if (value.Last() == '\n')
                     {
+                        // TODO - note command possibility?
                         (DBManager.Instance.Commands.RunAddParagraph as RunAddParagraphCommand).Content = _content;
                         DBManager.Instance.Commands.RunAddParagraph.Execute(DBManager.Instance.GetEndID());
                         Navigator.Instance.Goto("novelend");

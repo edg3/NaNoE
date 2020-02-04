@@ -208,5 +208,75 @@
                 </StackPanel>
             </ListView>
         </DataTemplate>
+
+        <!-- Item Data Templates -->
+        <DataTemplate x:Key="tmplMinimalElements">
+            <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <StackPanel Margin="5">
+                    <StackPanel.Resources>
+                        <!-- Chapters -->
+                        <DataTemplate DataType="{x:Type models:ModelBase}">
+                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    <Label Content="Chapter" Foreground="Blue" FontSize="22"/>
+                                </Grid>
+                            </Grid>
+                        </DataTemplate>
+
+                        <!-- Paragraphs -->
+                        <DataTemplate DataType="{x:Type models:ParagraphModel}">
+                            <Grid VerticalAlignment="Stretch" Grid.ColumnSpan="1">
+                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding Text}"/>
+                                </Grid>
+                            </Grid>
+                        </DataTemplate>
+
+                        <!-- Note -->
+                        <DataTemplate DataType="{x:Type models:NoteModel}">
+                            <Grid VerticalAlignment="Stretch" Grid.ColumnSpan="1">
+                                <Grid HorizontalAlignment="Stretch"
+                                      VerticalAlignment="Stretch">
+                                    <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="{Binding}" Foreground="Pink"/>
+                                </Grid>
+                            </Grid>
+                        </DataTemplate>
+
+                        <!-- Writing -->
+                        <DataTemplate DataType="{x:Type models:WritingModel}">
+                            <Grid VerticalAlignment="Stretch" Grid.ColumnSpan="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="100" />
+                                </Grid.ColumnDefinitions>
+                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                                    <TextBox Width="400" Height="200" HorizontalScrollBarVisibility="Disabled" Text="{Binding Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" Loaded="TextBox_Loaded"/>
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="20" />
+                                        <RowDefinition Height="20" />
+                                        <RowDefinition Height="20" />
+                                        <RowDefinition Height="23" />
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="3" Content="Num: " FontSize="12"/>
+                                </Grid>
+                            </Grid>
+                        </DataTemplate>
+
+                        <!-- Bookmark -->
+                        <DataTemplate DataType="{x:Type models:BookmarkModel}">
+                            <Grid VerticalAlignment="Stretch" Grid.ColumnSpan="1" MinWidth="610">
+                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding}" Foreground="Orange"/>
+                                </Grid>
+                            </Grid>
+                        </DataTemplate>
+                    </StackPanel.Resources>
+
+                    <Label Content="{Binding}" />
+                </StackPanel>
+            </ListView>
+        </DataTemplate>
     </Application.Resources>
 </Application>

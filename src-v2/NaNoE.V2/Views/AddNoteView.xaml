@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:NaNoE.V2.Views"
         mc:Ignorable="d"
         Title="AddNoteView" Height="450" Width="640">
-    <Grid DataContext="{Binding NovelAddNoteVM, Source={StaticResource ViewModelLocator}}">
+    <Grid DataContext="{Binding NovelAddNoteVM, Source={StaticResource ViewModelLocator}}" Background="#333">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5" />
             <ColumnDefinition />
@@ -20,12 +20,16 @@
 
         <ListView
             x:Name="lstElements"
-            Background="#333"
+            ItemTemplate="{DynamicResource tmplMinimalElements}"
             Margin="3"
-            ItemsSource="{Binding View}"
-            ItemTemplate="{DynamicResource tmplNoteElements}"
+            ItemsSource="{Binding Models}"
+            Grid.Column="1"
+            Grid.Row="1"
             HorizontalAlignment="Stretch"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled" />
+            VerticalAlignment="Stretch"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            Loaded="lstElements_Loaded"
+            Background="#333"/>
 
     </Grid>
 </Window>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NaNoE.V2.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,12 @@ namespace NaNoE.V2.Views
         public AddNoteView()
         {
             InitializeComponent();
+        }
+
+        private void lstElements_Loaded(object sender, RoutedEventArgs e)
+        {
+            lstElements.ItemsSource = ViewModelLocator.Instance.NovelAddNoteVM.Models;
+            lstElements.UpdateLayout();
         }
     }
 }

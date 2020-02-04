@@ -18,7 +18,11 @@ namespace NaNoE.V2.Data
 
         public void Execute(object parameter)
         {
-            throw new NotImplementedException();
+            ViewModelLocator.Instance.NovelAddNoteVM.IDAfter = int.Parse(parameter.ToString());
+
+            ViewModelLocator.Instance.NovelAddNoteVM.Models = DBManager.Instance.GetSurrounded(ViewModelLocator.Instance.NovelAddNoteVM.IDAfter);
+
+            Navigator.Instance.Goto("addnote");
         }
     }
 }
