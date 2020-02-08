@@ -59,5 +59,14 @@ namespace NaNoE.V2.Data
         {
             get { return _novelAddNoteVM; }
         }
+
+        private MidNovelViewModel _midNovelVM = new MidNovelViewModel();
+        public MidNovelViewModel MidNovelVM
+        {
+            get
+            {
+                return _midNovelVM;
+            }
+        }
     }
 }

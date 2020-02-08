@@ -564,5 +564,31 @@ namespace NaNoE.V2.Data
 
             return answer;
         }
+
+        internal List<ModelBase> GetMapElements(int mapPos)
+        {
+            List<ModelBase> answer = new List<ModelBase>();
+
+            for (int i = mapPos; i >= 0 && i > mapPos -3; i--)
+            {
+                if (answer.Count == 0)
+                {
+                    answer.Add(DBManager.Instance.GetModel(_map[i]));
+                }
+                else if (answer[0].IDBefore != 0)
+                {
+                    answer.Insert(0, DBManager.Instance.GetModel(answer[0].IDBefore));
+                }
+            }
+
+            return answer;
+        }
+
+        internal int GetPreviousID(int v)
+        {
+            var current = GetModel(v);
+            return current.IDBefore;
+        }
+
     }
 }

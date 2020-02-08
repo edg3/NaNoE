@@ -1,13 +1,12 @@
-﻿<Window x:Class="NaNoE.V2.Views.NovelEndView"
+﻿<Window x:Class="NaNoE.V2.Views.MidNovelView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NaNoE.V2.Views"
-        xmlns:data="clr-namespace:NaNoE.V2.Data"
         mc:Ignorable="d"
-        Title="NovelEndView" Height="450" Width="640">
-    <Grid Background="#222" DataContext="{Binding NovelEndVM, Source={StaticResource ViewModelLocator}}">
+        Title="MidNovelView" Height="480" Width="640">
+    <Grid DataContext="{Binding MidNovelVM, Source={StaticResource ViewModelLocator}}" Background="#333" Loaded="Grid_Loaded">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition Width="30" />
@@ -17,16 +16,23 @@
             Background="#333"
             Margin="3"
             ItemsSource="{Binding View}"
-            ItemTemplate="{DynamicResource tmplElements}"
+            ItemTemplate="{DynamicResource tmplMinimalElements}"
             HorizontalContentAlignment="Stretch"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-        </ListView>
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled" />
         <Button
+            x:Name="butUp"
             Content="/\"
             VerticalAlignment="Top"
             Height="32"
             Grid.Column="1"
             Command="{Binding NavUp}"
-            CommandParameter="-1"/>
+            CommandParameter="{Binding TopID}"/>
+        <Button
+            Content="\/"
+            VerticalAlignment="Bottom"
+            Height="32"
+            Grid.Column="1"
+            Command="{Binding NavDown}"
+            CommandParameter="{Binding BottomID}"/>
     </Grid>
 </Window>

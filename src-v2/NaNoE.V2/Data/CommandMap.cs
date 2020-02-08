@@ -20,6 +20,8 @@ namespace NaNoE.V2.Data
             _runAddNote = new RunAddNoteCommand();
             _runDelete = new RunDeleteCommand();
             _runEdit = new RunEditCommand();
+            _runNavigateUp = new RunNavigateUp();
+            _runNavigateDown = new RunNavigateDown();
         }
 
         /// <summary>
@@ -71,9 +73,28 @@ namespace NaNoE.V2.Data
         /// Edit command
         /// </summary>
         private ICommand _runEdit;
+
         public ICommand RunEdit
         {
             get { return _runEdit; }
+        }
+
+        /// <summary>
+        /// Navigate up command
+        /// </summary>
+        private ICommand _runNavigateUp;
+        public ICommand RunNavigateUp
+        {
+            get { return _runNavigateUp; }
+        }
+
+        /// <summary>
+        /// Navigate down command
+        /// </summary>
+        private ICommand _runNavigateDown;
+        public ICommand RunNavigateDown
+        {
+            get { return _runNavigateDown; }
         }
     }
 }
