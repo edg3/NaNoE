@@ -16,7 +16,7 @@
             Background="#333"
             Margin="3"
             ItemsSource="{Binding View}"
-            ItemTemplate="{DynamicResource tmplMinimalElements}"
+            ItemTemplate="{DynamicResource tmplElements}"
             HorizontalContentAlignment="Stretch"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled" />
         <Button
