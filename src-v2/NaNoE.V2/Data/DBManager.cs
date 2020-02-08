@@ -538,6 +538,11 @@ namespace NaNoE.V2.Data
             return answer;
         }
 
+        /// <summary>
+        /// Retrieve elements at a position and after
+        /// </summary>
+        /// <param name="id">The position id</param>
+        /// <returns>Element with id, and the element from idafter</returns>
         internal List<ModelBase> GetSurrounded(int id)
         {
             List<ModelBase> answer = new List<ModelBase>();
@@ -565,6 +570,11 @@ namespace NaNoE.V2.Data
             return answer;
         }
 
+        /// <summary>
+        /// Using the map system to retrieve 3 elements in a row from the last element up
+        /// </summary>
+        /// <param name="mapPos">The last element id.</param>
+        /// <returns>A list of the elements above a position, limit 3</returns>
         internal List<ModelBase> GetMapElements(int mapPos)
         {
             List<ModelBase> answer = new List<ModelBase>();
@@ -584,6 +594,11 @@ namespace NaNoE.V2.Data
             return answer;
         }
 
+        /// <summary>
+        /// Get the IDBefore from the element
+        /// </summary>
+        /// <param name="v">The id we want the idbefore of</param>
+        /// <returns></returns>
         internal int GetPreviousID(int v)
         {
             var current = GetModel(v);
