@@ -142,7 +142,7 @@
                                     <ColumnDefinition Width="100" />
                                 </Grid.ColumnDefinitions>
                                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
-                                    <TextBox Width="400" Height="200" HorizontalScrollBarVisibility="Disabled" Text="{Binding Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" Loaded="TextBox_Loaded"/>
+                                    <TextBox Width="400" Height="200" HorizontalScrollBarVisibility="Disabled" Text="{Binding Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" Loaded="TextBox_Loaded" TextWrapping="Wrap"/>
                                 </Grid>
                                 <Grid Grid.Column="2">
                                     <Grid.RowDefinitions>
