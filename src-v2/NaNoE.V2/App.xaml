@@ -20,114 +20,65 @@
         <!-- Item Data Templates -->
         <DataTemplate x:Key="tmplElements">
             <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                <StackPanel Margin="5">
-                    <StackPanel.Resources>
+                <DockPanel          
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Stretch" 
+                    Height="Auto" 
+                    MinWidth="400"
+                    Margin="10">
+                    <DockPanel.Resources>
                         <!-- Chapters -->
                         <DataTemplate DataType="{x:Type models:ModelBase}">
                             <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="50" />
                                     <ColumnDefinition Width="10" />
-                                    <ColumnDefinition Width="100" />
-                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                    <Label Content="Chapter" Foreground="Blue" FontSize="22"/>
+                                <Grid>
+                                    <Button Width="50" Height="50" Content="Add"/>
                                 </Grid>
-                                <Grid Grid.Column="2">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="20" />
-                                        <RowDefinition Height="20" />
-                                        <RowDefinition Height="20" />
-                                        <RowDefinition Height="23" />
-                                    </Grid.RowDefinitions>
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAddChapter}"   Grid.Row="0" Content="Add Ch. \/" />
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAddParagraph}" Grid.Row="1" Content="Add Pa. \/" />
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunDelete}"       Grid.Row="2" Content="Del Item" Background="Red"/>
-                                </Grid>
-                                <Grid Grid.Column="3">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="20" />
-                                        <RowDefinition Height="20" />
-                                        <RowDefinition Height="20" />
-                                    </Grid.RowDefinitions>
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunEdit}"        Grid.Row="0" Content="Edit" Background="Yellow"/>
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAddNote}"     Grid.Row="1" Content="Add Note \/"  Foreground="Pink"/>
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAddBookmark}" Grid.Row="2" Content="Add Bookmark \/" Foreground="Orange" />
+                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="2">
+                                    <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="Chapter" Foreground="BlueViolet" FontSize="26" FontStyle="Oblique" VerticalAlignment="Center"/>
                                 </Grid>
                             </Grid>
                         </DataTemplate>
 
                         <!-- Paragraphs -->
                         <DataTemplate DataType="{x:Type models:ParagraphModel}">
-                            <Grid VerticalAlignment="Stretch" Grid.ColumnSpan="1">
+                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="50" />
                                     <ColumnDefinition Width="10" />
-                                    <ColumnDefinition Width="100" />
-                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                    <TextBlock TextWrapping="Wrap" Text="{Binding Text}"/>
-                                </Grid>
-                                <Grid Grid.Column="2">
+                                <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="20" />
-                                        <RowDefinition Height="20" />
-                                        <RowDefinition Height="20" />
-                                        <RowDefinition Height="23" />
+                                        <RowDefinition />
+                                        <RowDefinition />
                                     </Grid.RowDefinitions>
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAddChapter}"   Grid.Row="0" Content="Add Ch. \/" />
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAddParagraph}" Grid.Row="1" Content="Add Pa. \/" />
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunDelete}"       Grid.Row="2" Content="Del Item" Background="Red"/>
-                                    <Label  Grid.Row="3" Content="Num: " FontSize="12"/>
+                                    <Button Width="50" Height="25" Content="Add"/>
+                                    <Button Grid.Row="1" Width="50" Height="25" Content="Edit"/>
                                 </Grid>
-                                <Grid Grid.Column="3">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="20" />
-                                        <RowDefinition Height="20" />
-                                        <RowDefinition Height="20" />
-                                    </Grid.RowDefinitions>
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunEdit}"        Grid.Row="0" Content="Edit" Background="Yellow"/>
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAddNote}"     Grid.Row="1" Content="Add Note \/"  Foreground="Pink"/>
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAddBookmark}" Grid.Row="2" Content="Add Bookmark \/" Foreground="Orange" />
+                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="2">
+                                    <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="{Binding Text}" Foreground="Black" VerticalAlignment="Center"/>
                                 </Grid>
                             </Grid>
                         </DataTemplate>
 
                         <!-- Note -->
                         <DataTemplate DataType="{x:Type models:NoteModel}">
-                            <Grid VerticalAlignment="Stretch" Grid.ColumnSpan="1">
+                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="50" />
                                     <ColumnDefinition Width="10" />
-                                    <ColumnDefinition Width="100" />
-                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                    <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="{Binding}" Foreground="Pink"/>
+                                <Grid>
+                                    <Button Width="50" Height="50" Content="Add"/>
                                 </Grid>
-                                <Grid Grid.Column="2">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="20" />
-                                        <RowDefinition Height="20" />
-                                        <RowDefinition Height="20" />
-                                        <RowDefinition Height="23" />
-                                    </Grid.RowDefinitions>
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAddChapter}"   Grid.Row="0" Content="Add Ch. \/" />
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAddParagraph}" Grid.Row="1" Content="Add Pa. \/" />
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunDelete}"       Grid.Row="2" Content="Del Item" Background="Red"/>
-                                    <Label  Grid.Row="3" Content="Num: " FontSize="12"/>
-                                </Grid>
-                                <Grid Grid.Column="3">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="20" />
-                                        <RowDefinition Height="20" />
-                                        <RowDefinition Height="20" />
-                                    </Grid.RowDefinitions>
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunEdit}"        Grid.Row="0" Content="Edit" Background="Yellow"/>
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAddNote}"     Grid.Row="1" Content="Add Note \/" Foreground="Pink" />
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAddBookmark}" Grid.Row="2" Content="Add Bookmark \/" Foreground="Orange" />
+                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="2">
+                                    <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="{Binding Text}" Foreground="LightGray" VerticalAlignment="Center"/>
                                 </Grid>
                             </Grid>
                         </DataTemplate>
@@ -136,15 +87,12 @@
                         <DataTemplate DataType="{x:Type models:WritingModel}">
                             <Grid VerticalAlignment="Stretch" Grid.ColumnSpan="1">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="100" />
                                     <ColumnDefinition Width="10" />
-                                    <ColumnDefinition Width="100" />
-                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
-                                    <TextBox Width="400" Height="200" HorizontalScrollBarVisibility="Disabled" Text="{Binding Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" Loaded="TextBox_Loaded" TextWrapping="Wrap"/>
-                                </Grid>
-                                <Grid Grid.Column="2">
+                                <Grid Grid.Column="0">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="20" />
                                         <RowDefinition Height="20" />
@@ -154,7 +102,7 @@
                                     <Button Grid.Row="0" CommandParameter="{Binding WhereOnMap}" Command="{Binding Commands.RunAddChapter}" Content="Add Ch. /\" />
                                     <Label Grid.Row="3" Content="Num: " FontSize="12"/>
                                 </Grid>
-                                <Grid Grid.Column="3">
+                                <Grid Grid.Column="1">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="20" />
                                         <RowDefinition Height="20" />
@@ -163,49 +111,33 @@
                                     <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAddNote}"     Grid.Row="1" Content="Add Note /\" Foreground="Pink"/>
                                     <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAddBookmark}" Grid.Row="2" Content="Add Bookmark /\" Foreground="Orange" />
                                 </Grid>
+
+                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="3" >
+                                    <TextBox HorizontalAlignment="Center" MinWidth="200" VerticalAlignment="Stretch" HorizontalScrollBarVisibility="Disabled" Text="{Binding Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" Loaded="TextBox_Loaded" TextWrapping="Wrap"/>
+                                </Grid>
                             </Grid>
                         </DataTemplate>
 
                         <!-- Bookmark -->
                         <DataTemplate DataType="{x:Type models:BookmarkModel}">
-                            <Grid VerticalAlignment="Stretch" Grid.ColumnSpan="1" MinWidth="610">
+                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="50" />
                                     <ColumnDefinition Width="10" />
-                                    <ColumnDefinition Width="100" />
-                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
-                                    <TextBlock TextWrapping="Wrap" Text="{Binding}" Foreground="Orange"/>
+                                <Grid>
+                                    <Button Width="50" Height="50" Content="Add"/>
                                 </Grid>
-                                <Grid Grid.Column="2">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="20" />
-                                        <RowDefinition Height="20" />
-                                        <RowDefinition Height="20" />
-                                        <RowDefinition Height="23" />
-                                    </Grid.RowDefinitions>
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAddChapter}"   Grid.Row="0" Content="Add Ch. \/" />
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAddParagraph}" Grid.Row="1" Content="Add Pa. \/" />
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunDelete}"       Grid.Row="2" Content="Del Item" Background="Red"/>
-                                    <Label  Grid.Row="3" Content="Num: " FontSize="12"/>
-                                </Grid>
-                                <Grid Grid.Column="3">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="20" />
-                                        <RowDefinition Height="20" />
-                                        <RowDefinition Height="20" />
-                                    </Grid.RowDefinitions>
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunEdit}"        Grid.Row="0" Content="Edit" Background="Yellow"/>
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAddNote}"     Grid.Row="1" Content="Add Note \/" Foreground="Pink" />
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAddBookmark}" Grid.Row="2" Content="Add Bookmark \/" Foreground="Orange" />
+                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="2">
+                                    <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="{Binding Text}" Foreground="Pink" VerticalAlignment="Center"/>
                                 </Grid>
                             </Grid>
                         </DataTemplate>
-                    </StackPanel.Resources>
+                    </DockPanel.Resources>
 
-                    <Label Content="{Binding}" />
-                </StackPanel>
+                    <Label Content="{Binding}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"/>
+                </DockPanel>
             </ListView>
         </DataTemplate>
 
