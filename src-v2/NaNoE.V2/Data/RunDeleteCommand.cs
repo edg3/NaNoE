@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace NaNoE.V2.Data
@@ -18,7 +19,7 @@ namespace NaNoE.V2.Data
 
         public void Execute(object parameter)
         {
-            throw new NotImplementedException();
+            var answer = MessageBox.Show("Are you sure you want to delete that element?\n\n" + DBManager.Instance.GetID((int)parameter), "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Warning);
         }
     }
 }

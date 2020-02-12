@@ -35,6 +35,23 @@ namespace NaNoE.V2.Data
         {
             get { return _commands; }
         }
+        
+        /// <summary>
+        /// Remove novel Element
+        /// </summary>
+        /// <param name="parameter">ID to remove</param>
+        internal void DeleteElement(int id)
+        {
+            // TODO
+            // - get idbefore
+            // - get idafter
+            // - update idbefore and idafter on those 2 elements
+            // - remove id
+            //   - from db aswell
+            // - refresh "_map"
+            throw new NotImplementedException();
+            // Note: perhaps we should also "track" these "kinds" of changes so we can "undo" a delete. Perhaps with a limit?
+        }
 
         /// <summary>
         /// Instantiate

@@ -81,6 +81,7 @@ namespace NaNoE.V2.Data
         {
             Window window = null;
 
+            // TODO - "goto last" - i.e. back to the same place
             switch (name)
             {
                 case "start": window = new StartView(); HelperVars.ViewModelToWrite = ViewModelLocator.Instance.StartVM; break;
