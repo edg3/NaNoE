@@ -45,7 +45,6 @@ namespace NaNoE.V2.Data
             // TODO
             var el = GetElement(id);
             // - get idbefore
-            var idbefore = 
             // - get idafter
             // - update idbefore and idafter on those 2 elements
             // - remove id
@@ -626,7 +625,69 @@ namespace NaNoE.V2.Data
 
         private ModelBase GetElement(int id)
         {
-            throw new NotImplementedException();
+            ModelBase answer = null;
+            var elements = ExecSQLQuery("SELECT rowid, idbefore, idafter, type, externalid FROM elements WHERE rowid = " + _map[0], 5);
+
+            switch ((elements[0])[3])
+            {
+                case 0: // Chapter
+                    {
+                        answer = new ModelBase(
+                                int.Parse((elements[0])[0].ToString()),
+                                int.Parse((elements[0])[1].ToString()),
+                                int.Parse((elements[0])[2].ToString()),
+                                int.Parse((elements[0])[3].ToString()),
+                                0
+                            );
+                    }
+                    break;
+                case 1: // Paragraph
+                    {
+                        var paragraph = ExecSQLQuery("SELECT content, flagged FROM paragraphs WHERE rowid = " + int.Parse((elements[0])[4].ToString()), 2);
+                        var content = (paragraph[0])[0].ToString();
+                        var flagged = bool.Parse((paragraph[0])[1].ToString()) == true;
+                        answer = new ParagraphModel(
+                                int.Parse((elements[0])[0].ToString()),
+                                int.Parse((elements[0])[1].ToString()),
+                                int.Parse((elements[0])[2].ToString()),
+                                int.Parse((elements[0])[3].ToString()),
+                                int.Parse((elements[0])[4].ToString()),
+                                content,
+                                flagged
+                            );
+                    }
+                    break;
+                case 2: // Note
+                    {
+                        var note = ExecSQLQuery("SELECT content FROM notes WHERE rowid = " + int.Parse((elements[0])[4].ToString()), 1);
+                        var content = (note[0])[0].ToString();
+                        answer = new NoteModel(
+                                int.Parse((elements[0])[0].ToString()),
+                                int.Parse((elements[0])[1].ToString()),
+                                int.Parse((elements[0])[2].ToString()),
+                                int.Parse((elements[0])[3].ToString()),
+                                int.Parse((elements[0])[4].ToString()),
+                                content
+                            );
+                    }
+                    break;
+                case 3: // Bookmark
+                    {
+                        var bookmark = ExecSQLQuery("SELECT content FROM bookmarks WHERE rowid = " + int.Parse((elements[0])[4].ToString()), 1);
+                        var content = (bookmark[0])[0].ToString();
+                        answer = new BookmarkModel(
+                                int.Parse((elements[0])[0].ToString()),
+                                int.Parse((elements[0])[1].ToString()),
+                                int.Parse((elements[0])[2].ToString()),
+                                int.Parse((elements[0])[3].ToString()),
+                                int.Parse((elements[0])[4].ToString()),
+                                content
+                            );
+                    }
+                    break;
+            }
+
+            return answer;
         }
     }
 }
