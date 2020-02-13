@@ -74,6 +74,19 @@ namespace NaNoE.V2.Data
         }
 
         /// <summary>
+        /// Last view position
+        ///  - Note: may need to also think of last ID here actually
+        /// </summary>
+        private string _last;
+        public string Last
+        {
+            get
+            {
+                return _last;
+            }
+        }
+
+        /// <summary>
         /// Move to a view of a specific name
         /// </summary>
         /// <param name="name">The name of the view we want to go to</param>
@@ -81,7 +94,6 @@ namespace NaNoE.V2.Data
         {
             Window window = null;
 
-            // TODO - "goto last" - i.e. back to the same place
             switch (name)
             {
                 case "start": window = new StartView(); HelperVars.ViewModelToWrite = ViewModelLocator.Instance.StartVM; break;
@@ -91,11 +103,21 @@ namespace NaNoE.V2.Data
                 default: throw new NotImplementedException();
             }
 
+            _last = name;
+
             if (null != window)
             {
                 _host.Content = new ContentControl() { Content = window.Content };
                 window.Close();
             }
+        }
+
+        /// <summary>
+        /// Go back to where our view was
+        /// </summary>
+        public void GotoLast()
+        {
+            Goto(_last);
         }
     }
 }

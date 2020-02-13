@@ -20,6 +20,12 @@ namespace NaNoE.V2.Data
         public void Execute(object parameter)
         {
             var answer = MessageBox.Show("Are you sure you want to delete that element?\n\n" + DBManager.Instance.GetID((int)parameter), "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (answer == MessageBoxResult.Yes)
+            {
+                DBManager.Instance.DeleteElement((int)parameter);
+                Navigator.Instance.GotoLast();
+            }
         }
     }
 }

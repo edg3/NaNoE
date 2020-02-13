@@ -43,7 +43,9 @@ namespace NaNoE.V2.Data
         internal void DeleteElement(int id)
         {
             // TODO
+            var el = GetElement(id);
             // - get idbefore
+            var idbefore = 
             // - get idafter
             // - update idbefore and idafter on those 2 elements
             // - remove id
@@ -622,5 +624,9 @@ namespace NaNoE.V2.Data
             return current.IDBefore;
         }
 
+        private ModelBase GetElement(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
