@@ -1,4 +1,5 @@
 ﻿using NaNoE.V2.ViewModels;
+using NaNoE.V2.ViewModels.Actions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -67,6 +68,12 @@ namespace NaNoE.V2.Data
             {
                 return _midNovelVM;
             }
+        }
+
+        private ViewAddActionViewModel _viewAddActionsVM = new ViewAddActionViewModel();
+        public ViewAddActionViewModel ViewAddActionVM
+        {
+            get { return _viewAddActionsVM; }
         }
     }
 }

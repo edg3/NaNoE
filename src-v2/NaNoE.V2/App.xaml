@@ -40,7 +40,7 @@
                                         <RowDefinition />
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
-                                    <Button Width="50" Height="25" Content="Add"/>
+                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAction}"  Width="50" Height="25" Content="Add"/>
                                     <Button Grid.Row="1" Width="50" Height="25" Content="Delete" />
                                 </Grid>
                                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="2">
@@ -63,7 +63,7 @@
                                         <RowDefinition />
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
-                                    <Button Width="50" Height="25" Content="Add"/>
+                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAction}"  Width="50" Height="25" Content="Add"/>
                                     <Button Grid.Row="1" Width="50" Height="25" Content="Edit"/>
                                     <Button Grid.Row="2" Width="50" Height="25" Content="Delete" />
                                 </Grid>
@@ -86,7 +86,7 @@
                                         <RowDefinition />
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
-                                    <Button Width="50" Height="50" Content="Add"/>
+                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAction}" Width="50" Height="50" Content="Add"/>
                                     <Button Grid.Row="1" Width="50" Height="25" Content="Delete" />
                                 </Grid>
                                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="2">
@@ -143,7 +143,7 @@
                                         <RowDefinition/>
                                         <RowDefinition/>
                                     </Grid.RowDefinitions>
-                                    <Button Width="50" Height="50" Content="Add"/>
+                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAction}"  Width="50" Height="50" Content="Add"/>
                                     <Button Grid.Row="1" Width="50" Height="25" Content="Delete" />
                                 </Grid>
                                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="2">

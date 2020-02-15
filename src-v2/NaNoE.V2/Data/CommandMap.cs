@@ -22,6 +22,7 @@ namespace NaNoE.V2.Data
             _runEdit = new RunEditCommand();
             _runNavigateUp = new RunNavigateUp();
             _runNavigateDown = new RunNavigateDown();
+            _runAction = new RunAction();
         }
 
         /// <summary>
@@ -95,6 +96,15 @@ namespace NaNoE.V2.Data
         public ICommand RunNavigateDown
         {
             get { return _runNavigateDown; }
+        }
+
+        /// <summary>
+        /// Run an action command
+        /// </summary>
+        private ICommand _runAction;
+        public ICommand RunAction
+        {
+            get { return _runAction; }
         }
     }
 }
