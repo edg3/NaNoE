@@ -18,10 +18,10 @@
             <RowDefinition Height="3" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="1" Grid.Column="1">
-            <Button CommandParameter="{Binding ID}" Command="{Binding ChapterCommand}" Content="\/ Chapter Below" Padding="5" Margin="3"/>
-            <Button CommandParameter="{Binding ID}" Command="{Binding NoteCommand}" Content="\/ Note Below" Padding="5" Margin="3" />
-            <Button CommandParameter="{Binding ID}" Command="{Binding BookmarkCommand}" Content="\/ Bookmark Below" Padding="5" Margin="3" />
-            <Button CommandParameter="{Binding ID}" Command="{Binding ParagraphCommand}" Content="\/ Paragraph Below" Padding="5" Margin="3" />
+            <Button Click="Button_Click" CommandParameter="{Binding ID}" Command="{Binding ChapterCommand}" Content="\/ Chapter Below" Padding="5" Margin="3"/>
+            <Button Click="Button_Click" CommandParameter="{Binding ID}" Command="{Binding NoteCommand}" Content="\/ Note Below" Padding="5" Margin="3" />
+            <Button Click="Button_Click" CommandParameter="{Binding ID}" Command="{Binding BookmarkCommand}" Content="\/ Bookmark Below" Padding="5" Margin="3" />
+            <Button Click="Button_Click" CommandParameter="{Binding ID}" Command="{Binding ParagraphCommand}" Content="\/ Paragraph Below" Padding="5" Margin="3" />
             <Button Command="{Binding CancelCommand}" Content="Cancel" Padding="5" Margin="6" />
         </StackPanel>
     </Grid>

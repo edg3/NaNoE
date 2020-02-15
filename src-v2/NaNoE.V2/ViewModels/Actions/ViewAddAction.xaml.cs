@@ -29,5 +29,10 @@ namespace NaNoE.V2.ViewModels.Actions
         {
             ViewModelLocator.Instance.ViewAddActionVM.Window = this;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
