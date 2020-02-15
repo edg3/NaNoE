@@ -495,6 +495,8 @@ namespace NaNoE.V2.Data
 
         private ModelBase GetModel(int id)
         {
+            if (id == 0) return null;
+
             var el = ExecSQLQuery("SELECT rowid, idbefore, idafter, type, externalid FROM elements WHERE rowid = " + id, 5);
             ModelBase answer = null;
             switch ((el[0])[3])

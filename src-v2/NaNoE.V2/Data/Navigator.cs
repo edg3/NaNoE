@@ -103,6 +103,8 @@ namespace NaNoE.V2.Data
                 default: throw new NotImplementedException();
             }
 
+            WhereWeAre = name;
+
             _last = name;
 
             if (null != window)

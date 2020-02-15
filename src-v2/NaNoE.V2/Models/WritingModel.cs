@@ -34,7 +34,15 @@ namespace NaNoE.V2.Models
                         }
                         else
                         {
-                            throw new NotImplementedException();
+                            if (Navigator.Instance.WhereWeAre == "addnote")
+                            {
+                                var noteAddVM = ViewModelLocator.Instance.NovelAddNoteVM;
+                                noteAddVM.AddNote.Execute(null);
+                            }
+                            else
+                            {
+                                throw new NotImplementedException();
+                            }
                         }
                     }
                     else

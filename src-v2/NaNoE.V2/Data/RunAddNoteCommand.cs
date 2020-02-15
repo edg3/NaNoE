@@ -18,7 +18,14 @@ namespace NaNoE.V2.Data
 
         public void Execute(object parameter)
         {
-            ViewModelLocator.Instance.NovelAddNoteVM.IDAfter = int.Parse(parameter.ToString());
+            if (Navigator.Instance.WhereWeAre == "novelend")
+            {
+                ViewModelLocator.Instance.NovelAddNoteVM.IDAfter = DBManager.Instance.GetEndID();
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
 
             ViewModelLocator.Instance.NovelAddNoteVM.Models = DBManager.Instance.GetSurrounded(ViewModelLocator.Instance.NovelAddNoteVM.IDAfter);
 

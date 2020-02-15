@@ -19,9 +19,9 @@ namespace NaNoE.V2.Data
             set { _action = value; }
         }
         
-        public CommandBase()
+        public CommandBase(Action action)
         {
-            
+            _action = action;
         }
 
         public event EventHandler CanExecuteChanged;
