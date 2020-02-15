@@ -467,6 +467,8 @@ namespace NaNoE.V2.Data
         /// <returns>Max(ID) from Table</returns>
         internal int GetMaxId(string v)
         {
+            if (_connection == null) return 0;
+
             var cmd = "SELECT Max(rowid) FROM " + v;
             SQLiteCommand sqlCmd = new SQLiteCommand(cmd, _connection);
             object val = sqlCmd.ExecuteScalar();
@@ -690,6 +692,16 @@ namespace NaNoE.V2.Data
             }
 
             return answer;
+        }
+
+        /// <summary>
+        /// Run map of elements again
+        ///  - TODO: this may be slow eventually?
+        ///  - made as function as we may need adjustments
+        /// </summary>
+        internal void RunMap()
+        {
+            GenerateMap();
         }
     }
 }

@@ -74,16 +74,13 @@ namespace NaNoE.V2.Data
         }
 
         /// <summary>
-        /// Last view position
-        ///  - Note: may need to also think of last ID here actually
+        /// Reference to the name of where we last were
         /// </summary>
-        private string _last;
-        public string Last
+        private string _whereWeLastWere;
+        public string WhereWeLastWere
         {
-            get
-            {
-                return _last;
-            }
+            get { return _whereWeLastWere; }
+            private set { _whereWeLastWere = value; }
         }
 
         /// <summary>
@@ -103,15 +100,16 @@ namespace NaNoE.V2.Data
                 default: throw new NotImplementedException();
             }
 
+            WhereWeLastWere = WhereWeAre;
             WhereWeAre = name;
-
-            _last = name;
 
             if (null != window)
             {
                 _host.Content = new ContentControl() { Content = window.Content };
                 window.Close();
             }
+
+            DBManager.Instance.RunMap();
         }
 
         /// <summary>
@@ -119,7 +117,7 @@ namespace NaNoE.V2.Data
         /// </summary>
         public void GotoLast()
         {
-            Goto(_last);
+            Goto(WhereWeLastWere);
         }
     }
 }

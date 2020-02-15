@@ -20,6 +20,16 @@ namespace NaNoE.V2.ViewModels
         }
 
         /// <summary>
+        /// Content for note
+        /// </summary>
+        private string _text = "";
+        public string Text
+        {
+            get { return _text; }
+            set { _text = value; }
+        }
+
+        /// <summary>
         /// The position in map
         /// </summary>
         private int _idAfter;
@@ -57,7 +67,7 @@ namespace NaNoE.V2.ViewModels
         /// </summary>
         private void _run_AddNote()
         {
-            throw new NotImplementedException();
+            DBManager.Instance.Commands.RunAddNote.Execute(ViewModelLocator.Instance.NovelAddNoteVM);
         }
     }
 }

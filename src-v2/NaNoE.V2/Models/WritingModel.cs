@@ -37,6 +37,7 @@ namespace NaNoE.V2.Models
                             if (Navigator.Instance.WhereWeAre == "addnote")
                             {
                                 var noteAddVM = ViewModelLocator.Instance.NovelAddNoteVM;
+                                noteAddVM.Text = _content;
                                 noteAddVM.AddNote.Execute(null);
                             }
                             else

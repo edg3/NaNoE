@@ -21,15 +21,22 @@ namespace NaNoE.V2.Data
             if (Navigator.Instance.WhereWeAre == "novelend")
             {
                 ViewModelLocator.Instance.NovelAddNoteVM.IDAfter = DBManager.Instance.GetEndID();
+                ViewModelLocator.Instance.NovelAddNoteVM.Models = DBManager.Instance.GetSurrounded(ViewModelLocator.Instance.NovelAddNoteVM.IDAfter);
+
+                Navigator.Instance.Goto("addnote");
+            }
+            else if (Navigator.Instance.WhereWeAre == "addnote")
+            {
+                var vm = ViewModelLocator.Instance.NovelAddNoteVM;
+                DBManager.Instance.InsertNote(vm.IDAfter, vm.Text);
+
+                Navigator.Instance.GotoLast();
             }
             else
             {
                 throw new NotImplementedException();
             }
 
-            ViewModelLocator.Instance.NovelAddNoteVM.Models = DBManager.Instance.GetSurrounded(ViewModelLocator.Instance.NovelAddNoteVM.IDAfter);
-
-            Navigator.Instance.Goto("addnote");
         }
     }
 }
