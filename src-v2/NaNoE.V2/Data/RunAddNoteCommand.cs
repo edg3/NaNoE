@@ -20,7 +20,14 @@ namespace NaNoE.V2.Data
         {
             if (Navigator.Instance.WhereWeAre == "novelend")
             {
-                ViewModelLocator.Instance.NovelAddNoteVM.IDAfter = int.Parse(DBManager.Instance.UsingID);
+                if (parameter.ToString() == "0")
+                {
+                    ViewModelLocator.Instance.NovelAddNoteVM.IDAfter = int.Parse(DBManager.Instance.GetEndID().ToString());
+                }
+                else
+                {
+                    ViewModelLocator.Instance.NovelAddNoteVM.IDAfter = int.Parse(DBManager.Instance.UsingID);
+                }
                 ViewModelLocator.Instance.NovelAddNoteVM.Models = DBManager.Instance.GetSurrounded(ViewModelLocator.Instance.NovelAddNoteVM.IDAfter);
                 
                 Navigator.Instance.Goto("addnote");
