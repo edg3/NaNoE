@@ -18,7 +18,48 @@ namespace NaNoE.V2.Data
 
         public void Execute(object parameter)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ViewModelLocator.Instance.NovelAddBookmarkVM.IDAfter = int.Parse(parameter.ToString());
+            }
+            catch
+            {
+                ViewModelLocator.Instance.NovelAddBookmarkVM.IDAfter = 0;
+            }
+
+            if (Navigator.Instance.WhereWeAre == "novelend")
+            {
+                if (parameter == null || ViewModelLocator.Instance.NovelAddNoteVM.IDAfter == 0)
+                {
+                    ViewModelLocator.Instance.NovelAddBookmarkVM.IDAfter = int.Parse(DBManager.Instance.GetEndID().ToString());
+                }
+                else
+                {
+                    ViewModelLocator.Instance.NovelAddBookmarkVM.IDAfter = int.Parse(DBManager.Instance.UsingID);
+                }
+                ViewModelLocator.Instance.NovelAddBookmarkVM.Models = DBManager.Instance.GetSurrounded(ViewModelLocator.Instance.NovelAddBookmarkVM.IDAfter);
+
+                Navigator.Instance.Goto("addbookmark");
+            }
+            else if (Navigator.Instance.WhereWeAre == "addbookmark")
+            {
+                var vm = ViewModelLocator.Instance.NovelAddBookmarkVM;
+                DBManager.Instance.InsertBookmark(vm.IDAfter, vm.Text);
+
+                Navigator.Instance.GotoLast();
+            }
+            else if (Navigator.Instance.WhereWeAre == "midnovel")
+            {
+                ViewModelLocator.Instance.NovelAddBookmarkVM.IDAfter = int.Parse(DBManager.Instance.UsingID);
+
+                ViewModelLocator.Instance.NovelAddBookmarkVM.Models = DBManager.Instance.GetSurrounded(ViewModelLocator.Instance.NovelAddBookmarkVM.IDAfter);
+
+                Navigator.Instance.Goto("addnote");
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

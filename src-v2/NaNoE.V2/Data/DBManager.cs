@@ -405,25 +405,19 @@ namespace NaNoE.V2.Data
                 return;
             }
 
-            var response = ExecSQLQuery("SELECT rowid, idbefore FROM elements", 2);
+            var response = ExecSQLQuery("SELECT rowid, idafter FROM elements WHERE idbefore = 0", 2);
+            var idafter = (response[0])[1].ToString();
 
             if (response.Count > 0)
             {
-                var item = (from i in response
-                            /* idbefore == 0 => start */
-                            where int.Parse(i[1].ToString()) == 0
-                            select i).First();
-                response.Remove(item);
-                _map.Insert(0, int.Parse(item[0].ToString()));
+                _map.Add(int.Parse((response[0])[1].ToString()));
 
-                while (response.Count > 0)
+                while (idafter != "0")
                 {
-                    item = (from i in response
-                                /* idbefore = end of _map */
-                            where int.Parse(i[1].ToString()) == int.Parse(item[0].ToString())
-                            select i).First();
-                    response.Remove(item);
-                    _map.Add(int.Parse(item[0].ToString()));
+                    // Thought: perhaps this could slow loads down a lot when a novel gets too long?
+                    response = ExecSQLQuery("SELECT rowid, idafter FROM elements WHERE rowid = " + idafter, 2);
+                    _map.Add(int.Parse((response[0])[1].ToString()));
+                    idafter = (response[0])[1].ToString();
                 }
             }
         }
