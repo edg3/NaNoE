@@ -489,75 +489,10 @@ namespace NaNoE.V2.Data
         {
             if (_map.Count > 0)
             {
-                return GetModel(id);
+                return GetElement(id);
             }
 
             return null;
-        }
-
-        private ModelBase GetModel(int id)
-        {
-            if (id == 0) return null;
-
-            var el = ExecSQLQuery("SELECT rowid, idbefore, idafter, type, externalid FROM elements WHERE rowid = " + id, 5);
-            ModelBase answer = null;
-            switch ((el[0])[3])
-            {
-                case 1:
-                    {
-                        var paragraph = ExecSQLQuery("SELECT content, flagged FROM paragraphs WHERE rowid = " + int.Parse((el[0])[4].ToString()), 2);
-                        var content = (paragraph[0])[0].ToString();
-                        var flagged = bool.Parse((paragraph[0])[1].ToString()) == true;
-                        answer = new ParagraphModel(
-                                int.Parse((el[0])[0].ToString()),
-                                int.Parse((el[0])[1].ToString()),
-                                int.Parse((el[0])[2].ToString()),
-                                int.Parse((el[0])[3].ToString()),
-                                int.Parse((el[0])[4].ToString()),
-                                content,
-                                flagged
-                            );
-                    } break;
-                case 2:
-                    {
-                        var note = ExecSQLQuery("SELECT content FROM notes WHERE rowid = " + int.Parse((el[0])[4].ToString()), 1);
-                        var content = (note[0])[0].ToString();
-                        answer = new NoteModel(
-                                int.Parse((el[0])[0].ToString()),
-                                int.Parse((el[0])[1].ToString()),
-                                int.Parse((el[0])[2].ToString()),
-                                int.Parse((el[0])[3].ToString()),
-                                int.Parse((el[0])[4].ToString()),
-                                content
-                            );
-                    } break;
-                case 3:
-                    {
-                        var bookmark = ExecSQLQuery("SELECT content FROM bookmarks WHERE rowid = " + int.Parse((el[0])[4].ToString()), 1);
-                        var content = (bookmark[0])[0].ToString();
-                        answer = new BookmarkModel(
-                                int.Parse((el[0])[0].ToString()),
-                                int.Parse((el[0])[1].ToString()),
-                                int.Parse((el[0])[2].ToString()),
-                                int.Parse((el[0])[3].ToString()),
-                                int.Parse((el[0])[4].ToString()),
-                                content
-                            );
-                    } break;
-                default:
-                    {
-                        answer = new ModelBase(
-                                int.Parse((el[0])[0].ToString()),
-                                int.Parse((el[0])[1].ToString()),
-                                int.Parse((el[0])[2].ToString()),
-                                int.Parse((el[0])[3].ToString()),
-                                0
-                            );
-                    }
-                    break;
-            }
-
-            return answer;
         }
 
         /// <summary>
@@ -605,11 +540,11 @@ namespace NaNoE.V2.Data
             {
                 if (answer.Count == 0)
                 {
-                    answer.Add(DBManager.Instance.GetModel(_map[i]));
+                    answer.Add(DBManager.Instance.GetElement(_map[i]));
                 }
                 else if (answer[0].IDBefore != 0)
                 {
-                    answer.Insert(0, DBManager.Instance.GetModel(answer[0].IDBefore));
+                    answer.Insert(0, DBManager.Instance.GetElement(answer[0].IDBefore));
                 }
             }
 
@@ -623,7 +558,7 @@ namespace NaNoE.V2.Data
         /// <returns></returns>
         internal int GetPreviousID(int v)
         {
-            var current = GetModel(v);
+            var current = GetElement(v);
             return current.IDBefore;
         }
 
