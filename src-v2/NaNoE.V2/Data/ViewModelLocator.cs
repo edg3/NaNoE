@@ -64,16 +64,19 @@ namespace NaNoE.V2.Data
         private MidNovelViewModel _midNovelVM = new MidNovelViewModel();
         public MidNovelViewModel MidNovelVM
         {
-            get
-            {
-                return _midNovelVM;
-            }
+            get { return _midNovelVM; }
         }
 
         private ViewAddActionViewModel _viewAddActionsVM = new ViewAddActionViewModel();
         public ViewAddActionViewModel ViewAddActionVM
         {
             get { return _viewAddActionsVM; }
+        }
+
+        private NovelAddBookmarkViewModel _novelAddBookmarkVM = new NovelAddBookmarkViewModel();
+        public NovelAddBookmarkViewModel NovelAddBookmarkVM
+        {
+            get { return _novelAddBookmarkVM; }
         }
     }
 }

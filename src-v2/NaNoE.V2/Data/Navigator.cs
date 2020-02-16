@@ -96,11 +96,13 @@ namespace NaNoE.V2.Data
                 case "start": window = new StartView(); HelperVars.ViewModelToWrite = ViewModelLocator.Instance.StartVM; break;
                 case "novelend": window = new NovelEndView(); HelperVars.ViewModelToWrite = ViewModelLocator.Instance.NovelEndVM; break;
                 case "addnote": window = new AddNoteView(); HelperVars.ViewModelToWrite = ViewModelLocator.Instance.NovelAddNoteVM; break;
+                case "addbookmark": window = new AddBookmarkView(); HelperVars.ViewModelToWrite = ViewModelLocator.Instance.NovelAddBookmarkVM; break;
                 case "midnovel": window = new MidNovelView(); HelperVars.ViewModelToWrite = ViewModelLocator.Instance.MidNovelVM; break;
                 default: throw new NotImplementedException();
             }
 
             if ("addnote" != name) ViewModelLocator.Instance.NovelAddNoteVM.IDAfter = 0;
+            if ("addbookmark" != name) ViewModelLocator.Instance.NovelAddBookmarkVM.IDAfter = 0;
 
             WhereWeLastWere = WhereWeAre;
             WhereWeAre = name;
