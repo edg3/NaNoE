@@ -20,18 +20,8 @@ namespace NaNoE.V2.Data
         public void Execute(object parameter)
         {
             ViewAddAction action = new ViewAddAction();
-            action.Show();
-
-            if (ViewModelLocator.Instance.ViewAddActionVM.Action != ViewAddActionViewModel.ActionRan.False)
-            {
-                switch (ViewModelLocator.Instance.ViewAddActionVM.ActionNavigate)
-                {
-                    case "novelend":
-                        Navigator.Instance.Goto("novelend");
-                        break;
-                    default: throw new NotImplementedException();
-                }
-            }
+            DBManager.Instance.UsingID = parameter.ToString();
+            action.ShowDialog();
         }
     }
 }

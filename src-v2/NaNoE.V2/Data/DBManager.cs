@@ -435,6 +435,12 @@ namespace NaNoE.V2.Data
 
         public int Position { get { return _position; } }
 
+
+        /// <summary>
+        /// ID to help deeper action binding
+        /// </summary>
+        public string UsingID { get; internal set; }
+
         /// <summary>
         /// Move position down 1
         /// </summary>

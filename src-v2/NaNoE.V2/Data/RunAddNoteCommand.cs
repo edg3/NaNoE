@@ -20,10 +20,9 @@ namespace NaNoE.V2.Data
         {
             if (Navigator.Instance.WhereWeAre == "novelend")
             {
-                // TODO - rebuild this kind of ID binding we use to fix it for end view for action
-                ViewModelLocator.Instance.NovelAddNoteVM.IDAfter = DBManager.Instance.GetEndID();
+                ViewModelLocator.Instance.NovelAddNoteVM.IDAfter = int.Parse(DBManager.Instance.UsingID);
                 ViewModelLocator.Instance.NovelAddNoteVM.Models = DBManager.Instance.GetSurrounded(ViewModelLocator.Instance.NovelAddNoteVM.IDAfter);
-
+                
                 Navigator.Instance.Goto("addnote");
             }
             else if (Navigator.Instance.WhereWeAre == "addnote")
