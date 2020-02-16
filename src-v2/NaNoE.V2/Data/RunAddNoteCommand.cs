@@ -16,8 +16,18 @@ namespace NaNoE.V2.Data
             return true;
         }
 
+        // Bug - why is the first parameter in novelend view 'null'? It should be bound.
         public void Execute(object parameter)
         {
+            try
+            {
+                ViewModelLocator.Instance.NovelAddNoteVM.IDAfter = int.Parse(parameter.ToString());
+            }
+            catch
+            {
+                ViewModelLocator.Instance.NovelAddNoteVM.IDAfter = 0;
+            }
+
             if (Navigator.Instance.WhereWeAre == "novelend")
             {
                 if (parameter == null || ViewModelLocator.Instance.NovelAddNoteVM.IDAfter == 0)

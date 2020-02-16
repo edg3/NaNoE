@@ -100,6 +100,8 @@ namespace NaNoE.V2.Data
                 default: throw new NotImplementedException();
             }
 
+            if ("addnote" != name) ViewModelLocator.Instance.NovelAddNoteVM.IDAfter = 0;
+
             WhereWeLastWere = WhereWeAre;
             WhereWeAre = name;
 
