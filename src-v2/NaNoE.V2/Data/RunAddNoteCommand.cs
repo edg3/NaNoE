@@ -49,6 +49,14 @@ namespace NaNoE.V2.Data
 
                 Navigator.Instance.GotoLast();
             }
+            else if (Navigator.Instance.WhereWeAre == "midnovel")
+            {
+                ViewModelLocator.Instance.NovelAddNoteVM.IDAfter = int.Parse(DBManager.Instance.UsingID);
+
+                ViewModelLocator.Instance.NovelAddNoteVM.Models = DBManager.Instance.GetSurrounded(ViewModelLocator.Instance.NovelAddNoteVM.IDAfter);
+
+                Navigator.Instance.Goto("addnote");
+            }
             else
             {
                 throw new NotImplementedException();
