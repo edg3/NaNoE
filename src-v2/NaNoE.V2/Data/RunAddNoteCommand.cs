@@ -20,7 +20,7 @@ namespace NaNoE.V2.Data
         {
             if (Navigator.Instance.WhereWeAre == "novelend")
             {
-                if (parameter.ToString() == "0")
+                if (parameter == null || ViewModelLocator.Instance.NovelAddNoteVM.IDAfter == 0)
                 {
                     ViewModelLocator.Instance.NovelAddNoteVM.IDAfter = int.Parse(DBManager.Instance.GetEndID().ToString());
                 }

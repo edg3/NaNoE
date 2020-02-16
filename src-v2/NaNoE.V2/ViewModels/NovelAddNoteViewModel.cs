@@ -17,6 +17,7 @@ namespace NaNoE.V2.ViewModels
         public NovelAddNoteViewModel()
         {
             _addNote = new CommandBase(new Action(_run_AddNote));
+            _cancel = new CommandBase(new Action(_run_cancel));
         }
 
         /// <summary>
@@ -32,7 +33,7 @@ namespace NaNoE.V2.ViewModels
         /// <summary>
         /// The position in map
         /// </summary>
-        private int _idAfter;
+        private int _idAfter = 0;
         public int IDAfter
         {
             get { return _idAfter; }
@@ -68,6 +69,23 @@ namespace NaNoE.V2.ViewModels
         private void _run_AddNote()
         {
             DBManager.Instance.Commands.RunAddNote.Execute(ViewModelLocator.Instance.NovelAddNoteVM);
+        }
+
+        /// <summary>
+        /// Cancel command to move back
+        /// </summary>
+        private ICommand _cancel;
+        public ICommand Cancel
+        {
+            get { return _cancel; }
+        }
+
+        /// <summary>
+        /// Method to cancel adding a note
+        /// </summary>
+        private void _run_cancel()
+        {
+            Navigator.Instance.GotoLast();
         }
     }
 }
