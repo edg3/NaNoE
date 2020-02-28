@@ -11,25 +11,24 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace NaNoE.V2
+namespace NaNoE.V2.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AddBookmarkView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AddBookmarkView : Window
     {
-        public MainWindow()
+        public AddBookmarkView()
         {
             InitializeComponent();
+        }
 
-            new CommandMap();
-            new ViewModelLocator();
-            new Navigator(frmNav);
-            
-            Navigator.Instance.Goto("start");
+        private void lstElements_Loaded(object sender, RoutedEventArgs e)
+        {
+            lstElements.ItemsSource = ViewModelLocator.Instance.NovelAddBookmarkVM.Models;
+            lstElements.UpdateLayout();
         }
     }
 }

@@ -125,7 +125,7 @@ namespace NaNoE.V2.Models
         /// </summary>
         public CommandMap Commands
         {
-            get { return DBManager.Instance.Commands; }
+            get { return CommandMap.Instance; }
         }
     }
 }

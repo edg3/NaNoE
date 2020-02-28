@@ -33,20 +33,17 @@ namespace NaNoE.V2.ViewModels
 
         public MidNovelViewModel()
         {
-            _navUp = DBManager.Instance.Commands.RunNavigateUp;
-            _navDown = DBManager.Instance.Commands.RunNavigateDown;
+
         }
 
-        private ICommand _navUp;
         public ICommand NavUp
         {
-            get { return _navUp; }
+            get { return CommandMap.Instance.RunNavigateUp; }
         }
 
-        private ICommand _navDown;
         public ICommand NavDown
         {
-            get { return _navDown; }
+            get { return CommandMap.Instance.RunNavigateDown; }
         }
 
         public int BottomID

@@ -21,7 +21,7 @@ namespace NaNoE.V2.Data
         {
             try
             {
-                ViewModelLocator.Instance.NovelAddNoteVM.IDAfter = int.Parse(parameter.ToString());
+                ViewModelLocator.Instance.NovelAddNoteVM.IDAfter = HelperVars.Position;
             }
             catch
             {

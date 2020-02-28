@@ -15,10 +15,10 @@ namespace NaNoE.V2.ViewModels.Actions
         /// </summary>
         public ViewAddActionViewModel()
         {
-            _chapterCommand = DBManager.Instance.Commands.RunAddChapter;
-            _noteCommand = DBManager.Instance.Commands.RunAddNote;
-            _bookmarkCommand = DBManager.Instance.Commands.RunAddBookmark;
-            _paragraphCommand = DBManager.Instance.Commands.RunAddParagraph;
+            _chapterCommand = CommandMap.Instance.RunAddChapter;
+            _noteCommand = CommandMap.Instance.RunAddNote;
+            _bookmarkCommand = CommandMap.Instance.RunAddBookmark;
+            _paragraphCommand = CommandMap.Instance.RunAddParagraph;
             _cancelCommand = new CommandBase(_run_cancelAction);
         }
 

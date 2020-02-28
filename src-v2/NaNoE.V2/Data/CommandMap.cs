@@ -9,6 +9,13 @@ namespace NaNoE.V2.Data
 {
     class CommandMap
     {
+        private static CommandMap _instance;
+        public static CommandMap Instance
+        {
+            get { return _instance; }
+            private set { _instance = value; }
+        }
+
         /// <summary>
         /// Instantiate the commands
         /// </summary>
@@ -23,6 +30,8 @@ namespace NaNoE.V2.Data
             _runNavigateUp = new RunNavigateUp();
             _runNavigateDown = new RunNavigateDown();
             _runAction = new RunAction();
+
+            _instance = this;
         }
 
         /// <summary>

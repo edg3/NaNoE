@@ -28,15 +28,6 @@ namespace NaNoE.V2.Data
         }
 
         /// <summary>
-        /// Map of the commands available
-        /// </summary>
-        private CommandMap _commands;
-        public CommandMap Commands
-        {
-            get { return _commands; }
-        }
-        
-        /// <summary>
         /// Remove novel Element
         /// </summary>
         /// <param name="parameter">ID to remove</param>
@@ -59,7 +50,7 @@ namespace NaNoE.V2.Data
         /// </summary>
         private DBManager()
         {
-            _commands = new CommandMap();
+
         }
 
         /// <summary>
@@ -245,7 +236,18 @@ namespace NaNoE.V2.Data
                             " VALUES ('" + ProcessText(text) + "')");
             var id = GetMaxId("bookmarks");
 
-            InsertElement(where, 0, 3, id);
+            int idafter = 0;
+            if (where != 0)
+            {
+                var after = ExecSQLQuery("SELECT idafter FROM elements WHERE rowid = " + where, 1);
+                idafter = int.Parse((after[0])[0].ToString());
+            }
+            else
+            {
+                where = 0;
+            }
+
+            InsertElement(where, idafter, 3, id);
         }
 
         /// <summary>
@@ -299,14 +301,15 @@ namespace NaNoE.V2.Data
             List<object[]> elements = null;
             if (_map.Count == 1)
             {
-                elements = ExecSQLQuery("SELECT rowid, idbefore, idafter, type, externalid FROM elements WHERE rowid = " + _map[0], 5);
+                elements = ExecSQLQuery("SELECT rowid, idbefore, idafter, type, externalid FROM elements WHERE rowid = " + _map[0] + 1, 5);
             }
             else if (_map.Count > 1)
             {
-                elements = ExecSQLQuery("SELECT rowid, idbefore, idafter, type, externalid FROM elements WHERE rowid = " + _map[_map.Count - 2], 5);
-                
-                var last = ExecSQLQuery("SELECT rowid, idbefore, idafter, type, externalid FROM elements WHERE rowid = " + _map[_map.Count - 1], 5);
-                elements.Add(last[0]);
+                elements = new List<object[]>();
+                for (int i = _map.Count - 1; i > 0; i--)
+                {
+                    elements.Insert(0, ExecSQLQuery("SELECT rowid, idbefore, idafter, type, externalid FROM elements WHERE rowid = " + _map[i], 5)[0]);
+                }
             }
 
             if (elements != null)
@@ -410,7 +413,7 @@ namespace NaNoE.V2.Data
 
             if (response.Count > 0)
             {
-                _map.Add(int.Parse((response[0])[1].ToString()));
+                _map.Add(int.Parse((response[0])[0].ToString()));
 
                 while (idafter != "0")
                 {
@@ -433,7 +436,11 @@ namespace NaNoE.V2.Data
         /// <summary>
         /// ID to help deeper action binding
         /// </summary>
-        public string UsingID { get; internal set; }
+        private string _usingID = "0";
+        public string UsingID {
+            get { return _usingID; }
+            internal set { _usingID = value; } 
+        }
 
         /// <summary>
         /// Move position down 1

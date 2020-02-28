@@ -28,8 +28,8 @@ namespace NaNoE.V2.Models
                         var viewmodel = HelperVars.ViewModelToWrite;
                         if (viewmodel is NovelEndViewModel)
                         {
-                            (DBManager.Instance.Commands.RunAddParagraph as RunAddParagraphCommand).Content = _content;
-                            DBManager.Instance.Commands.RunAddParagraph.Execute(DBManager.Instance.GetEndID());
+                            (CommandMap.Instance.RunAddParagraph as RunAddParagraphCommand).Content = _content;
+                            CommandMap.Instance.RunAddParagraph.Execute(DBManager.Instance.GetEndID());
                             Navigator.Instance.Goto("novelend");
                         }
                         else

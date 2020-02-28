@@ -9,19 +9,19 @@ using System.Windows.Input;
 
 namespace NaNoE.V2.ViewModels
 {
-    class NovelAddNoteViewModel
+    class NovelAddBookmarkViewModel
     {
         /// <summary>
-        /// Initiate VM
+        ///  Initiate VM
         /// </summary>
-        public NovelAddNoteViewModel()
+        public NovelAddBookmarkViewModel()
         {
-            _addNote = new CommandBase(new Action(_run_AddNote));
+            _addBookmark = new CommandBase(new Action(_run_add));
             _cancel = new CommandBase(new Action(_run_cancel));
         }
 
         /// <summary>
-        /// Content for note
+        /// Bookmark name
         /// </summary>
         private string _text = "";
         public string Text
@@ -55,23 +55,6 @@ namespace NaNoE.V2.ViewModels
         }
 
         /// <summary>
-        /// Connection to Add Note
-        /// </summary>
-        private ICommand _addNote;
-        public ICommand AddNote
-        {
-            get { return _addNote; }
-        }
-
-        /// <summary>
-        /// Method to add note
-        /// </summary>
-        private void _run_AddNote()
-        {
-            CommandMap.Instance.RunAddNote.Execute(ViewModelLocator.Instance.NovelAddNoteVM);
-        }
-
-        /// <summary>
         /// Cancel command to move back
         /// </summary>
         private ICommand _cancel;
@@ -86,6 +69,23 @@ namespace NaNoE.V2.ViewModels
         private void _run_cancel()
         {
             Navigator.Instance.GotoLast();
+        }
+
+        /// <summary>
+        /// Method for adding a bookmark
+        /// </summary>
+        private ICommand _addBookmark;
+        public ICommand AddBookmark
+        {
+            get { return _addBookmark; }
+        }
+
+        /// <summary>
+        /// Method to add a bookmark
+        /// </summary>
+        private void _run_add()
+        {
+            throw new NotImplementedException();
         }
     }
 }

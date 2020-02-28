@@ -32,13 +32,12 @@ namespace NaNoE.V2.ViewModels
         /// </summary>
         public NovelEndViewModel()
         {
-            _navUp = DBManager.Instance.Commands.RunNavigateUp;
+            
         }
 
-        private ICommand _navUp;
         public ICommand NavUp
         {
-            get { return _navUp; }
+            get { return CommandMap.Instance.RunNavigateUp; }
         }
     }
 }
