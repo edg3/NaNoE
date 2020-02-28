@@ -551,15 +551,14 @@ namespace NaNoE.V2.Data
         {
             List<ModelBase> answer = new List<ModelBase>();
 
-            for (int i = mapPos; i >= 0 && i > mapPos -3; i--)
+            var element = DBManager.Instance.GetElement(mapPos);
+
+            for (int i = mapPos; i >= 0 && i > mapPos - 3; i--)
             {
-                if (answer.Count == 0)
+                answer.Insert(0, element);
+                if (element.IDBefore != 0)
                 {
-                    answer.Add(DBManager.Instance.GetElement(_map[i]));
-                }
-                else if (answer[0].IDBefore != 0)
-                {
-                    answer.Insert(0, DBManager.Instance.GetElement(answer[0].IDBefore));
+                    element = DBManager.Instance.GetElement(element.IDBefore);
                 }
             }
 
