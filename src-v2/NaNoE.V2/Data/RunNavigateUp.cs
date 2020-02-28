@@ -18,6 +18,8 @@ namespace NaNoE.V2.Data
 
         public void Execute(object parameter)
         {
+            if (!DBManager.Instance.MapOverThree()) return;
+
             if (parameter.ToString() == "-1")
             {
                 ViewModelLocator.Instance.MidNovelVM.Position = DBManager.Instance.GetEndID();

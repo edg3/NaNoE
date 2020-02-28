@@ -653,5 +653,15 @@ namespace NaNoE.V2.Data
         {
             GenerateMap();
         }
+
+        /// <summary>
+        /// For if theres something in the map to map it longer than 3 for certain commands
+        /// </summary>
+        /// <returns>True/False</returns>
+        internal bool MapOverThree()
+        {
+            return _map.Count > 3;
+        }
+
     }
 }
