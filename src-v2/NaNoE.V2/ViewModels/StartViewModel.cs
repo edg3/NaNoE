@@ -17,9 +17,14 @@ namespace NaNoE.V2.ViewModels
         /// </summary>
         public StartViewModel()
         {
-            // TODO: 'info' saved data
-            //        - LastNovel
-            LastNovel = "None";
+            if (File.Exists("last"))
+            {
+                LastNovel = File.ReadAllLines("last").First();
+            }
+            else
+            {
+                LastNovel = "None";
+            }
 
             OpenNovelCommand = new CommandBase(new Action(_OpenNovel));
             NewNovelCommand = new CommandBase(new Action(_NewNovel));
@@ -56,6 +61,14 @@ namespace NaNoE.V2.ViewModels
 
             if (result == true)
             {
+                if (File.Exists("last")) File.Delete("last");
+                using (var f = File.OpenWrite("last"))
+                {
+                    using (var a = new StreamWriter(f, Encoding.Default))
+                    {
+                        a.WriteLineAsync(ofd.FileName);
+                    }
+                }
                 DBManager.Instance.Load(ofd.FileName);
                 Navigator.Instance.Goto("novelend");
             }
