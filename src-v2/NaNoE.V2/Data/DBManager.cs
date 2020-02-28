@@ -301,12 +301,12 @@ namespace NaNoE.V2.Data
             List<object[]> elements = null;
             if (_map.Count == 1)
             {
-                elements = ExecSQLQuery("SELECT rowid, idbefore, idafter, type, externalid FROM elements WHERE rowid = " + _map[0] + 1, 5);
+                elements = ExecSQLQuery("SELECT rowid, idbefore, idafter, type, externalid FROM elements WHERE rowid = " + _map[0], 5);
             }
             else if (_map.Count > 1)
             {
                 elements = new List<object[]>();
-                for (int i = _map.Count - 1; i > 0; i--)
+                for (int i = _map.Count - 1; i >= 0; i--)
                 {
                     elements.Insert(0, ExecSQLQuery("SELECT rowid, idbefore, idafter, type, externalid FROM elements WHERE rowid = " + _map[i], 5)[0]);
                 }
@@ -408,18 +408,26 @@ namespace NaNoE.V2.Data
                 return;
             }
 
+            // Get ID before
             var response = ExecSQLQuery("SELECT rowid, idafter FROM elements WHERE idbefore = 0", 2);
+            // Get ID after
             var idafter = (response[0])[1].ToString();
 
+            // Is there one?
             if (response.Count > 0)
             {
+                // Put the start into the map
                 _map.Add(int.Parse((response[0])[0].ToString()));
 
+                // While idafter isnt zero we add it
                 while (idafter != "0")
                 {
                     // Thought: perhaps this could slow loads down a lot when a novel gets too long?
+                    // get the next iadafter
                     response = ExecSQLQuery("SELECT rowid, idafter FROM elements WHERE rowid = " + idafter, 2);
-                    _map.Add(int.Parse((response[0])[1].ToString()));
+                    // Add the next one to the map since there wasn't nothing
+                    _map.Add(int.Parse((response[0])[0].ToString()));
+                    // Move to next ID After
                     idafter = (response[0])[1].ToString();
                 }
             }
