@@ -306,9 +306,11 @@ namespace NaNoE.V2.Data
             else if (_map.Count > 1)
             {
                 elements = new List<object[]>();
-                for (int i = _map.Count - 1; i >= 0; i--)
+                int limit = 3;
+                for (int i = _map.Count - 1; limit > 0 && i >= 0; i--)
                 {
                     elements.Insert(0, ExecSQLQuery("SELECT rowid, idbefore, idafter, type, externalid FROM elements WHERE rowid = " + _map[i], 5)[0]);
+                    --limit;
                 }
             }
 
