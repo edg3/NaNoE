@@ -18,7 +18,7 @@ namespace NaNoE.V2.Data
 
         public void Execute(object parameter)
         {
-            if (ViewModelLocator.Instance.MidNovelVM.Position == DBManager.Instance.GetEndID())
+            if (ViewModelLocator.Instance.MidNovelVM.Position == DBManager.Instance.GetEndMapPosition())
             {
                 Navigator.Instance.Goto("novelend");
             }

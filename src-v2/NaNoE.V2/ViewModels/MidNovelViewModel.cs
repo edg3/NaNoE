@@ -20,8 +20,7 @@ namespace NaNoE.V2.ViewModels
 
         internal void Refresh()
         {
-            var mapPos = DBManager.Instance.GetMapPosition(Position);
-            var items = DBManager.Instance.GetMapElements(mapPos);
+            var items = DBManager.Instance.GetMapElements(Position);
             _view = items;
         }
 

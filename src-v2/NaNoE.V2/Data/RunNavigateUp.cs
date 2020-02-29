@@ -22,9 +22,9 @@ namespace NaNoE.V2.Data
 
             if (parameter.ToString() == "-1")
             {
-                ViewModelLocator.Instance.MidNovelVM.Position = DBManager.Instance.GetEndID();
+                ViewModelLocator.Instance.MidNovelVM.Position = DBManager.Instance.GetEndMapPosition();
             }
-            else if (ViewModelLocator.Instance.MidNovelVM.Position > 1)
+            else if (ViewModelLocator.Instance.MidNovelVM.Position > 2)
             {
                 --ViewModelLocator.Instance.MidNovelVM.Position;
             }

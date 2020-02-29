@@ -478,6 +478,20 @@ namespace NaNoE.V2.Data
         }
 
         /// <summary>
+        /// Gets the position at the end of the _map structure
+        /// </summary>
+        /// <returns>Length - 1 of _map</returns>
+        internal int GetEndMapPosition()
+        {
+            if (_map.Count == 0)
+            {
+                return 0;
+            }
+
+            return _map.Count - 1;
+        }
+
+        /// <summary>
         /// Get the Max(rowid) From Table
         /// </summary>
         /// <param name="v">Table parameter</param>
@@ -553,15 +567,9 @@ namespace NaNoE.V2.Data
         {
             List<ModelBase> answer = new List<ModelBase>();
 
-            var element = DBManager.Instance.GetElement(mapPos);
-
-            for (int i = mapPos; i >= 0 && i > mapPos - 3; i--)
+            for (int i = 0; i < 3 && mapPos - i > 0; i++)
             {
-                answer.Insert(0, element);
-                if (element.IDBefore != 0)
-                {
-                    element = DBManager.Instance.GetElement(element.IDBefore);
-                }
+                answer.Insert(0, DBManager.Instance.GetElement(_map[mapPos - i - 1]));
             }
 
             return answer;
@@ -578,10 +586,15 @@ namespace NaNoE.V2.Data
             return current.IDBefore;
         }
 
+        /// <summary>
+        /// Retrieves based on id within _map
+        /// </summary>
+        /// <param name="id">position in _map</param>
+        /// <returns>Element at position in map</returns>
         private ModelBase GetElement(int id)
         {
             ModelBase answer = null;
-            var elements = ExecSQLQuery("SELECT rowid, idbefore, idafter, type, externalid FROM elements WHERE rowid = " + _map[0], 5);
+            var elements = ExecSQLQuery("SELECT rowid, idbefore, idafter, type, externalid FROM elements WHERE rowid = " + id, 5);
 
             switch ((elements[0])[3])
             {
