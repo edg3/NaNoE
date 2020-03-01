@@ -27,6 +27,7 @@
             Grid.Column="1"
             Grid.Row="1"
             HorizontalAlignment="Stretch"
+            HorizontalContentAlignment="Stretch"
             VerticalAlignment="Stretch"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
             Loaded="lstElements_Loaded"

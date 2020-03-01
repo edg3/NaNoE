@@ -20,16 +20,21 @@
         <!-- Item Data Templates -->
         <DataTemplate x:Key="tmplElements">
             <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListView.ItemContainerStyle>
                 <DockPanel          
                     HorizontalAlignment="Stretch" 
                     VerticalAlignment="Stretch" 
                     Height="Auto" 
                     MinWidth="400"
-                    Margin="10">
+                    Margin="5">
                     <DockPanel.Resources>
                         <!-- Chapters -->
                         <DataTemplate DataType="{x:Type models:ModelBase}">
-                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="DarkGray">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="50" />
                                     <ColumnDefinition Width="10" />
@@ -44,7 +49,7 @@
                                     <Button Grid.Row="1" Width="50" Height="25" Content="Delete" />
                                 </Grid>
                                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="2">
-                                    <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="Chapter" Foreground="BlueViolet" FontSize="26" FontStyle="Oblique" VerticalAlignment="Center"/>
+                                    <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="Chapter" Foreground="Navy" FontSize="26" FontStyle="Oblique" VerticalAlignment="Center" Padding="3"/>
                                 </Grid>
                             </Grid>
                         </DataTemplate>
@@ -68,14 +73,14 @@
                                     <Button Grid.Row="2" Width="50" Height="25" Content="Delete" />
                                 </Grid>
                                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="2">
-                                    <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="{Binding Text}" Foreground="Black" VerticalAlignment="Center"/>
+                                    <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="{Binding Text}" Foreground="Black" VerticalAlignment="Center" Padding="3"/>
                                 </Grid>
                             </Grid>
                         </DataTemplate>
 
                         <!-- Note -->
                         <DataTemplate DataType="{x:Type models:NoteModel}">
-                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="DarkGray">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="50" />
                                     <ColumnDefinition Width="10" />
@@ -90,7 +95,7 @@
                                     <Button Grid.Row="1" Width="50" Height="25" Content="Delete" />
                                 </Grid>
                                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="2">
-                                    <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="{Binding Text}" Foreground="LightGray" VerticalAlignment="Center"/>
+                                    <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="{Binding Text}" Foreground="LightCyan" VerticalAlignment="Center" Padding="3"/>
                                 </Grid>
                             </Grid>
                         </DataTemplate>
@@ -132,7 +137,7 @@
 
                         <!-- Bookmark -->
                         <DataTemplate DataType="{x:Type models:BookmarkModel}">
-                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Orange">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="50" />
                                     <ColumnDefinition Width="10" />
@@ -147,7 +152,7 @@
                                     <Button Grid.Row="1" Width="50" Height="25" Content="Delete" />
                                 </Grid>
                                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="2">
-                                    <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="{Binding Text}" Foreground="Pink" VerticalAlignment="Center"/>
+                                    <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="{Binding Text}" Foreground="Black" VerticalAlignment="Center" Padding="3"/>
                                 </Grid>
                             </Grid>
                         </DataTemplate>
@@ -161,13 +166,19 @@
         <!-- Item Data Templates -->
         <DataTemplate x:Key="tmplMinimalElements">
             <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListView.ItemContainerStyle>
                 <StackPanel Margin="5">
+                    <!-- TODO: perhaps swap over to dockpanel as well? -->
                     <StackPanel.Resources>
                         <!-- Chapters -->
                         <DataTemplate DataType="{x:Type models:ModelBase}">
-                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="DarkGray">
                                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                    <Label Content="Chapter" Foreground="Blue" FontSize="22"/>
+                                    <Label Content="Chapter" Foreground="Navy" FontSize="22" Padding="3"/>
                                 </Grid>
                             </Grid>
                         </DataTemplate>
@@ -176,17 +187,17 @@
                         <DataTemplate DataType="{x:Type models:ParagraphModel}">
                             <Grid VerticalAlignment="Stretch" Grid.ColumnSpan="1">
                                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                                    <TextBlock TextWrapping="Wrap" Text="{Binding Text}"/>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding Text}" Padding="3"/>
                                 </Grid>
                             </Grid>
                         </DataTemplate>
 
                         <!-- Note -->
                         <DataTemplate DataType="{x:Type models:NoteModel}">
-                            <Grid VerticalAlignment="Stretch" Grid.ColumnSpan="1">
+                            <Grid VerticalAlignment="Stretch" Grid.ColumnSpan="1" Background="DarkGray">
                                 <Grid HorizontalAlignment="Stretch"
                                       VerticalAlignment="Stretch">
-                                    <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="{Binding Text}" Foreground="Pink"/>
+                                    <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="{Binding Text}" Foreground="LightCyan" Padding="3"/>
                                 </Grid>
                             </Grid>
                         </DataTemplate>
@@ -199,7 +210,7 @@
                                     <ColumnDefinition Width="100" />
                                 </Grid.ColumnDefinitions>
                                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
-                                    <TextBox Width="400" Height="200" HorizontalScrollBarVisibility="Disabled" Text="{Binding Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" Loaded="TextBox_Loaded"/>
+                                    <TextBox Width="400" Height="200" HorizontalScrollBarVisibility="Disabled" Text="{Binding Content, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" Loaded="TextBox_Loaded" TextWrapping="Wrap"/>
                                 </Grid>
                                 <Grid Grid.Column="1">
                                     <Grid.RowDefinitions>
@@ -215,9 +226,9 @@
 
                         <!-- Bookmark -->
                         <DataTemplate DataType="{x:Type models:BookmarkModel}">
-                            <Grid VerticalAlignment="Stretch" Grid.ColumnSpan="1" MinWidth="610">
+                            <Grid VerticalAlignment="Stretch" Grid.ColumnSpan="1" MinWidth="610" Background="Orange">
                                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
-                                    <TextBlock TextWrapping="Wrap" Text="{Binding Text}" Foreground="Orange"/>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding Text}" Foreground="Black" Padding="3"/>
                                 </Grid>
                             </Grid>
                         </DataTemplate>
