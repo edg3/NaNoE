@@ -114,10 +114,5 @@ namespace NaNoE.V2.ViewModels.Actions
         /// Window reference for view updating
         /// </summary>
         public ViewAddAction Window { get; internal set; }
-
-        public string UsingID
-        {
-            get { return DBManager.Instance.UsingID; }
-        }
     }
 }

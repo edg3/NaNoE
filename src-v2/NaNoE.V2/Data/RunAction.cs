@@ -20,7 +20,7 @@ namespace NaNoE.V2.Data
         public void Execute(object parameter)
         {
             ViewAddAction action = new ViewAddAction();
-            DBManager.Instance.UsingID = parameter.ToString();
+            ViewModelLocator.Instance.RunAddActionID = int.Parse(parameter.ToString());
             action.ShowDialog();
         }
     }

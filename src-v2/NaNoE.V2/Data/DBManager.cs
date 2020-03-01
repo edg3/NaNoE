@@ -261,7 +261,14 @@ namespace NaNoE.V2.Data
                             " VALUES ('" + ProcessText(text) + "')");
             var id = GetMaxId("notes");
 
-            InsertElement(where, 0, 2, id);
+            int idafter = 0;
+            if (where != 0)
+            {
+                var after = ExecSQLQuery("SELECT idafter FROM elements WHERE rowid = " + where, 1);
+                idafter = int.Parse((after[0])[0].ToString());
+            }
+
+            InsertElement(where, idafter, 2, id);
         }
 
         /// <summary>
@@ -593,6 +600,8 @@ namespace NaNoE.V2.Data
         /// <returns>Element at position in map</returns>
         private ModelBase GetElement(int id)
         {
+            if (id == 0) return null;
+
             ModelBase answer = null;
             var elements = ExecSQLQuery("SELECT rowid, idbefore, idafter, type, externalid FROM elements WHERE rowid = " + id, 5);
 

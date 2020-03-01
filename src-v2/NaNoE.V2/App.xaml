@@ -186,7 +186,7 @@
                             <Grid VerticalAlignment="Stretch" Grid.ColumnSpan="1">
                                 <Grid HorizontalAlignment="Stretch"
                                       VerticalAlignment="Stretch">
-                                    <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="{Binding}" Foreground="Pink"/>
+                                    <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="{Binding Text}" Foreground="Pink"/>
                                 </Grid>
                             </Grid>
                         </DataTemplate>
@@ -217,7 +217,7 @@
                         <DataTemplate DataType="{x:Type models:BookmarkModel}">
                             <Grid VerticalAlignment="Stretch" Grid.ColumnSpan="1" MinWidth="610">
                                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
-                                    <TextBlock TextWrapping="Wrap" Text="{Binding}" Foreground="Orange"/>
+                                    <TextBlock TextWrapping="Wrap" Text="{Binding Text}" Foreground="Orange"/>
                                 </Grid>
                             </Grid>
                         </DataTemplate>

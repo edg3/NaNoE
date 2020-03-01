@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NaNoE.V2.ViewModels.Actions"
         mc:Ignorable="d"
-        Title="Actions" Height="300" Width="150">
-    <Grid DataContext="{Binding ViewAddActionVM, Source={StaticResource ViewModelLocator}}" Loaded="Grid_Loaded">
+        Title="Actions" Height="320" Width="150">
+    <Grid x:Name="grdBase" DataContext="{Binding ViewAddActionVM, Source={StaticResource ViewModelLocator}}" Loaded="Grid_Loaded">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3" />
             <ColumnDefinition />
@@ -18,10 +18,11 @@
             <RowDefinition Height="3" />
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="1" Grid.Column="1">
-            <Button Click="Button_Click" CommandParameter="{Binding UsingID}" Command="{Binding ChapterCommand}" Content="\/ Chapter Below" Padding="5" Margin="3"/>
-            <Button Click="Button_Click" CommandParameter="{Binding UsingID}" Command="{Binding NoteCommand}" Content="\/ Note Below" Padding="5" Margin="3" />
-            <Button Click="Button_Click" CommandParameter="{Binding UsingID}" Command="{Binding BookmarkCommand}" Content="\/ Bookmark Below" Padding="5" Margin="3" />
-            <Button Click="Button_Click" CommandParameter="{Binding UsingID}" Command="{Binding ParagraphCommand}" Content="\/ Paragraph Below" Padding="5" Margin="3" />
+            <Label Content="{Binding ID}" />
+            <Button Click="Button_Click" CommandParameter="{Binding ID}" Command="{Binding ChapterCommand}" Content="\/ Chapter Below" Padding="5" Margin="3"/>
+            <Button Click="Button_Click" CommandParameter="{Binding ID}" Command="{Binding NoteCommand}" Content="\/ Note Below" Padding="5" Margin="3" />
+            <Button Click="Button_Click" CommandParameter="{Binding ID}" Command="{Binding BookmarkCommand}" Content="\/ Bookmark Below" Padding="5" Margin="3" />
+            <Button Click="Button_Click" CommandParameter="{Binding ID}" Command="{Binding ParagraphCommand}" Content="\/ Paragraph Below" Padding="5" Margin="3" />
             <Button Command="{Binding CancelCommand}" Content="Cancel" Padding="5" Margin="6" />
         </StackPanel>
     </Grid>

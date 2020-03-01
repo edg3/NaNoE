@@ -21,7 +21,7 @@ namespace NaNoE.V2.Data
         {
             try
             {
-                ViewModelLocator.Instance.NovelAddNoteVM.IDAfter = HelperVars.Position;
+                ViewModelLocator.Instance.NovelAddNoteVM.IDAfter = ViewModelLocator.Instance.RunAddActionID;
             }
             catch
             {
@@ -30,14 +30,7 @@ namespace NaNoE.V2.Data
 
             if (Navigator.Instance.WhereWeAre == "novelend")
             {
-                if (parameter == null || ViewModelLocator.Instance.NovelAddNoteVM.IDAfter == 0)
-                {
-                    ViewModelLocator.Instance.NovelAddNoteVM.IDAfter = int.Parse(DBManager.Instance.GetEndID().ToString());
-                }
-                else
-                {
-                    ViewModelLocator.Instance.NovelAddNoteVM.IDAfter = int.Parse(DBManager.Instance.UsingID);
-                }
+                ViewModelLocator.Instance.NovelAddNoteVM.IDAfter = ViewModelLocator.Instance.RunAddActionID;
                 ViewModelLocator.Instance.NovelAddNoteVM.Models = DBManager.Instance.GetSurrounded(ViewModelLocator.Instance.NovelAddNoteVM.IDAfter);
                 
                 Navigator.Instance.Goto("addnote");
@@ -51,7 +44,7 @@ namespace NaNoE.V2.Data
             }
             else if (Navigator.Instance.WhereWeAre == "midnovel")
             {
-                ViewModelLocator.Instance.NovelAddNoteVM.IDAfter = int.Parse(DBManager.Instance.UsingID);
+                ViewModelLocator.Instance.NovelAddNoteVM.IDAfter = ViewModelLocator.Instance.RunAddActionID;
 
                 ViewModelLocator.Instance.NovelAddNoteVM.Models = DBManager.Instance.GetSurrounded(ViewModelLocator.Instance.NovelAddNoteVM.IDAfter);
 

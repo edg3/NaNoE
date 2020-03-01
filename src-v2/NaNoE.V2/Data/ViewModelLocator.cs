@@ -78,5 +78,15 @@ namespace NaNoE.V2.Data
         {
             get { return _novelAddBookmarkVM; }
         }
+
+        /// <summary>
+        /// Helper variables
+        /// </summary>
+        private int _runAddActionID = 0;
+        public int RunAddActionID
+        {
+            get { return _runAddActionID; }
+            internal set { _runAddActionID = value; }
+        }
     }
 }
