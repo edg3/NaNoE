@@ -8,6 +8,7 @@
     <Application.Resources>
         <!-- View Model Locator -->
         <clib:ViewModelLocator x:Key="ViewModelLocator" />
+        <!-- thought: this shows it isnt used, yet it is as a static resource in the views? -->
 
         <!-- Buttons Style -->
         <Style TargetType="Button" x:Key="GelButton" >
