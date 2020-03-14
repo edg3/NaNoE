@@ -33,16 +33,53 @@ namespace NaNoE.V2.Data
         /// <param name="parameter">ID to remove</param>
         internal void DeleteElement(int id)
         {
-            // TODO
             var el = GetElement(id);
             // - get idbefore
+            var idbefore = el.IDBefore;
             // - get idafter
+            var idafter = el.IDAfter;
             // - update idbefore and idafter on those 2 elements
+            DBManager.Instance.UpdateBeforeAfter(idbefore, idafter);
             // - remove id
+            _map.Remove(el.ID);
             //   - from db aswell
+            ExecSQLNonQuery("DELETE FROM elements WHERE rowid = " + el.ID);
+            switch (el.ElementType)
+            {
+                case 0: break; // Chapter
+                case 1:
+                    {
+                        ExecSQLNonQuery("DELETE FROM paragraphs WHERE rowid = " + el.ExternalID);
+                    }
+                    break; // Paragraph
+                case 2:
+                    {
+                        ExecSQLNonQuery("DELETE FROM notes WHERE rowid = " + el.ExternalID);
+                    }
+                    break; // Note
+                case 3:
+                    {
+                        ExecSQLNonQuery("DELETE FROM bookmarks WHERE rowid = " + el.ExternalID);
+                    }
+                    break; // Bookmark
+            }
             // - refresh "_map"
-            throw new NotImplementedException();
+
+            Navigator.Instance.Goto(Navigator.Instance.WhereWeAre);
+
             // Note: perhaps we should also "track" these "kinds" of changes so we can "undo" a delete. Perhaps with a limit?
+        }
+
+        private void UpdateBeforeAfter(int idbefore, int idafter)
+        {
+            if (idbefore != 0)
+            {
+                ExecSQLNonQuery("UPDATE elements SET idafter = " + idafter + " WHERE rowid = " + idbefore);
+            }
+            if (idafter != 0)
+            {
+                ExecSQLNonQuery("UPDATE elements SET idbefore = " + idbefore + " WHERE rowid = " + idafter);
+            }
         }
 
         /// <summary>

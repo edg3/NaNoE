@@ -127,5 +127,21 @@ namespace NaNoE.V2.Models
         {
             get { return CommandMap.Instance; }
         }
+
+        public string ModelType
+        {
+            get
+            {
+                switch (ElementType)
+                {
+                    case 0: return "Chapter";
+                    case 1: return "Paragraph";
+                    case 2: return "Note";
+                    case 3: return "Bookmark";
+                }
+
+                throw new NotImplementedException("Type " + ElementType + " isn't here yet.");
+            }
+        }
     }
 }

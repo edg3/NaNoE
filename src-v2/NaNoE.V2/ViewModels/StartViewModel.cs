@@ -123,10 +123,18 @@ namespace NaNoE.V2.ViewModels
                 MessageBox.Show("Can't open 'None'.", "Oops...", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            
-            DBManager.Instance.Load(LastNovel);
-            // TODO: Open last should go to same position
-            Navigator.Instance.Goto("novelend");
+
+            if (File.Exists(LastNovel))
+            {
+                DBManager.Instance.Load(LastNovel);
+                // TODO: Open last should go to same position
+                Navigator.Instance.Goto("novelend");
+            }
+            else
+            {
+                MessageBox.Show("Novel doesn't exist anymore, sorry.");
+                return;
+            }
         }
     }
 }
