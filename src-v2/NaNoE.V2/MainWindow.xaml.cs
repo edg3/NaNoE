@@ -21,6 +21,26 @@ namespace NaNoE.V2
     /// </summary>
     public partial class MainWindow : Window
     {
+        private static MainWindow _instance;
+        public static MainWindow Instance
+        {
+            get { return _instance; }
+        }
+
+        public string DBCount
+        {
+            get
+            {
+                try
+                {
+                    return "words - " + DBManager.Instance.Count;
+                }
+                catch { }
+
+                return "";
+            }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -30,6 +50,8 @@ namespace NaNoE.V2
             new Navigator(frmNav);
             
             Navigator.Instance.Goto("start");
+
+            _instance = this;
         }
     }
 }

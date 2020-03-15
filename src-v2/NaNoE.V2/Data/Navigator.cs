@@ -135,6 +135,11 @@ namespace NaNoE.V2.Data
                 _host.Content = new ContentControl() { Content = window.Content };
                 window.Close();
             }
+
+            if (DBManager.Instance.Connected)
+            {
+                MainWindow.Instance.lblTotal.Content = MainWindow.Instance.DBCount;
+            }
         }
 
         /// <summary>

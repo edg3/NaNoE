@@ -8,11 +8,12 @@
         Title="NaNoE V2-beta.1" Height="600" Width="800">
     <Grid Background="#222">
         <Grid.RowDefinitions>
-            <RowDefinition Height="20" />
+            <RowDefinition Height="25" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <!-- Menu -->
-        
+        <Label Grid.Row="0" x:Name="lblTotal" HorizontalAlignment="Right" Width="100" Foreground="White" Content="{Binding DBCount}"/>
+
         <!-- Content -->
         <Frame
             x:Name="frmNav"

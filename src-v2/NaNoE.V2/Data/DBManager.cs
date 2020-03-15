@@ -114,6 +114,8 @@ namespace NaNoE.V2.Data
             _connection = new SQLiteConnection("Data Source=" + file);
             _connection.Open();
 
+            GetCount();
+
             GenerateMap();
         }
 
@@ -134,6 +136,8 @@ namespace NaNoE.V2.Data
             _connection.Open();
 
             CreateTables();
+
+            _count = 0;
 
             GenerateMap();
         }
@@ -730,5 +734,32 @@ namespace NaNoE.V2.Data
             return _map.Count > 3;
         }
 
+        /// <summary>
+        /// Word count in paragraphs
+        /// </summary>
+        private int _count;
+        public int Count
+        {
+            get { return _count; }
+        }
+
+        /// <summary>
+        /// Count the words in paragraphs from DB
+        /// </summary>
+        private void GetCount()
+        {
+            _count = 0;
+            var answer = ExecSQLQuery("SELECT content FROM paragraphs;", 1);
+            for (int i = answer.Count - 1; i >= 0; --i)
+            {
+                var line = (answer[i])[0].ToString();
+                while (line.Contains("  "))
+                {
+                    line = line.Replace("  ", " ");
+                }
+                var words = line.Split(' ').Length;
+                _count += words;
+            }
+        }
     }
 }
