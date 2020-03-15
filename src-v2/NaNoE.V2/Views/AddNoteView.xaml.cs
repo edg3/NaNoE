@@ -30,5 +30,10 @@ namespace NaNoE.V2.Views
             lstElements.ItemsSource = ViewModelLocator.Instance.NovelAddNoteVM.Models;
             lstElements.UpdateLayout();
         }
+
+        private void butBack_Click(object sender, RoutedEventArgs e)
+        {
+            Navigator.Instance.GotoLast();
+        }
     }
 }

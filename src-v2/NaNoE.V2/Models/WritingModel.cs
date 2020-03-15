@@ -40,6 +40,12 @@ namespace NaNoE.V2.Models
                                 noteAddVM.Text = _content;
                                 noteAddVM.AddNote.Execute(null);
                             }
+                            else if (Navigator.Instance.WhereWeAre == "addbookmark")
+                            {
+                                var bookmarkAddVM = ViewModelLocator.Instance.NovelAddBookmarkVM;
+                                bookmarkAddVM.Text = _content;
+                                bookmarkAddVM.AddBookmark.Execute(null);
+                            }
                             else
                             {
                                 throw new NotImplementedException();

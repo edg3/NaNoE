@@ -85,7 +85,40 @@ namespace NaNoE.V2.ViewModels
         /// </summary>
         private void _run_add()
         {
-            throw new NotImplementedException();
+            try
+            {
+                ViewModelLocator.Instance.NovelAddNoteVM.IDAfter = ViewModelLocator.Instance.RunAddActionID;
+            }
+            catch
+            {
+                ViewModelLocator.Instance.NovelAddNoteVM.IDAfter = 0;
+            }
+
+            if (Navigator.Instance.WhereWeAre == "novelend")
+            {
+                ViewModelLocator.Instance.NovelAddBookmarkVM.IDAfter = ViewModelLocator.Instance.RunAddActionID;
+                ViewModelLocator.Instance.NovelAddBookmarkVM.Models = DBManager.Instance.GetSurrounded(ViewModelLocator.Instance.NovelAddNoteVM.IDAfter);
+
+                Navigator.Instance.Goto("addbookmark");
+            }
+            else if (Navigator.Instance.WhereWeAre == "addbookmark")
+            {
+                var vm = ViewModelLocator.Instance.NovelAddBookmarkVM;
+                DBManager.Instance.InsertBookmark(vm.IDAfter, vm.Text);
+
+                Navigator.Instance.GotoLast();
+            }
+            else if (Navigator.Instance.WhereWeAre == "midnovel")
+            {
+                ViewModelLocator.Instance.NovelAddNoteVM.IDAfter = ViewModelLocator.Instance.RunAddActionID;
+                ViewModelLocator.Instance.NovelAddNoteVM.Models = DBManager.Instance.GetSurrounded(ViewModelLocator.Instance.NovelAddNoteVM.IDAfter);
+
+                Navigator.Instance.Goto("addbookmark");
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

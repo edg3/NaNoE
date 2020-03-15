@@ -29,13 +29,13 @@ namespace NaNoE.V2.Data
 
             if (Navigator.Instance.WhereWeAre == "novelend")
             {
-                if (parameter == null || ViewModelLocator.Instance.NovelAddNoteVM.IDAfter == 0)
+                if (parameter == null || ViewModelLocator.Instance.NovelAddBookmarkVM.IDAfter == 0)
                 {
                     ViewModelLocator.Instance.NovelAddBookmarkVM.IDAfter = int.Parse(DBManager.Instance.GetEndID().ToString());
                 }
                 else
                 {
-                    ViewModelLocator.Instance.NovelAddBookmarkVM.IDAfter = int.Parse(DBManager.Instance.UsingID);
+                    ViewModelLocator.Instance.NovelAddBookmarkVM.IDAfter = int.Parse(parameter.ToString());
                 }
                 ViewModelLocator.Instance.NovelAddBookmarkVM.Models = DBManager.Instance.GetSurrounded(ViewModelLocator.Instance.NovelAddBookmarkVM.IDAfter);
 
@@ -50,11 +50,9 @@ namespace NaNoE.V2.Data
             }
             else if (Navigator.Instance.WhereWeAre == "midnovel")
             {
-                ViewModelLocator.Instance.NovelAddBookmarkVM.IDAfter = int.Parse(DBManager.Instance.UsingID);
-
                 ViewModelLocator.Instance.NovelAddBookmarkVM.Models = DBManager.Instance.GetSurrounded(ViewModelLocator.Instance.NovelAddBookmarkVM.IDAfter);
 
-                Navigator.Instance.Goto("addnote");
+                Navigator.Instance.Goto("addbookmark");
             }
             else
             {
