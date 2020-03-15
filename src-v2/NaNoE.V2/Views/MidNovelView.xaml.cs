@@ -36,6 +36,8 @@ namespace NaNoE.V2.Views
             {
                 butUp.IsEnabled = true;
             }
+
+            ViewModelLocator.Instance.MidNovelVM.Refresh();
         }
     }
 }

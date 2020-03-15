@@ -111,7 +111,8 @@ namespace NaNoE.V2.Data
                     window = new AddBookmarkView(); 
                     HelperVars.ViewModelToWrite = ViewModelLocator.Instance.NovelAddBookmarkVM; 
                     break;
-                case "midnovel": 
+                case "midnovel":
+                    ViewModelLocator.Instance.MidNovelVM.Refresh();
                     window = new MidNovelView(); 
                     HelperVars.ViewModelToWrite = ViewModelLocator.Instance.MidNovelVM; 
                     break;
