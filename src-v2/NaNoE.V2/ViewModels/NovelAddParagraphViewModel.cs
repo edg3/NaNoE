@@ -17,6 +17,7 @@ namespace NaNoE.V2.ViewModels
         public NovelAddParagraphViewModel()
         {
             _addParagraph = new CommandBase(new Action(_run_AddParagraph));
+            _cancel = new CommandBase(new Action(_run_cancel));
         }
 
         /// <summary>

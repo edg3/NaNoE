@@ -141,7 +141,7 @@
                                         <RowDefinition Height="23" />
                                     </Grid.RowDefinitions>
                                     <Button Grid.Row="0" CommandParameter="{Binding WhereOnMap}" Command="{Binding Commands.RunAddChapter}" Content="Add Ch. /\"  Style="{DynamicResource GelGreenButton}"/>
-                                    <Label Grid.Row="3" Content="Num: " FontSize="12"/>
+                                    <Label Grid.Row="3" Content="{Binding Count, Mode=TwoWay}" FontSize="12"/>
                                 </Grid>
                                 <Grid Grid.Column="1">
                                     <Grid.RowDefinitions>
@@ -243,7 +243,7 @@
                                         <RowDefinition Height="20" />
                                         <RowDefinition Height="23" />
                                     </Grid.RowDefinitions>
-                                    <Label Grid.Row="3" Content="Num: " FontSize="12"/>
+                                    <Label Grid.Row="3" Content="{Binding Count, Mode=TwoWay}" FontSize="12"/>
                                 </Grid>
                             </Grid>
                         </DataTemplate>

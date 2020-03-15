@@ -15,12 +15,28 @@ namespace NaNoE.V2.Models
             _content = content;
         }
 
+        private string _count = "0 words";
+        public string Count
+        {
+            get { return _count; }
+            set { _count = value; }
+        }
+
         private string _content;
         public string Content
         {
             get { return _content; }
             set 
             {
+                var simplified = _content;
+                while (simplified.Contains("  "))
+                {
+                    simplified = simplified.Replace("  ", " ");
+                }
+                var c = simplified.Split(' ').Length;
+                _count = c + " words";
+                Changed("Count");
+
                 if (value.Length > 0)
                 {
                     if (value.Last() == '\n')

@@ -25,15 +25,15 @@ namespace NaNoE.V2.Views
             InitializeComponent();
         }
 
-        private void butBack_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void lstElements_Loaded(object sender, RoutedEventArgs e)
         {
             lstElements.ItemsSource = ViewModelLocator.Instance.NovelAddParagraphVM.Models;
             lstElements.UpdateLayout();
+        }
+
+        private void butBack_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModelLocator.Instance.NovelAddParagraphVM.Cancel.Execute(null);
         }
     }
 }
