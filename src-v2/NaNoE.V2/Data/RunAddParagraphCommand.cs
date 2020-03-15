@@ -18,12 +18,60 @@ namespace NaNoE.V2.Data
             return true;
         }
 
+        private bool failed;
+
         public void Execute(object parameter)
         {
-
-            if (int.Parse(parameter.ToString()) == DBManager.Instance.GetEndID())
+            failed = true;
+            try
             {
-                DBManager.Instance.InsertParagraph((int)parameter, Content, false);
+                if (int.Parse(parameter.ToString()) == DBManager.Instance.GetEndID())
+                {
+                    DBManager.Instance.InsertParagraph((int)parameter, Content, false);
+                    failed = false;
+                }
+            }
+            catch
+            {
+            }
+            
+            if (failed)
+            {
+                try
+                {
+                    ViewModelLocator.Instance.NovelAddParagraphVM.IDAfter = ViewModelLocator.Instance.RunAddActionID;
+                }
+                catch
+                {
+                    ViewModelLocator.Instance.NovelAddParagraphVM.IDAfter = 0;
+                }
+
+                if (Navigator.Instance.WhereWeAre == "novelend")
+                {
+                    ViewModelLocator.Instance.NovelAddParagraphVM.IDAfter = ViewModelLocator.Instance.RunAddActionID;
+                    ViewModelLocator.Instance.NovelAddParagraphVM.Models = DBManager.Instance.GetSurrounded(ViewModelLocator.Instance.NovelAddParagraphVM.IDAfter);
+
+                    Navigator.Instance.Goto("addparagraph");
+                }
+                else if (Navigator.Instance.WhereWeAre == "addparagraph")
+                {
+                    var vm = ViewModelLocator.Instance.NovelAddParagraphVM;
+                    DBManager.Instance.InsertParagraph(vm.IDAfter, vm.Text, false);
+
+                    Navigator.Instance.GotoLast();
+                }
+                else if (Navigator.Instance.WhereWeAre == "midnovel")
+                {
+                    ViewModelLocator.Instance.NovelAddParagraphVM.IDAfter = ViewModelLocator.Instance.RunAddActionID;
+
+                    ViewModelLocator.Instance.NovelAddParagraphVM.Models = DBManager.Instance.GetSurrounded(ViewModelLocator.Instance.NovelAddParagraphVM.IDAfter);
+
+                    Navigator.Instance.Goto("addparagraph");
+                }
+                else
+                {
+                    throw new NotImplementedException();
+                }
             }
         }
     }

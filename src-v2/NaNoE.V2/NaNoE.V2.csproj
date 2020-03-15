@@ -118,6 +118,7 @@
     <Compile Include="ViewModels\MidNovelViewModel.cs" />
     <Compile Include="ViewModels\NovelAddBookmarkViewModel.cs" />
     <Compile Include="ViewModels\NovelAddNoteViewModel.cs" />
+    <Compile Include="ViewModels\NovelAddParagraphViewModel.cs" />
     <Compile Include="ViewModels\NovelEndViewModel.cs" />
     <Compile Include="ViewModels\StartViewModel.cs" />
     <Compile Include="Views\AddBookmarkView.xaml.cs">
@@ -125,6 +126,9 @@
     </Compile>
     <Compile Include="Views\AddNoteView.xaml.cs">
       <DependentUpon>AddNoteView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddParagraphView.xaml.cs">
+      <DependentUpon>AddParagraphView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MidNovelView.xaml.cs">
       <DependentUpon>MidNovelView.xaml</DependentUpon>
@@ -157,6 +161,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddNoteView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddParagraphView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -91,6 +91,8 @@ namespace NaNoE.V2.Data
         {
             Window window = null;
 
+            DBManager.Instance.RunMap();
+
             switch (name)
             {
                 case "start":
@@ -113,11 +115,16 @@ namespace NaNoE.V2.Data
                     window = new MidNovelView(); 
                     HelperVars.ViewModelToWrite = ViewModelLocator.Instance.MidNovelVM; 
                     break;
+                case "addparagraph":
+                    window = new AddParagraphView();
+                    HelperVars.ViewModelToWrite = ViewModelLocator.Instance.NovelAddParagraphVM;
+                    break;
                 default: throw new NotImplementedException();
             }
 
             if ("addnote" != name) ViewModelLocator.Instance.NovelAddNoteVM.IDAfter = 0;
             if ("addbookmark" != name) ViewModelLocator.Instance.NovelAddBookmarkVM.IDAfter = 0;
+            if ("addparagraph" != name) ViewModelLocator.Instance.NovelAddParagraphVM.IDAfter = 0;
 
             WhereWeLastWere = WhereWeAre;
             WhereWeAre = name;
@@ -127,8 +134,6 @@ namespace NaNoE.V2.Data
                 _host.Content = new ContentControl() { Content = window.Content };
                 window.Close();
             }
-
-            DBManager.Instance.RunMap();
         }
 
         /// <summary>

@@ -79,6 +79,12 @@ namespace NaNoE.V2.Data
             get { return _novelAddBookmarkVM; }
         }
 
+        private NovelAddParagraphViewModel _novelAddParagraphVM = new NovelAddParagraphViewModel();
+        public NovelAddParagraphViewModel NovelAddParagraphVM
+        {
+            get { return _novelAddParagraphVM; }
+        }
+
         /// <summary>
         /// Helper variables
         /// </summary>

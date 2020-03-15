@@ -46,6 +46,12 @@ namespace NaNoE.V2.Models
                                 bookmarkAddVM.Text = _content;
                                 bookmarkAddVM.AddBookmark.Execute(null);
                             }
+                            else if (Navigator.Instance.WhereWeAre == "addparagraph")
+                            {
+                                var paragraphVM = ViewModelLocator.Instance.NovelAddParagraphVM;
+                                paragraphVM.Text = _content;
+                                paragraphVM.AddParagraph.Execute(null);
+                            }
                             else
                             {
                                 throw new NotImplementedException();
