@@ -13,13 +13,13 @@
             <ColumnDefinition Width="30" />
         </Grid.ColumnDefinitions>
         <ListView
-            x:Name="lstElements"
-            Background="#333"
-            Margin="3"
-            ItemsSource="{Binding View}"
-            ItemTemplate="{DynamicResource tmplElements}"
-            HorizontalContentAlignment="Stretch"
-            ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                x:Name="lstElements"
+                Background="#333"
+                Margin="3"
+                ItemsSource="{Binding View}"
+                ItemTemplate="{DynamicResource tmplElements}"
+                HorizontalContentAlignment="Stretch"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled">
         </ListView>
         <Button
             Content="/\"

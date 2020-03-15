@@ -10,10 +10,31 @@
         <clib:ViewModelLocator x:Key="ViewModelLocator" />
         <!-- thought: this shows it isnt used, yet it is as a static resource in the views? -->
 
-        <!-- Buttons Style -->
+        <!-- Buttons Styles -->
         <Style TargetType="Button" x:Key="GelButton" >
             <Setter Property="ToolTip" Value="View" />
             <Setter Property="Background" Value="#00FF7F" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Margin" Value="0,3,0,0" />
+        </Style>
+        <Style TargetType="Button" x:Key="GelRedButton" >
+            <Setter Property="ToolTip" Value="View" />
+            <Setter Property="Background" Value="OrangeRed" />
+            <Setter Property="Foreground" Value="DarkGray" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Margin" Value="0,3,0,0" />
+        </Style>
+        <Style TargetType="Button" x:Key="GelGreenButton" >
+            <Setter Property="ToolTip" Value="View" />
+            <Setter Property="Background" Value="LawnGreen" />
+            <Setter Property="Foreground" Value="Gray" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Margin" Value="0,3,0,0" />
+        </Style>
+        <Style TargetType="Button" x:Key="GelOrangeButton" >
+            <Setter Property="ToolTip" Value="View" />
+            <Setter Property="Background" Value="Yellow" />
+            <Setter Property="Foreground" Value="Gray" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Margin" Value="0,3,0,0" />
         </Style>
@@ -23,7 +44,9 @@
             <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalAlignment" Value="Stretch" />
                         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="Margin" Value="-12" />
                     </Style>
                 </ListView.ItemContainerStyle>
                 <DockPanel          
@@ -35,7 +58,7 @@
                     <DockPanel.Resources>
                         <!-- Chapters -->
                         <DataTemplate DataType="{x:Type models:ModelBase}">
-                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="DarkGray">
+                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="50" />
                                     <ColumnDefinition Width="10" />
@@ -46,10 +69,10 @@
                                         <RowDefinition />
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAction}"  Width="50" Height="25" Content="Add"/>
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunDelete}" Grid.Row="1" Width="50" Height="25" Content="Delete" />
+                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAction}"  Width="50" Height="25" Content="Add" Style="{DynamicResource GelGreenButton}"/>
+                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunDelete}" Grid.Row="1" Width="50" Height="25" Content="Delete"  Style="{DynamicResource GelRedButton}"/>
                                 </Grid>
-                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="2">
+                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="2" Background="DarkGray">
                                     <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="Chapter" Foreground="Navy" FontSize="26" FontStyle="Oblique" VerticalAlignment="Center" Padding="3"/>
                                 </Grid>
                             </Grid>
@@ -69,9 +92,9 @@
                                         <RowDefinition />
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAction}" Width="50" Height="25" Content="Add"/>
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunEdit}" Grid.Row="1" Width="50" Height="25" Content="Edit"/>
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunDelete}" Grid.Row="2" Width="50" Height="25" Content="Delete" />
+                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAction}" Width="50" Height="25" Content="Add" Style="{DynamicResource GelGreenButton}"/>
+                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunEdit}" Grid.Row="1" Width="50" Height="25" Content="Edit" Style="{DynamicResource GelOrangeButton}"/>
+                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunDelete}" Grid.Row="2" Width="50" Height="25" Content="Delete"  Style="{DynamicResource GelRedButton}"/>
                                 </Grid>
                                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="2">
                                     <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="{Binding Text}" Foreground="Black" VerticalAlignment="Center" Padding="3"/>
@@ -92,8 +115,8 @@
                                         <RowDefinition />
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAction}" Width="50" Height="50" Content="Add"/>
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunDelete}"  Grid.Row="1" Width="50" Height="25" Content="Delete" />
+                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAction}" Width="50" Height="50" Content="Add" Style="{DynamicResource GelGreenButton}"/>
+                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunDelete}"  Grid.Row="1" Width="50" Height="25" Content="Delete"  Style="{DynamicResource GelRedButton}"/>
                                 </Grid>
                                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="2">
                                     <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="{Binding Text}" Foreground="LightCyan" VerticalAlignment="Center" Padding="3"/>
@@ -117,7 +140,7 @@
                                         <RowDefinition Height="20" />
                                         <RowDefinition Height="23" />
                                     </Grid.RowDefinitions>
-                                    <Button Grid.Row="0" CommandParameter="{Binding WhereOnMap}" Command="{Binding Commands.RunAddChapter}" Content="Add Ch. /\" />
+                                    <Button Grid.Row="0" CommandParameter="{Binding WhereOnMap}" Command="{Binding Commands.RunAddChapter}" Content="Add Ch. /\"  Style="{DynamicResource GelGreenButton}"/>
                                     <Label Grid.Row="3" Content="Num: " FontSize="12"/>
                                 </Grid>
                                 <Grid Grid.Column="1">
@@ -126,8 +149,8 @@
                                         <RowDefinition Height="20" />
                                         <RowDefinition Height="20" />
                                     </Grid.RowDefinitions>
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAddNote}"     Grid.Row="1" Content="Add Note /\" Foreground="Pink"/>
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAddBookmark}" Grid.Row="2" Content="Add Bookmark /\" Foreground="Orange" />
+                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAddNote}"     Grid.Row="1" Content="Add Note /\"  Style="{DynamicResource GelGreenButton}"/>
+                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAddBookmark}" Grid.Row="2" Content="Add Bookmark /\"  Style="{DynamicResource GelGreenButton}"/>
                                 </Grid>
 
                                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="3" >
@@ -149,8 +172,8 @@
                                         <RowDefinition/>
                                         <RowDefinition/>
                                     </Grid.RowDefinitions>
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAction}"  Width="50" Height="50" Content="Add"/>
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunDelete}"  Grid.Row="1" Width="50" Height="25" Content="Delete" />
+                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAction}"  Width="50" Height="50" Content="Add" Style="{DynamicResource GelGreenButton}"/>
+                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunDelete}"  Grid.Row="1" Width="50" Height="25" Content="Delete"  Style="{DynamicResource GelRedButton}"/>
                                 </Grid>
                                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="2">
                                     <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="{Binding Text}" Foreground="Black" VerticalAlignment="Center" Padding="3"/>
