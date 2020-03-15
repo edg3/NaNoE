@@ -26,13 +26,15 @@
             Height="32"
             Grid.Column="1"
             Command="{Binding NavUp}"
-            CommandParameter="{Binding TopID}"/>
+            CommandParameter="{Binding TopID}"
+            Style="{DynamicResource GelGreenButton}"/>
         <Button
             Content="\/"
             VerticalAlignment="Bottom"
             Height="32"
             Grid.Column="1"
             Command="{Binding NavDown}"
-            CommandParameter="{Binding BottomID}"/>
+            CommandParameter="{Binding BottomID}"
+            Style="{DynamicResource GelGreenButton}"/>
     </Grid>
 </Window>

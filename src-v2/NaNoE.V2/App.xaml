@@ -104,7 +104,7 @@
 
                         <!-- Note -->
                         <DataTemplate DataType="{x:Type models:NoteModel}">
-                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="DarkGray">
+                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="50" />
                                     <ColumnDefinition Width="10" />
@@ -118,7 +118,7 @@
                                     <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAction}" Width="50" Height="50" Content="Add" Style="{DynamicResource GelGreenButton}"/>
                                     <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunDelete}"  Grid.Row="1" Width="50" Height="25" Content="Delete"  Style="{DynamicResource GelRedButton}"/>
                                 </Grid>
-                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="2">
+                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="2" Background="DarkGray">
                                     <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="{Binding Text}" Foreground="LightCyan" VerticalAlignment="Center" Padding="3"/>
                                 </Grid>
                             </Grid>
@@ -161,7 +161,7 @@
 
                         <!-- Bookmark -->
                         <DataTemplate DataType="{x:Type models:BookmarkModel}">
-                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Orange">
+                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="50" />
                                     <ColumnDefinition Width="10" />
@@ -175,7 +175,7 @@
                                     <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAction}"  Width="50" Height="50" Content="Add" Style="{DynamicResource GelGreenButton}"/>
                                     <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunDelete}"  Grid.Row="1" Width="50" Height="25" Content="Delete"  Style="{DynamicResource GelRedButton}"/>
                                 </Grid>
-                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="2">
+                                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="2" Background="LawnGreen">
                                     <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="{Binding Text}" Foreground="Black" VerticalAlignment="Center" Padding="3"/>
                                 </Grid>
                             </Grid>

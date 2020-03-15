@@ -27,6 +27,7 @@
             Height="32"
             Grid.Column="1"
             Command="{Binding NavUp}"
-            CommandParameter="-1"/>
+            CommandParameter="-1"
+            Style="{StaticResource GelGreenButton}"/>
     </Grid>
 </Window>
