@@ -69,9 +69,9 @@
                                         <RowDefinition />
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAction}"  Width="50" Height="25" Content="Add"/>
-                                    <Button Grid.Row="1" Width="50" Height="25" Content="Edit"/>
-                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunDelete}"  Grid.Row="2" Width="50" Height="25" Content="Delete" />
+                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunAction}" Width="50" Height="25" Content="Add"/>
+                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunEdit}" Grid.Row="1" Width="50" Height="25" Content="Edit"/>
+                                    <Button CommandParameter="{Binding ID}" Command="{Binding Commands.RunDelete}" Grid.Row="2" Width="50" Height="25" Content="Delete" />
                                 </Grid>
                                 <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="2">
                                     <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="{Binding Text}" Foreground="Black" VerticalAlignment="Center" Padding="3"/>
