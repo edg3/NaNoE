@@ -18,6 +18,12 @@ namespace NaNoE.V2.Data
 
         public void Execute(object parameter)
         {
+            // TODO:
+            //  - make edit VM
+            //    - ID
+            //    - content
+            //  - make view, enter submits, or goe "back"
+            //  - use similar style as the other "adds" just bind to pre-existing data
             throw new NotImplementedException();
         }
     }
