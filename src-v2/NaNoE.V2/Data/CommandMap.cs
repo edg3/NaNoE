@@ -30,6 +30,7 @@ namespace NaNoE.V2.Data
             _runNavigateUp = new RunNavigateUp();
             _runNavigateDown = new RunNavigateDown();
             _runAction = new RunAction();
+            _runNoteView = new RunNoteView();
 
             _instance = this;
         }
@@ -111,9 +112,20 @@ namespace NaNoE.V2.Data
         /// Run an action command
         /// </summary>
         private ICommand _runAction;
+
         public ICommand RunAction
         {
             get { return _runAction; }
+        }
+
+        /// <summary>
+        /// Open notes
+        /// </summary>
+        private RunNoteView _runNoteView;
+
+        public ICommand RunNoteView
+        {
+            get { return _runNoteView; }
         }
     }
 }

@@ -761,5 +761,22 @@ namespace NaNoE.V2.Data
                 _count += words;
             }
         }
+
+        /// <summary>
+        /// Get all notes
+        /// </summary>
+        /// <returns>List of notes strings</returns>
+        internal List<string> GetNotes()
+        {
+            List<string> answer = new List<string>();
+
+            var notes = ExecSQLQuery("SELECT content FROM notes", 1);
+            for (int i = 0; i < notes.Count; i++)
+            {
+                answer.Add((notes[i])[0].ToString());
+            }
+
+            return answer;
+        }
     }
 }

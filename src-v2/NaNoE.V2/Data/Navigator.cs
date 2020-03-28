@@ -120,6 +120,10 @@ namespace NaNoE.V2.Data
                     window = new AddParagraphView();
                     HelperVars.ViewModelToWrite = ViewModelLocator.Instance.NovelAddParagraphVM;
                     break;
+                case "notes":
+                    window = new NotesView();
+                    HelperVars.ViewModelToWrite = ViewModelLocator.Instance.NotesVM;
+                    break;
                 default: throw new NotImplementedException();
             }
 

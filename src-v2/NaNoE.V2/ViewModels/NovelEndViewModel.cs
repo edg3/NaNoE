@@ -39,5 +39,10 @@ namespace NaNoE.V2.ViewModels
         {
             get { return CommandMap.Instance.RunNavigateUp; }
         }
+
+        public ICommand NoteView
+        {
+            get { return CommandMap.Instance.RunNoteView; }
+        }
     }
 }

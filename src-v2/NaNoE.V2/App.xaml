@@ -262,5 +262,24 @@
                 </StackPanel>
             </ListView>
         </DataTemplate>
+        
+        <!-- Notes view-->
+        <DataTemplate x:Key="tmplNotes">
+            <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <StackPanel>
+                    <Grid VerticalAlignment="Stretch" Grid.ColumnSpan="1" Background="DarkGray">
+                        <Grid HorizontalAlignment="Stretch"
+                                      VerticalAlignment="Stretch">
+                            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Stretch" Text="{Binding}" Foreground="LightCyan" Padding="3"/>
+                        </Grid>
+                    </Grid>
+                </StackPanel>
+            </ListView>
+        </DataTemplate>
     </Application.Resources>
 </Application>

@@ -21,13 +21,29 @@
                 HorizontalContentAlignment="Stretch"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
         </ListView>
-        <Button
-            Content="/\"
-            VerticalAlignment="Top"
-            Height="32"
-            Grid.Column="1"
-            Command="{Binding NavUp}"
-            CommandParameter="-1"
-            Style="{StaticResource GelGreenButton}"/>
+        <Grid 
+            Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32" />
+                <RowDefinition Height="32" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Button
+                Content="/\"
+                VerticalAlignment="Top"
+                Grid.Row="0"
+                Height="32"
+                Command="{Binding NavUp}"
+                CommandParameter="-1"
+                Style="{StaticResource GelGreenButton}"/>
+            <Button
+                Content="notes"
+                VerticalAlignment="Top"
+                Grid.Row="1"
+                Height="32"
+                Command="{Binding NoteView}"
+                CommandParameter="-1"
+                Style="{StaticResource GelGreenButton}"/>
+        </Grid>
     </Grid>
 </Window>

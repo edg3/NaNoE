@@ -85,6 +85,12 @@ namespace NaNoE.V2.Data
             get { return _novelAddParagraphVM; }
         }
 
+        private NotesViewModel _notesVM = new NotesViewModel();
+        public NotesViewModel NotesVM
+        {
+            get { return _notesVM; }
+        }
+
         /// <summary>
         /// Helper variables
         /// </summary>

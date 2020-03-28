@@ -109,6 +109,7 @@
     <Compile Include="Data\RunEditCommand.cs" />
     <Compile Include="Data\RunNavigateDown.cs" />
     <Compile Include="Data\RunNavigateUp.cs" />
+    <Compile Include="Data\RunNoteView.cs" />
     <Compile Include="Data\ViewModelLocator.cs" />
     <Compile Include="Models\WritingModel.cs" />
     <Compile Include="ViewModels\Actions\ViewAddAction.xaml.cs">
@@ -116,6 +117,7 @@
     </Compile>
     <Compile Include="ViewModels\Actions\ViewAddActionViewModel.cs" />
     <Compile Include="ViewModels\MidNovelViewModel.cs" />
+    <Compile Include="ViewModels\NotesViewModel.cs" />
     <Compile Include="ViewModels\NovelAddBookmarkViewModel.cs" />
     <Compile Include="ViewModels\NovelAddNoteViewModel.cs" />
     <Compile Include="ViewModels\NovelAddParagraphViewModel.cs" />
@@ -132,6 +134,9 @@
     </Compile>
     <Compile Include="Views\MidNovelView.xaml.cs">
       <DependentUpon>MidNovelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NotesView.xaml.cs">
+      <DependentUpon>NotesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\NovelEndView.xaml.cs">
       <DependentUpon>NovelEndView.xaml</DependentUpon>
@@ -169,6 +174,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MidNovelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NotesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
