@@ -1,6 +1,7 @@
 ﻿using NaNoE.V2.Data;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,12 +28,47 @@ namespace NaNoE.V2.Views
 
         private void butImportDocX_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            Microsoft.Win32.OpenFileDialog sfd = new Microsoft.Win32.OpenFileDialog();
+            sfd.FileName = "DocX";
+            sfd.DefaultExt = ".docx";
+            sfd.Filter = "DocX (.docx)|*.docx";
+
+            Nullable<bool> result = sfd.ShowDialog();
+
+            if (result == true)
+            {
+                if (!File.Exists(sfd.FileName))
+                {
+                    MessageBox.Show("Can't use files that don't exist", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    lblImportDocX.Content = sfd.FileName;
+                }
+            }
         }
 
         private void butCreateSqlite_Click(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            Microsoft.Win32.SaveFileDialog sfd = new Microsoft.Win32.SaveFileDialog();
+            sfd.FileName = "SQLite Novel";
+            sfd.DefaultExt = ".sqlite";
+            sfd.Filter = "SQLite Novels (.sqlite)|*.sqlite";
+            sfd.OverwritePrompt = false;
+
+            Nullable<bool> result = sfd.ShowDialog();
+
+            if (result == true)
+            {
+                if (File.Exists(sfd.FileName))
+                {
+                    MessageBox.Show("Can't use name of already created files.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    lblCreateSqlite.Content = sfd.FileName;
+                }
+            }
         }
 
         private void butRunImport_Click(object sender, RoutedEventArgs e)

@@ -48,7 +48,8 @@
 
             <Label
                 x:Name="lblImportDocX"
-                Grid.Column="1" />
+                Grid.Column="1" 
+                Foreground="LightGreen"/>
         </Grid>
 
         <Grid Grid.Row="5" Grid.Column="2">
@@ -64,7 +65,8 @@
 
             <Label
                 x:Name="lblCreateSqlite"
-                Grid.Column="1" />
+                Grid.Column="1" 
+                Foreground="LightGreen"/>
         </Grid>
 
         <Label Grid.Column="2" Grid.Row="6" Content="Please make sure all steps above were followed." Foreground="#666" FontSize="9"/>
