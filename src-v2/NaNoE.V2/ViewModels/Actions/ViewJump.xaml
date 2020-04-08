@@ -43,7 +43,7 @@
                 <TextBox Grid.Column="1" x:Name="txtNumber" Margin="0,3,0,0" PreviewTextInput="txtNumber_PreviewTextInput"/>
                 <Button Grid.Column="2" x:Name="butParagraph" Content="Go" Style="{StaticResource GelButton}" Click="butParagraph_Click" />
             </Grid>
-            <Label x:Name="lblRange" HorizontalAlignment="Center" Content="0 to 0" FontStyle="Italic" Foreground="LightGray" />
+            <Label x:Name="lblRange" HorizontalAlignment="Center" Content="{Binding StringSize}" FontStyle="Italic" Foreground="LightGray" />
 
             <Grid Height="10" />
 

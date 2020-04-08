@@ -29,6 +29,14 @@
             CommandParameter="{Binding TopID}"
             Style="{DynamicResource GelGreenButton}"/>
         <Button
+                Content="jump"
+                VerticalAlignment="Top"
+                Grid.Column="1"
+                Height="28"
+                Command="{Binding RunViewJump}"
+                Style="{StaticResource GelGreenButton}" 
+                Margin="0,38,0,0"/>
+        <Button
             Content="\/"
             VerticalAlignment="Bottom"
             Height="32"

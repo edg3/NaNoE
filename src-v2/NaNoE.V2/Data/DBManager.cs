@@ -790,5 +790,31 @@ namespace NaNoE.V2.Data
                 _connection = null;
             }
         }
+
+        internal int ChapterCount()
+        {
+            var answer = ExecSQLQuery("select count(rowid) from elements where type = 0", 1);
+            return int.Parse((answer[0])[0].ToString());
+        }
+
+        internal List<(int, string)> BookmarkCount()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// The number of elements are in the novel for the 'jump'
+        /// </summary>
+        internal int MapSize
+        {
+            get { return _map.Count; }
+        }
+
+        internal int GetMappedID(int i)
+        {
+            if (_map.Count == 0) return 0;
+
+            return _map[i];
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NaNoE.V2.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,27 @@ namespace NaNoE.V2.ViewModels.Actions
         {
             _chapters.Clear();
             _bookmarks.Clear();
+
+            var i = DBManager.Instance.ChapterCount();
+            for (int j = 0; j < i; ++j)
+            {
+                _chapters.Add(j + 1);
+            }
+
+            // _bookmarks.AddRange(DBManager.Instance.BookmarkCount());
+
+            _stringSize = "0 - " + (MaxPos - 1);
+        }
+
+        public int MaxPos
+        {
+            get { return DBManager.Instance.MapSize; }
+        }
+
+        private string _stringSize = "";
+        public string StringSize
+        {
+            get { return _stringSize; }
         }
     }
 }

@@ -54,5 +54,10 @@ namespace NaNoE.V2.ViewModels
         {
             get { return _view[0].ID; }
         }
+
+        public ICommand RunViewJump
+        {
+            get { return CommandMap.Instance.RunJumpView; }
+        }
     }
 }
