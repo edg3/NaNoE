@@ -103,6 +103,7 @@
     <Compile Include="Data\CommandBase.cs" />
     <Compile Include="Data\CommandMap.cs" />
     <Compile Include="Data\HelperVars.cs" />
+    <Compile Include="Data\ICommmand.cs" />
     <Compile Include="Data\Navigator.cs" />
     <Compile Include="Data\RunAction.cs" />
     <Compile Include="Data\RunAddBookmarkCommand.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Data\RunAddParagraphCommand.cs" />
     <Compile Include="Data\RunDeleteCommand.cs" />
     <Compile Include="Data\RunEditCommand.cs" />
+    <Compile Include="Data\RunJump.cs" />
     <Compile Include="Data\RunNavigateDown.cs" />
     <Compile Include="Data\RunNavigateUp.cs" />
     <Compile Include="Data\RunNoteView.cs" />
@@ -120,6 +122,10 @@
       <DependentUpon>ViewAddAction.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\Actions\ViewAddActionViewModel.cs" />
+    <Compile Include="ViewModels\Actions\ViewJump.xaml.cs">
+      <DependentUpon>ViewJump.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\Actions\ViewJumpViewModel.cs" />
     <Compile Include="ViewModels\ImportViewModel.cs" />
     <Compile Include="ViewModels\MidNovelViewModel.cs" />
     <Compile Include="ViewModels\NotesViewModel.cs" />
@@ -166,6 +172,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ViewModels\Actions\ViewAddAction.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ViewModels\Actions\ViewJump.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

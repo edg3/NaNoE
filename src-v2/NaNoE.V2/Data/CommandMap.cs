@@ -31,6 +31,7 @@ namespace NaNoE.V2.Data
             _runNavigateDown = new RunNavigateDown();
             _runAction = new RunAction();
             _runNoteView = new RunNoteView();
+            _runJumpView = new RunJump();
 
             _instance = this;
         }
@@ -126,6 +127,15 @@ namespace NaNoE.V2.Data
         public ICommand RunNoteView
         {
             get { return _runNoteView; }
+        }
+
+        /// <summary>
+        /// Run Jump between locations
+        /// </summary>
+        private RunJump _runJumpView;
+        public ICommand RunJumpView
+        {
+            get { return _runJumpView; }
         }
     }
 }

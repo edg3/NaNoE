@@ -45,10 +45,9 @@ namespace NaNoE.V2.ViewModels
             get { return CommandMap.Instance.RunNoteView; }
         }
 
-        // Command to "Jump"
-        //  - To any paragraph (numbered)
-        //  - To any bookmark (list of bookmarks)
-        //  - To any chapter (numbered)
-        // [ make it easy and a minimal design ]
+        public ICommand RunViewJump
+        {
+            get { return CommandMap.Instance.RunJumpView; }
+        }
     }
 }

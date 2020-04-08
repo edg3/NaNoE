@@ -97,6 +97,12 @@ namespace NaNoE.V2.Data
             get { return _importVM; }
         }
 
+        private ViewJumpViewModel _viewJumpVM = new ViewJumpViewModel();
+        public ViewJumpViewModel ViewJumpVM
+        {
+            get { return _viewJumpVM; }
+        }
+
         /// <summary>
         /// Helper variables
         /// </summary>

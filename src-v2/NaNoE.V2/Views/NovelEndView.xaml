@@ -44,6 +44,14 @@
                 Command="{Binding NoteView}"
                 CommandParameter="-1"
                 Style="{StaticResource GelGreenButton}" HorizontalAlignment="Left" Grid.RowSpan="2" Width="30"/>
+            <Button
+                Content="jump"
+                VerticalAlignment="Top"
+                Grid.Row="2"
+                Height="28"
+                Command="{Binding RunViewJump}"
+                Style="{StaticResource GelGreenButton}" 
+                Margin="0,6,0,0"/>
         </Grid>
     </Grid>
 </Window>
