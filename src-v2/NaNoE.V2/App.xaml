@@ -20,21 +20,21 @@
         <Style TargetType="Button" x:Key="GelRedButton" >
             <Setter Property="ToolTip" Value="View" />
             <Setter Property="Background" Value="OrangeRed" />
-            <Setter Property="Foreground" Value="DarkGray" />
+            <Setter Property="Foreground" Value="Black" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Margin" Value="0,3,0,0" />
         </Style>
         <Style TargetType="Button" x:Key="GelGreenButton" >
             <Setter Property="ToolTip" Value="View" />
             <Setter Property="Background" Value="LawnGreen" />
-            <Setter Property="Foreground" Value="Gray" />
+            <Setter Property="Foreground" Value="Black" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Margin" Value="0,3,0,0" />
         </Style>
         <Style TargetType="Button" x:Key="GelOrangeButton" >
             <Setter Property="ToolTip" Value="View" />
             <Setter Property="Background" Value="Yellow" />
-            <Setter Property="Foreground" Value="Gray" />
+            <Setter Property="Foreground" Value="Black" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Margin" Value="0,3,0,0" />
         </Style>
