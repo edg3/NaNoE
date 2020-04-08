@@ -29,6 +29,7 @@ namespace NaNoE.V2.ViewModels
             OpenNovelCommand = new CommandBase(new Action(_OpenNovel));
             NewNovelCommand = new CommandBase(new Action(_NewNovel));
             OpenLastNovelCommand = new CommandBase(new Action(_OpenLastNovel));
+            ImportDocxCommand = new CommandBase(new Action(_ImportDocx));
         }
 
         /// <summary>
@@ -135,6 +136,22 @@ namespace NaNoE.V2.ViewModels
                 MessageBox.Show("Novel doesn't exist anymore, sorry.");
                 return;
             }
+        }
+
+        /// <summary>
+        /// Go to Import DocX view
+        /// </summary>
+        private CommandBase _importDoxCommand;
+        public CommandBase ImportDocxCommand
+        {
+            get { return _importDoxCommand; }
+            set { _importDoxCommand = value; }
+        }
+
+        private void _ImportDocx()
+        {
+            MessageBox.Show("Please note: Instructions will be shared for how to adjust the DocX for import. This may be a tedious task.");
+            Navigator.Instance.Goto("import");
         }
     }
 }

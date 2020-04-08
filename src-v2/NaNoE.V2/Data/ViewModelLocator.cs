@@ -91,6 +91,12 @@ namespace NaNoE.V2.Data
             get { return _notesVM; }
         }
 
+        private ImportViewModel _importVM = new ImportViewModel();
+        public ImportViewModel ImportVM
+        {
+            get { return _importVM; }
+        }
+
         /// <summary>
         /// Helper variables
         /// </summary>

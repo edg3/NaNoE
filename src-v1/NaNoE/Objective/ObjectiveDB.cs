@@ -56,7 +56,11 @@ namespace NaNoE.Objective
         private static Thread threadUsed { get; set; }
         public static void DBCount()
         {
-            CountWords(); // Error
+            try
+            {
+                CountWords(); // Error
+            }
+            catch { }
         }
 
         private static void CountWords()

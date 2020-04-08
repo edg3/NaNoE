@@ -124,6 +124,10 @@ namespace NaNoE.V2.Data
                     window = new NotesView();
                     HelperVars.ViewModelToWrite = ViewModelLocator.Instance.NotesVM;
                     break;
+                case "import":
+                    window = new ImportView();
+                    HelperVars.ViewModelToWrite = ViewModelLocator.Instance.ImportVM;
+                    break;
                 default: throw new NotImplementedException();
             }
 
