@@ -778,5 +778,17 @@ namespace NaNoE.V2.Data
 
             return answer;
         }
+
+        /// <summary>
+        /// Close SQLite Db
+        /// </summary>
+        internal void Disconnect()
+        {
+            if (null != _connection)
+            {
+                _connection.Close();
+                _connection = null;
+            }
+        }
     }
 }

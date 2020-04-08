@@ -1,4 +1,5 @@
 ﻿using NaNoE.V2.Data;
+using NaNoE.V2.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -86,7 +87,10 @@ namespace NaNoE.V2.Views
 
             MessageBox.Show("Please note: this could be a long process if the word document is very long, just leave NaNoE running for it to complete.");
 
-            throw new NotImplementedException();
+            ViewModelLocator.Instance.ImportVM.ImportDocX(lblImportDocX.Content.ToString(), lblCreateSqlite.Content.ToString());
+
+            MessageBox.Show("Import complete, you can open your new '.sqlite' novel: " + lblCreateSqlite.Content.ToString());
+            Navigator.Instance.Goto("start");
         }
 
         private void butBack_Click(object sender, RoutedEventArgs e)
