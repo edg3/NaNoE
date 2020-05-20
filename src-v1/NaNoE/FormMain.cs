@@ -886,9 +886,9 @@ namespace NaNoE
                     {
                         foreach (var para in doc.Paragraphs)
                         {
-                            if (para.Text.Length > 4)
+                            if (para.Text.Length > 3)
                             {
-                                if (para.Text.Substring(0, 3) == "Ch.")
+                                if (para.Text.Substring(0, 4) == "[ch]")
                                 {
                                     ObjectiveDB.RunCMD("INSERT INTO paragraphs (para) VALUES ('[chapter]');");
                                 }
