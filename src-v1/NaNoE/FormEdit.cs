@@ -86,7 +86,8 @@ namespace NaNoE
 
         private void RtbParagraph_SelectionChanged(object sender, EventArgs e)
         {
-            lblPosition.Text = "Position: " + rtbParagraph.SelectionStart.ToString();
+            var tmp = rtbParagraph.Text.Substring(0, rtbParagraph.SelectionStart).Count(a => a == ' ') + 1;
+            lblPosition.Text = "Position: " + rtbParagraph.SelectionStart.ToString() + " / Word: " + tmp;
         }
 
         private void LstProblems_DoubleClick(object sender, EventArgs e)
