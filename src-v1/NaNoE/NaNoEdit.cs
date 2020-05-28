@@ -400,11 +400,14 @@ namespace NaNoE
                 {
                     for (int q = x - ignoreWord.Length; q < x + srchStr.Length; q++)
                     {
-                        var l = line.Substring(q, ignoreWord.Length);
-                        if (ignoreWord == l)
-                        {
-                            return true;
-                        }
+                        try
+                        {   // length troubles?
+                            var l = line.Substring(q, ignoreWord.Length);
+                            if (ignoreWord == l)
+                            {
+                                return true;
+                            }
+                        } catch { }
                     }
                 }
             }
