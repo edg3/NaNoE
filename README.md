@@ -9,6 +9,9 @@ It also has minimal editing resources to help you adjust your novel. I have look
 Build with Visual Studio 2017 on a Windows 10 PC.
 Uses nuget package(s):
  - DocX by Xceed
+ 
+## NaNoE.V2
+Information coming soon. It will be its own repo.
 
 ## Side Notes
 Tried my best to also allow it on 32bit computers, that way I can use it on my machines I have access to.
